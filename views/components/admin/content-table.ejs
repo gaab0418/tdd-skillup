@@ -1,0 +1,55 @@
+<%# content-table.ejs - Recebe: lessons %>
+<div class="bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/30 overflow-hidden flex flex-col">
+  <div class="hidden sm:grid grid-cols-12 gap-4 p-4 border-b border-outline-variant bg-surface/50 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+    <div class="col-span-5">Title & Topic</div>
+    <div class="col-span-3">Author</div>
+    <div class="col-span-2">Status</div>
+    <div class="col-span-2 text-right">Actions</div>
+  </div>
+  <div class="divide-y divide-outline-variant overflow-y-auto">
+    <% if (lessons && lessons.length > 0) { %>
+      <% lessons.forEach(lesson => { %>
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 items-center hover:bg-surface-container-low/50 transition-colors group">
+          <div class="col-span-1 sm:col-span-5 flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1"><%= lesson.topic ? lesson.topic.icon : 'school' %></span>
+            </div>
+            <div>
+              <h4 class="font-label-md text-base font-semibold text-on-surface leading-tight mb-1 group-hover:text-primary transition-colors"><%= lesson.title %></h4>
+              <div class="flex items-center gap-2">
+                <% if (lesson.topic) { %>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary/10 text-primary font-caption text-[10px] uppercase font-bold tracking-wider"><%= lesson.topic.name %></span>
+                <% } %>
+                <span class="font-caption text-caption text-outline"><%= lesson.duration %> min</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-1 sm:col-span-3 flex items-center gap-2">
+            <% if (lesson.author) { %>
+              <div class="hidden sm:flex w-6 h-6 rounded-full bg-surface-variant items-center justify-center text-on-surface-variant font-caption text-[10px] font-bold"><%= lesson.author.name.substring(0,2).toUpperCase() %></div>
+              <span class="font-body-md text-sm text-on-surface-variant"><%= lesson.author.name %></span>
+            <% } %>
+          </div>
+          <div class="col-span-1 sm:col-span-2">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md <%= lesson.status === 'published' ? 'bg-secondary/10 text-secondary' : 'bg-surface-variant text-on-surface-variant' %> font-label-md text-xs">
+              <span class="w-1.5 h-1.5 rounded-full <%= lesson.status === 'published' ? 'bg-secondary' : 'bg-outline' %>"></span>
+              <%= lesson.status === 'published' ? 'Published' : 'Draft' %>
+            </span>
+          </div>
+          <div class="col-span-1 sm:col-span-2 flex items-center justify-end gap-2">
+            <a href="/admin/content/<%= lesson.id %>/edit" class="p-2 text-outline hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+              <span class="material-symbols-outlined text-[20px]">edit</span>
+            </a>
+            <form action="/admin/content/<%= lesson.id %>/delete" method="POST" class="inline" onsubmit="return confirm('Tem certeza?')">
+              <button type="submit" class="p-2 text-outline hover:text-error hover:bg-error/5 rounded-lg transition-colors">
+                <span class="material-symbols-outlined text-[20px]">delete</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p class="p-8 text-center text-on-surface-variant">No lessons found</p>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+<%# progress-bar.ejs - Recebe: percentage, height (optional) %>
+<div class="w-full bg-surface-container-highest rounded-full <%= typeof height !== 'undefined' ? height : 'h-2' %>">
+  <div class="bg-secondary rounded-full <%= typeof height !== 'undefined' ? height : 'h-2' %> transition-all duration-500" style="width:<%= percentage %>%"></div>
+</div>

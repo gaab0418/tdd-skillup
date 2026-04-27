@@ -1,0 +1,32 @@
+<% const flashTypes = [
+  { key: 'success', icon: 'check_circle', bg: 'bg-green-50 border-green-400 text-green-800' },
+  { key: 'error', icon: 'error', bg: 'bg-red-50 border-red-400 text-red-800' },
+  { key: 'warning', icon: 'warning', bg: 'bg-yellow-50 border-yellow-400 text-yellow-800' },
+  { key: 'info', icon: 'info', bg: 'bg-blue-50 border-blue-400 text-blue-800' },
+]; %>
+
+<div id="flash-container" class="fixed top-20 right-4 z-[100] flex flex-col gap-2 max-w-sm">
+  <% flashTypes.forEach(ft => { %>
+    <% if (locals[ft.key] && locals[ft.key].length > 0) { %>
+      <% locals[ft.key].forEach(msg => { %>
+        <div class="flash-message flex items-center gap-3 px-4 py-3 rounded-lg border <%= ft.bg %> shadow-lg animate-slide-in">
+          <span class="material-symbols-outlined text-lg"><%= ft.icon %></span>
+          <span class="flex-1 text-sm font-medium"><%= msg %></span>
+          <button onclick="this.parentElement.remove()" class="hover:opacity-70">
+            <span class="material-symbols-outlined text-sm">close</span>
+          </button>
+        </div>
+      <% }); %>
+    <% } %>
+  <% }); %>
+</div>
+
+<script>
+  setTimeout(() => {
+    document.querySelectorAll('.flash-message').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(100%)';
+      setTimeout(() => el.remove(), 300);
+    });
+  }, 5000);
+</script>

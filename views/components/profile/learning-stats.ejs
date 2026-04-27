@@ -1,0 +1,21 @@
+<%# learning-stats.ejs - Recebe: completedLessons, totalWatched, streak %>
+<section>
+  <h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md">Minhas Estatísticas de Aprendizado</h3>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-base-unit">
+    <%- include('../cards/stat-card', { icon: 'play_lesson', value: completedLessons, label: 'Aulas Concluídas', iconBg: 'bg-primary/10', iconColor: 'text-primary' }) %>
+    <%- include('../cards/stat-card', { icon: 'schedule', value: totalWatched, label: 'Minutos Assistidos', iconBg: 'bg-secondary/10', iconColor: 'text-secondary' }) %>
+    <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1 flex flex-col items-center sm:items-start col-span-2 md:col-span-2 relative overflow-hidden">
+      <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none">
+        <span class="material-symbols-outlined text-[120px]">local_fire_department</span>
+      </div>
+      <div class="bg-tertiary-container/10 w-10 h-10 rounded-full flex items-center justify-center mb-3 relative z-10">
+        <span class="material-symbols-outlined text-tertiary">local_fire_department</span>
+      </div>
+      <span class="font-display-lg text-display-lg text-on-surface mb-1 relative z-10"><%= streak %> Dia</span>
+      <span class="font-label-md text-label-md text-on-surface-variant relative z-10">Sequência Atual</span>
+      <div class="w-full h-2 bg-surface-variant rounded-full mt-4 relative z-10">
+        <div class="h-full bg-tertiary rounded-full" style="width:<%= Math.min(streak * 7, 100) %>%"></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1 hover:shadow-level-2 transition-all duration-300 border border-transparent hover:border-primary/20 group flex flex-col h-full">
+  <div class="aspect-[4/3] w-full rounded-lg bg-surface-variant mb-4 overflow-hidden relative">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 mix-blend-multiply z-10"></div>
+    <div class="w-full h-full bg-gradient-to-br from-primary-fixed to-secondary-fixed flex items-center justify-center">
+      <span class="material-symbols-outlined text-4xl text-white/60">workspace_premium</span>
+    </div>
+    <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-on-surface z-20 shadow-sm flex items-center gap-1">
+      <span class="material-symbols-outlined text-[12px] text-primary">verified</span> SkillUp
+    </div>
+  </div>
+  <div class="flex-1">
+    <h4 class="font-label-md text-label-md text-on-surface mb-1 line-clamp-2 group-hover:text-primary transition-colors">
+      <%= certificate.topic ? certificate.topic.name : 'Certificate' %>
+    </h4>
+    <p class="font-caption text-caption text-on-surface-variant mb-4">
+      Issued <%= new Date(certificate.issuedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }) %>
+    </p>
+  </div>
+  <div class="flex gap-2 mt-auto">
+    <button class="flex-1 bg-surface-variant hover:bg-surface-dim text-on-surface transition-colors py-2 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">download</span> Download
+    </button>
+    <button class="w-10 bg-surface-variant hover:bg-primary-container hover:text-on-primary-container text-on-surface transition-colors rounded-lg flex justify-center items-center">
+      <span class="material-symbols-outlined text-[18px]">share</span>
+    </button>
+  </div>
+</div>

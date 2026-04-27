@@ -1,0 +1,52 @@
+<% const navItems = [
+  { href: '/admin', icon: 'dashboard', label: 'Dashboard', page: 'dashboard' },
+  { href: '/admin/content', icon: 'menu_book', label: 'Aulas', page: 'content' },
+  { href: '/admin/topics', icon: 'category', label: 'Tópicos', page: 'topics' },
+  { href: '/admin/users', icon: 'group', label: 'Usuários', page: 'users' },
+  { href: '/admin/analytics', icon: 'insights', label: 'Estatísticas', page: 'analytics' },
+]; %>
+
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 flex flex-col p-4 gap-2 z-40 hidden md:flex">
+  <div class="mb-8 px-2 flex items-center gap-3">
+    <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm text-headline-sm">S</div>
+    <div>
+      <a href="/" class="text-xl font-bold text-blue-600 dark:text-blue-400 font-headline-sm">SkillUp Academy</a>
+      <p class="font-caption text-caption text-outline">Painel Admin</p>
+    </div>
+  </div>
+
+  <div class="flex-1 space-y-1">
+    <% navItems.forEach(item => { %>
+      <a href="<%= item.href %>"
+         class="<%= (typeof activePage !== 'undefined' && activePage === item.page) ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-semibold' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:pl-4' %> rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md transition-all duration-300">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' <%= (typeof activePage !== 'undefined' && activePage === item.page) ? 1 : 0 %>"><%= item.icon %></span>
+        <%= item.label %>
+      </a>
+    <% }); %>
+  </div>
+
+  <div class="mt-auto pt-4 border-t border-surface-variant">
+    <a href="/profile/settings" class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300">
+      <span class="material-symbols-outlined">settings</span> Configurações
+    </a>
+    <a href="/admin/content/create" class="mt-4 w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg shadow-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined text-sm">add</span> Nova Aula
+    </a>
+    <% if (user) { %>
+      <div class="mt-4 flex items-center gap-3 px-2">
+        <% if (user.avatar) { %>
+          <img src="<%= user.avatar %>" alt="Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+        <% } else { %>
+          <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold"><%= user.name.substring(0,2).toUpperCase() %></div>
+        <% } %>
+        <div class="flex-1 min-w-0">
+          <p class="font-label-md text-label-md text-on-surface truncate"><%= user.name %></p>
+          <p class="font-caption text-caption text-on-surface-variant truncate"><%= user.email %></p>
+        </div>
+        <a href="/auth/logout" class="text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-xl">logout</span>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</nav>

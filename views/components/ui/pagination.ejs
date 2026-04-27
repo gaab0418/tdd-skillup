@@ -1,0 +1,17 @@
+<%# pagination.ejs - Recebe: currentPage, totalPages, baseUrl %>
+<% if (totalPages > 1) { %>
+<div class="flex justify-center mt-stack-md">
+  <div class="flex items-center gap-1">
+    <% if (currentPage > 1) { %>
+      <a href="<%= baseUrl %>?page=<%= currentPage - 1 %>" class="p-2 rounded hover:bg-surface-variant"><span class="material-symbols-outlined text-sm">chevron_left</span></a>
+    <% } %>
+    <% for (let i = 1; i <= Math.min(totalPages, 5); i++) { %>
+      <a href="<%= baseUrl %>?page=<%= i %>" class="w-8 h-8 rounded flex items-center justify-center font-label-md text-sm <%= i === currentPage ? 'bg-primary text-on-primary font-bold' : 'hover:bg-surface-variant text-on-surface' %>"><%= i %></a>
+    <% } %>
+    <% if (totalPages > 5) { %><span class="px-2">...</span><% } %>
+    <% if (currentPage < totalPages) { %>
+      <a href="<%= baseUrl %>?page=<%= currentPage + 1 %>" class="p-2 rounded hover:bg-surface-variant"><span class="material-symbols-outlined text-sm">chevron_right</span></a>
+    <% } %>
+  </div>
+</div>
+<% } %>

@@ -1,0 +1,34 @@
+{
+  "name": "skillup",
+  "version": "1.0.0",
+  "description": "SkillUp - Plataforma de Microaprendizado",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "seed": "node seeders/seed.js"
+  },
+  "keywords": ["microlearning", "education", "express", "ejs"],
+  "author": "SkillUp Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^17.3.1",
+    "ejs": "^3.0.2",
+    "express": "^4.22.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.19.0",
+    "http-errors": "~1.6.3",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "mysql2": "^3.17.3",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

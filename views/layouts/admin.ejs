@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased flex">
+  <%- include('../partials/sidenav') %>
+  <%- include('../partials/flash') %>
+  <main class="flex-1 md:ml-64 min-h-screen pb-stack-lg">
+    <header class="h-16 px-gutter flex items-center justify-between border-b border-surface-variant bg-surface-container-lowest/80 backdrop-blur-md sticky top-0 z-30">
+      <h2 class="font-headline-sm text-headline-sm text-on-surface"><%= typeof title !== 'undefined' ? title.split(' - ')[0] : 'Dashboard' %></h2>
+      <div class="flex items-center gap-4">
+        <button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <% if (user && user.avatar) { %>
+          <img src="<%= user.avatar %>" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+        <% } else if (user) { %>
+          <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold"><%= user.name.substring(0,2).toUpperCase() %></div>
+        <% } %>
+      </div>
+    </header>
+    <div class="p-gutter max-w-container-max-width mx-auto">
+      <%- body %>
+    </div>
+  </main>
+  <script src="/js/app.js"></script>
+</body>
+</html>

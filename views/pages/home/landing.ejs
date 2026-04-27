@@ -1,0 +1,92 @@
+<%# Landing Page - SkillUp %>
+<section class="relative pt-24 pb-32 px-4 md:px-8 lg:px-16 overflow-hidden">
+  <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="z-10 relative">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-container/10 text-primary mb-6">
+        <span class="w-2 h-2 rounded-full bg-primary"></span>
+        <span class="font-label-md text-label-md text-primary">Plataforma de micro-aprendizado</span>
+      </div>
+      <h1 class="font-display-lg text-display-lg text-on-background mb-6 leading-tight">
+        Domine novas habilidades em <span class="text-primary">minutos</span>, não meses.
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-lg">
+        Cursos rápidos, conduzidos por especialistas e projetados para sua rotina. Aprenda mais rápido, retenha mais e alcance seus objetivos profissionais.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/auth/register" class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+          Comece a Aprender <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+        <a href="/browse" class="border border-outline-variant text-on-surface px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-sm">play_circle</span> Explorar Aulas
+        </a>
+      </div>
+      <div class="mt-12 flex items-center gap-6">
+        <div class="flex -space-x-4">
+          <div class="w-10 h-10 rounded-full border-2 border-surface bg-primary-container flex items-center justify-center text-xs font-bold text-on-primary-container">JD</div>
+          <div class="w-10 h-10 rounded-full border-2 border-surface bg-secondary-container flex items-center justify-center text-xs font-bold text-on-secondary-container">MK</div>
+          <div class="w-10 h-10 rounded-full border-2 border-surface bg-tertiary-container flex items-center justify-center text-xs font-bold text-on-tertiary-container">AS</div>
+        </div>
+        <div>
+          <p class="font-label-md text-label-md text-on-background">Junte-se a mais de <%= userCount.toLocaleString() %> alunos</p>
+        </div>
+      </div>
+    </div>
+    <div class="relative z-10 hidden lg:block">
+      <div class="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-outline-variant/30 flex items-center justify-center">
+        <span class="material-symbols-outlined text-[100px] text-primary/30">school</span>
+        <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/20">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+              <span class="material-symbols-outlined">school</span>
+            </div>
+            <div>
+              <h3 class="font-label-md text-label-md text-on-background">Comece a Aprender Hoje</h3>
+              <div class="flex items-center gap-2 mt-1">
+                <div class="w-24 bg-surface-variant rounded-full h-1.5"><div class="bg-secondary h-1.5 rounded-full w-3/4"></div></div>
+                <span class="font-caption text-caption text-on-surface-variant">75%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md border border-white/20 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings:'FILL' 1">verified</span>
+          <span class="font-caption text-caption text-on-background font-semibold">Aluno Verificado</span>
+        </div>
+      </div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-primary-fixed to-secondary-fixed/30 rounded-full blur-3xl -z-10 opacity-40"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-24 bg-surface-container-lowest border-y border-outline-variant/30">
+  <div class="max-w-[1200px] mx-auto px-4 md:px-8 lg:px-16">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="font-headline-md text-headline-md text-on-background mb-4">Por que aprender com a SkillUp?</h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">Nossa plataforma foi projetada para encaixar a educação perfeitamente na sua vida.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-surface p-8 rounded-2xl border border-outline-variant/30 hover:shadow-level-2 transition-shadow duration-300">
+        <div class="w-14 h-14 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary mb-6">
+          <span class="material-symbols-outlined text-2xl">timer</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-on-background mb-3">Aulas Curtas</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant">Módulos de 5-10 minutos que você pode concluir no trajeto para o trabalho ou na pausa para o café.</p>
+      </div>
+      <div class="bg-surface p-8 rounded-2xl border border-outline-variant/30 hover:shadow-level-2 transition-shadow duration-300">
+        <div class="w-14 h-14 rounded-xl bg-secondary-container/20 flex items-center justify-center text-on-secondary-container mb-6">
+          <span class="material-symbols-outlined text-2xl">trending_up</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-on-background mb-3">Acompanhamento de Progresso</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant">Painéis visuais que mostram exatamente até onde você chegou e qual o próximo passo.</p>
+      </div>
+      <div class="bg-surface p-8 rounded-2xl border border-outline-variant/30 hover:shadow-level-2 transition-shadow duration-300">
+        <div class="w-14 h-14 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary mb-6">
+          <span class="material-symbols-outlined text-2xl">workspace_premium</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm text-on-background mb-3">Certificados Oficiais</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant">Conquiste credenciais verificadas para impulsionar seu perfil profissional.</p>
+      </div>
+    </div>
+  </div>
+</section>

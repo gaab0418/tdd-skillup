@@ -1,0 +1,20 @@
+<%# chart-area.ejs %>
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-lg p-stack-md shadow-level-1 border border-surface-variant flex flex-col">
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="font-headline-sm text-xl text-on-surface">Platform Growth</h3>
+    <div class="flex gap-2">
+      <button class="font-label-md text-label-md px-3 py-1 bg-surface-variant text-on-surface rounded-full">1M</button>
+      <button class="font-label-md text-label-md px-3 py-1 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors">3M</button>
+      <button class="font-label-md text-label-md px-3 py-1 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors">1Y</button>
+    </div>
+  </div>
+  <div class="flex-1 relative min-h-[250px] w-full rounded overflow-hidden bg-surface-container flex items-end pt-8">
+    <div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none p-4">
+      <div class="border-b border-on-surface w-full"></div>
+      <div class="border-b border-on-surface w-full"></div>
+      <div class="border-b border-on-surface w-full"></div>
+      <div class="border-b border-on-surface w-full"></div>
+    </div>
+    <div class="w-full h-[60%] bg-gradient-to-t from-primary/20 to-transparent relative border-t-2 border-primary" style="clip-path: polygon(0 100%, 0 50%, 20% 40%, 40% 60%, 60% 20%, 80% 30%, 100% 0, 100% 100%);"></div>
+  </div>
+</div>

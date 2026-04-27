@@ -1,0 +1,15 @@
+<%# metric-card.ejs - Recebe: icon, iconBg, title, value, trend, trendValue, trendColor %>
+<div class="bg-surface-container-lowest rounded-lg p-stack-md shadow-level-1 hover:shadow-level-2 transition-shadow">
+  <div class="flex justify-between items-start mb-4">
+    <div class="p-2 <%= typeof iconBg !== 'undefined' ? iconBg : 'bg-primary-container/10' %> rounded-lg">
+      <span class="material-symbols-outlined <%= typeof iconColor !== 'undefined' ? iconColor : 'text-primary' %>"><%= icon %></span>
+    </div>
+    <% if (typeof trendValue !== 'undefined') { %>
+      <span class="inline-flex items-center gap-1 <%= typeof trendColor !== 'undefined' ? trendColor : 'text-secondary' %> font-label-md text-label-md bg-secondary-container/30 px-2 py-1 rounded-full">
+        <span class="material-symbols-outlined text-sm"><%= typeof trend !== 'undefined' && trend === 'down' ? 'trending_down' : 'trending_up' %></span> <%= trendValue %>
+      </span>
+    <% } %>
+  </div>
+  <h3 class="font-label-md text-label-md text-on-surface-variant mb-1"><%= title %></h3>
+  <p class="font-display-lg text-display-lg text-on-surface"><%= value %></p>
+</div>

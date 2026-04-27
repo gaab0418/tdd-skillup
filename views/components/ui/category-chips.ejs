@@ -1,0 +1,7 @@
+<%# category-chips.ejs - Recebe: topics, currentTopic %>
+<div class="flex flex-wrap gap-2 mt-4">
+  <a href="/browse" class="px-4 py-2 rounded-full <%= !currentTopic ? 'bg-primary text-on-primary shadow-level-1' : 'bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high hover:text-on-background' %> font-label-md text-label-md transition-colors active:scale-95">All</a>
+  <% topics.forEach(t => { %>
+    <a href="/browse?topic=<%= t.id %>" class="px-4 py-2 rounded-full <%= currentTopic == t.id ? 'bg-primary text-on-primary shadow-level-1' : 'bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high hover:text-on-background' %> font-label-md text-label-md transition-colors active:scale-95"><%= t.name %></a>
+  <% }); %>
+</div>

@@ -1,0 +1,3477 @@
+<!-- Design System -->
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Browse Lessons - SkillUp</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Lexend:wght@600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002116",
+              outline: "#727687",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#2e303a",
+              "on-secondary-fixed-variant": "#00513a",
+              "on-tertiary-fixed": "#390c00",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "secondary-fixed-dim": "#44dfab",
+              tertiary: "#a33200",
+              "on-primary-container": "#f8f7ff",
+              "on-tertiary-container": "#fff6f4",
+              "on-background": "#191b24",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#0066ff",
+              "surface-container-highest": "#e1e2ee",
+              "surface-dim": "#d8d9e6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-on-surface": "#eff0fd",
+              "inverse-primary": "#b3c5ff",
+              background: "#faf8ff",
+              "secondary-fixed": "#67fcc6",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424656",
+              surface: "#faf8ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#832600",
+              "on-surface": "#191b24",
+              secondary: "#006c4f",
+              error: "#ba1a1a",
+              "outline-variant": "#c2c6d8",
+              "primary-fixed": "#dae1ff",
+              "surface-container": "#ecedfa",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#cc4204",
+              "on-secondary-container": "#007354",
+              "on-primary-fixed": "#001849",
+              primary: "#0050cb",
+              "surface-tint": "#0054d6",
+              "on-primary-fixed-variant": "#003fa4",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e6e7f4",
+              "secondary-container": "#67fcc6",
+              "surface-variant": "#e1e2ee",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "base-unit": "8px",
+              "stack-lg": "32px",
+              "margin-mobile": "16px",
+              "stack-sm": "8px",
+              "container-max-width": "1200px",
+              "stack-md": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-md": ["Lexend"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "display-lg": ["Lexend"],
+              "headline-sm": ["Lexend"],
+              caption: ["Inter"],
+              headline: ["Lexend"],
+              display: ["Lexend"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .shadow-level-1 {
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.04);
+      }
+      .shadow-level-2 {
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md text-body-md min-h-screen pt-16 flex flex-col"
+  >
+    <!-- TopNavBar -->
+    <nav
+      class="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md font-lexend text-sm font-medium tracking-tight fixed top-0 w-full z-50 shadow-sm dark:shadow-none flex justify-between items-center h-16 px-8 max-w-full mx-auto"
+    >
+      <div class="flex items-center gap-8">
+        <a
+          class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tighter"
+          href="#"
+          >SkillUp</a
+        >
+        <div class="hidden md:flex gap-6 items-center">
+          <a
+            class="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 active:scale-95 transform transition-transform"
+            href="#"
+            >Browse</a
+          >
+          <a
+            class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 active:scale-95 transform transition-transform"
+            href="#"
+            >Learning Path</a
+          >
+          <a
+            class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 active:scale-95 transform transition-transform"
+            href="#"
+            >Certificates</a
+          >
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="relative hidden lg:block mr-4">
+          <span
+            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant"
+            >search</span
+          >
+          <input
+            class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-64 text-sm transition-colors"
+            placeholder="Search lessons..."
+            type="text"
+          />
+        </div>
+        <button
+          class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 p-2 rounded-full"
+        >
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button
+          class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 p-2 rounded-full"
+        >
+          <span class="material-symbols-outlined">account_circle</span>
+        </button>
+        <button
+          class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors ml-2 shadow-level-1"
+        >
+          Get Started
+        </button>
+      </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main
+      class="flex-grow w-full max-w-container-max-width mx-auto px-gutter py-stack-lg flex flex-col gap-stack-lg"
+    >
+      <!-- Header & Search (Mobile) / Filters -->
+      <section class="flex flex-col gap-stack-md">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+        >
+          <div>
+            <h1
+              class="font-headline-md text-headline-md text-on-background mb-2"
+            >
+              Explore Lessons
+            </h1>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              Find bite-sized learning to boost your skills today.
+            </p>
+          </div>
+          <!-- Mobile Search -->
+          <div class="relative w-full md:hidden">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant"
+              >search</span
+            >
+            <input
+              class="w-full pl-10 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-full focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors"
+              placeholder="Search lessons..."
+              type="text"
+            />
+          </div>
+        </div>
+        <!-- Categories / Chips -->
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button
+            class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-level-1 transition-transform active:scale-95"
+          >
+            All
+          </button>
+          <button
+            class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-background transition-colors active:scale-95"
+          >
+            Design
+          </button>
+          <button
+            class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-background transition-colors active:scale-95"
+          >
+            Tech
+          </button>
+          <button
+            class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-background transition-colors active:scale-95"
+          >
+            Business
+          </button>
+          <button
+            class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-background transition-colors active:scale-95"
+          >
+            Soft Skills
+          </button>
+          <button
+            class="px-4 py-2 rounded-full bg-surface-container border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high hover:text-on-background transition-colors active:scale-95 flex items-center gap-1"
+          >
+            <span class="material-symbols-outlined text-[18px]">tune</span>
+            Filters
+          </button>
+        </div>
+      </section>
+      <!-- Bento Grid / Cards -->
+      <section
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter"
+      >
+        <!-- In Progress Card (Featured/Spans 2 on large screens) -->
+        <article
+          class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer md:col-span-2 relative"
+        >
+          <div
+            class="h-48 w-full bg-surface-container-high relative overflow-hidden"
+          >
+            <img
+              alt="Abstract code lines on dark screen with bright colorful syntax highlighting"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              data-alt="Abstract code lines on dark screen with bright colorful syntax highlighting"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAh5jUYb8QcTvGv8YlYc4SFVHnFoIDquKhuPscIcAN3ZnmyQaQQbyFPOtqQVjDJ0FcNi0UQsZI8l3QvRm6oXaBUfv3AO_ZvRTBBTKzHRnQyTpf45WG4s3euDct4jLvVtV5ShDbt5Gdaw5llFzt1NnpQ_H5GPowW8XH3VdOZhu4CyCLyruO5sJGRMW7Z5PyGeKfjHJhrssL08u4VnPlSYzUEy240zMM8WebnIWz9HrG-zrGf4tQ3zkLrw1pvyQ1QVepLLiwwtrIheI"
+            />
+            <div
+              class="absolute top-4 left-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-caption text-caption backdrop-blur-sm"
+            >
+              In Progress
+            </div>
+            <div
+              class="absolute top-4 right-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1 backdrop-blur-sm"
+            >
+              <span class="material-symbols-outlined text-[14px]">timer</span>
+              15 min left
+            </div>
+          </div>
+          <div class="p-stack-md flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <span
+                class="text-primary font-label-md text-label-md bg-primary/10 px-2 py-1 rounded"
+                >Tech</span
+              >
+            </div>
+            <h3
+              class="font-headline-sm text-headline-sm text-on-background mb-2 group-hover:text-primary transition-colors"
+            >
+              Advanced React Patterns
+            </h3>
+            <p
+              class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2"
+            >
+              Master modern component composition, custom hooks, and state
+              management techniques.
+            </p>
+            <div class="mt-auto">
+              <div class="flex items-center gap-2 mb-3">
+                <img
+                  alt="Portrait of instructor Sarah"
+                  class="w-6 h-6 rounded-full border border-outline-variant"
+                  data-alt="Professional headshot of young woman smiling gently against neutral background"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA8TbRWGJTyfzkUcFDPg4ItA7mwXGDBIAQgRsXF-tE48q8_7pJGf_ITiQF_O5lsgwlJxX8fJkAAX_AnLiZ6dwlNdGDrEOXzKESws8NAiy9RdMBIVQBTWNYrelvHICIPopJyV3tA32lFXdcjrlYKvAwBD9pzGVwhyCDOJAxcAy-wykl69H6xdgUegf9hqCtD7q5xQgv1kjRat7wmvIcdc0V_FG2EZOtPhpGEZVIBqhdE0Ig4kYfJ05uD8hlK-fWuW7W19RxnBSpQUU"
+                />
+                <span class="font-caption text-caption text-on-surface-variant"
+                  >Sarah Jenkins</span
+                >
+              </div>
+              <div
+                class="w-full bg-surface-container-highest rounded-full h-2 mb-1"
+              >
+                <div
+                  class="bg-secondary h-2 rounded-full"
+                  style="width: 65%"
+                ></div>
+              </div>
+              <div
+                class="flex justify-between font-caption text-caption text-on-surface-variant"
+              >
+                <span>65% Complete</span>
+                <span>Resume</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- Standard Card 1 -->
+        <article
+          class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer"
+        >
+          <div
+            class="h-40 w-full bg-surface-container-high relative overflow-hidden"
+          >
+            <img
+              alt="Graphic design tools spread across a clean white desk"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              data-alt="Graphic design tools, color swatches, and stylus spread across a clean white minimalist desk"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2LaJu2SPA5hoqd73E0VMdKtxvxAIuzRTS8vnpSMqX_GEgZvXvGRdltuWlXfI4vGr2McfD_4Hb-ELwh-sQymEQ4zTTaUg_XFszRv5PCPPcvQG5sJmjKe37rSP1BcciGacAmso5A4QJURBOZx7hAUayPloFTTI7bbc3nYRUpyhFADk33vkq6bXWMfTB5tzWkT_uRpGtjDZQ0NtK6vGZ0wOtG2tIiA-ODrUq3GJjhErdV_RGglswrf1iUCQ9VOUMTeuDVJzss74bsFw"
+            />
+            <div
+              class="absolute top-4 right-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1 backdrop-blur-sm"
+            >
+              <span class="material-symbols-outlined text-[14px]">timer</span> 5
+              min
+            </div>
+          </div>
+          <div class="p-stack-md flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <span
+                class="text-tertiary font-label-md text-label-md bg-tertiary/10 px-2 py-1 rounded"
+                >Design</span
+              >
+            </div>
+            <h3
+              class="font-headline-sm text-[20px] leading-tight text-on-background mb-2 group-hover:text-primary transition-colors"
+            >
+              Color Theory Basics
+            </h3>
+            <div class="mt-auto pt-4">
+              <div class="flex items-center gap-2">
+                <img
+                  alt="Portrait of instructor Marcus"
+                  class="w-6 h-6 rounded-full border border-outline-variant"
+                  data-alt="Professional headshot of man with glasses looking directly at camera"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0AUbbCf9Zm_kayk5c0EydOOUi-nREFgi80ipPMFtwlBd08_qs4jhFiLDf3lQYmZHP5PMpEzB7-jsfY6wbve5g4QTYEjB7VFRPMViVtANrlkA3ziUAotCvGdkcS6ATmZGDWBBv_ilmXA3HGTKgjSnibUsCa5YSqlWm0156kQatWqwUAZUdbfeNSfatDBUZNl_Wu0Xhggvlt3Rixlii168BZDBjNzQx10k9jOQeFxG5j9FlFRpYWOZ2p-29yzIeGyd3-3Yp0ctHUGs"
+                />
+                <span class="font-caption text-caption text-on-surface-variant"
+                  >Marcus Chen</span
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- Standard Card 2 -->
+        <article
+          class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer"
+        >
+          <div
+            class="h-40 w-full bg-surface-container-high relative overflow-hidden"
+          >
+            <img
+              alt="People analyzing charts in a modern bright office meeting"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              data-alt="Business professionals analyzing colorful charts and graphs in a modern bright glass-walled office meeting room"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFM91slzZhxdqQtVxAWyw2sc7DVx-_l_izj4SC4h-ALLXabT2GJ5uwrlvPdSctE5Den6-I765UtdN08vOjjrYt8OZwn6yQVt_9OpisgyTgWzOEBfVlUYg8B9VRZIzseLjbsvpCPs-MrU_caEd3uLliPs1RVk5ww6IcGUBha-h_u7yt-dmiubgHyt3YFbazdaa3iF1hH2GS3kLV54IhnJniOGbYBIbQGDvUjpnNQhyP-B6hcXf15Wb370xjy7Gf_MEZwcdR0q5yGPI"
+            />
+            <div
+              class="absolute top-4 right-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1 backdrop-blur-sm"
+            >
+              <span class="material-symbols-outlined text-[14px]">timer</span> 8
+              min
+            </div>
+          </div>
+          <div class="p-stack-md flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <span
+                class="text-secondary font-label-md text-label-md bg-secondary/10 px-2 py-1 rounded"
+                >Business</span
+              >
+            </div>
+            <h3
+              class="font-headline-sm text-[20px] leading-tight text-on-background mb-2 group-hover:text-primary transition-colors"
+            >
+              Effective Meeting Frameworks
+            </h3>
+            <div class="mt-auto pt-4">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-caption text-[10px]"
+                >
+                  AJ
+                </div>
+                <span class="font-caption text-caption text-on-surface-variant"
+                  >Alice Johnson</span
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- Standard Card 3 -->
+        <article
+          class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer"
+        >
+          <div
+            class="h-40 w-full bg-surface-container-high relative overflow-hidden"
+          >
+            <img
+              alt="Two people having a focused conversation in a cafe"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              data-alt="Two diverse professionals having an earnest focused conversation sitting at a wooden table in a bright modern cafe"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-cxHftQv1mS-N0bv5A2FCzvXjNbcRl6FVitiFocS_rGcCQY2iuyOnl6I9AqXX8qZFHQHFGLs31Oj5vuXMtgBXJqbcU-tnx4T_sICnTWRgbqplGxLNhsL51d-oK3T04CPw-KSXRFsLRDOT_R1l9FzknKQ7hhtnFd7lEHPGbG49zwqcxNJM15glekEuuxXn0NW7A4cx4tW2ufwGSPVhFoPcwBmGV05j84X1TdHn-lYVPAdw6rBWjevMGrB6XIQuurYaew7RtqY_igA"
+            />
+            <div
+              class="absolute top-4 right-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1 backdrop-blur-sm"
+            >
+              <span class="material-symbols-outlined text-[14px]">timer</span>
+              12 min
+            </div>
+          </div>
+          <div class="p-stack-md flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <span
+                class="text-on-secondary-fixed-variant font-label-md text-label-md bg-secondary-fixed-dim/20 px-2 py-1 rounded"
+                >Soft Skills</span
+              >
+            </div>
+            <h3
+              class="font-headline-sm text-[20px] leading-tight text-on-background mb-2 group-hover:text-primary transition-colors"
+            >
+              Active Listening Mastery
+            </h3>
+            <div class="mt-auto pt-4">
+              <div class="flex items-center gap-2">
+                <img
+                  alt="Portrait of instructor David"
+                  class="w-6 h-6 rounded-full border border-outline-variant"
+                  data-alt="Professional headshot of older man with grey beard smiling warmly"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF_beNQLZqMfvOYBxd--olXFK_h_EIdkJ3DXdECZ00p5xpzFXgMHRn13EFgIvP7wmGzpnVE6tzdOW0JbTinp5JUslFIcOdZO6PqgM1u6lFHrp2tTVHsBLPf3zyHT9K2CMUQJ2xgrAybTNqKxeObjC3tp4LehTlKloAZGPYgBdVE3XCD2z0l0gT1FYDuGH41qYRFLt7rwVZFumeO9vHQIFiJtduNpxFRKQ8vpHYExCbQAjPh63GbhNHTF8N32pH64g4sm67eTfom2s"
+                />
+                <span class="font-caption text-caption text-on-surface-variant"
+                  >Dr. David Kim</span
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- In Progress Card Small -->
+        <article
+          class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer"
+        >
+          <div
+            class="h-40 w-full bg-surface-container-high relative overflow-hidden"
+          >
+            <img
+              alt="Close up of a UX wireframe sketch"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              data-alt="Close up view of messy but detailed UX wireframe sketches on grid paper with a fine liner pen resting on top"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT2qBKsZE8JbA6zhWnQfONxqHL0EeYix7RaKYoD2O_zwlJMYJ8oVy-5rAaruJi0POTJr7ZTtxNPKOVSp8mcXXHewKgo93OWKgwCoOrnYiafNJYxXet5a7GHOIcEtF7TZ3y0vb8VQB7_iOX_AZ-Ke3iFFOpQXNq6eB1nlNJJ9DqXBAcwHOMgTyzgs7bvGrV8GXjggk7eSCiwn1glKOLV2aO5iCmexTY6lokEyOZcYaXOaBSNUQRosqGr7IMwt4BGr-bDvmqRG7xzLc"
+            />
+            <div
+              class="absolute top-4 left-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-caption text-caption backdrop-blur-sm"
+            >
+              In Progress
+            </div>
+            <div
+              class="absolute top-4 right-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1 backdrop-blur-sm"
+            >
+              <span class="material-symbols-outlined text-[14px]">timer</span> 3
+              min
+            </div>
+          </div>
+          <div class="p-stack-md flex flex-col flex-grow">
+            <div class="flex justify-between items-start mb-2">
+              <span
+                class="text-tertiary font-label-md text-label-md bg-tertiary/10 px-2 py-1 rounded"
+                >Design</span
+              >
+            </div>
+            <h3
+              class="font-headline-sm text-[20px] leading-tight text-on-background mb-2 group-hover:text-primary transition-colors"
+            >
+              Wireframing Fundamentals
+            </h3>
+            <div class="mt-auto pt-4">
+              <div
+                class="w-full bg-surface-container-highest rounded-full h-2 mb-2 mt-2"
+              >
+                <div
+                  class="bg-secondary h-2 rounded-full"
+                  style="width: 30%"
+                ></div>
+              </div>
+              <div class="flex items-center gap-2">
+                <img
+                  alt="Portrait of instructor Marcus"
+                  class="w-6 h-6 rounded-full border border-outline-variant"
+                  data-alt="Professional headshot of man with glasses looking directly at camera"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH934ppJN1FWB7899BXrvqFmo1rMA1DNn1fSWL9wNVTN3FH1gLfn954JAXIJcyBybbicImD6fA4-Bfo_97FZ0ppYomWSwEunfop4riYrv1agAsxzwKw7eJGOQl8pgswjX1S3Y1wTbCkgNUfixTRlj-QYcx6QdxixkFvpHeGSPsBVnHDQ7-sJvoA_7y76nqUAbsUaLc40Cd20KBcZTRDAGXXAf3pBX4KHWpkbHDjcfysXYgeDYopf2CxRz3z2FSVQgFlRsriDxS4vc"
+                />
+                <span class="font-caption text-caption text-on-surface-variant"
+                  >Marcus Chen</span
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+      <div class="flex justify-center mt-stack-md">
+        <button
+          class="px-6 py-3 rounded-lg border-2 border-primary text-primary font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-colors shadow-level-1"
+        >
+          Load More Lessons
+        </button>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="bg-gray-50 dark:bg-gray-900 w-full border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center py-8 px-12 gap-4 mt-auto"
+    >
+      <div class="font-bold text-gray-900 dark:text-white font-lexend text-sm">
+        SkillUp
+      </div>
+      <div class="font-lexend text-xs text-gray-500">
+        © 2024 SkillUp Micro-learning platform. All rights reserved.
+      </div>
+      <div class="flex gap-4 font-lexend text-xs">
+        <a
+          class="text-gray-500 hover:text-blue-500 transition-colors duration-200"
+          href="#"
+          >Privacy Policy</a
+        >
+        <a
+          class="text-gray-500 hover:text-blue-500 transition-colors duration-200"
+          href="#"
+          >Terms of Service</a
+        >
+        <a
+          class="text-gray-500 hover:text-blue-500 transition-colors duration-200"
+          href="#"
+          >Help Center</a
+        >
+        <a
+          class="text-gray-500 hover:text-blue-500 transition-colors duration-200"
+          href="#"
+          >Contact Us</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- SkillUp - Explorar Lições -->
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SkillUp - Micro-learning platform</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Lexend:wght@600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002116",
+              outline: "#727687",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#2e303a",
+              "on-secondary-fixed-variant": "#00513a",
+              "on-tertiary-fixed": "#390c00",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "secondary-fixed-dim": "#44dfab",
+              tertiary: "#a33200",
+              "on-primary-container": "#f8f7ff",
+              "on-tertiary-container": "#fff6f4",
+              "on-background": "#191b24",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#0066ff",
+              "surface-container-highest": "#e1e2ee",
+              "surface-dim": "#d8d9e6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-on-surface": "#eff0fd",
+              "inverse-primary": "#b3c5ff",
+              background: "#faf8ff",
+              "secondary-fixed": "#67fcc6",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424656",
+              surface: "#faf8ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#832600",
+              "on-surface": "#191b24",
+              secondary: "#006c4f",
+              error: "#ba1a1a",
+              "outline-variant": "#c2c6d8",
+              "primary-fixed": "#dae1ff",
+              "surface-container": "#ecedfa",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#cc4204",
+              "on-secondary-container": "#007354",
+              "on-primary-fixed": "#001849",
+              primary: "#0050cb",
+              "surface-tint": "#0054d6",
+              "on-primary-fixed-variant": "#003fa4",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e6e7f4",
+              "secondary-container": "#67fcc6",
+              "surface-variant": "#e1e2ee",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "base-unit": "8px",
+              "stack-lg": "32px",
+              "margin-mobile": "16px",
+              "stack-sm": "8px",
+              "container-max-width": "1200px",
+              "stack-md": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-md": ["Lexend"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "display-lg": ["Lexend"],
+              "headline-sm": ["Lexend"],
+              caption: ["Inter"],
+              headline: ["Lexend"],
+              display: ["Lexend"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .material-symbols-outlined[data-weight="fill"] {
+        font-variation-settings: "FILL" 1;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md antialiased"
+  >
+    <!-- TopNavBar -->
+    <nav
+      class="fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-800 shadow-sm dark:shadow-none bg-white/90 dark:bg-gray-950/90 backdrop-blur-md"
+    >
+      <div
+        class="flex justify-between items-center h-16 px-8 max-w-full mx-auto"
+      >
+        <div class="flex items-center gap-8">
+          <a
+            class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tighter"
+            href="#"
+            >SkillUp</a
+          >
+          <div class="hidden md:flex items-center gap-6">
+            <a
+              class="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1 font-label-md text-label-md active:scale-95 transform transition-transform"
+              href="#"
+              >Browse</a
+            >
+            <a
+              class="text-gray-600 dark:text-gray-400 hover:text-blue-500 font-label-md text-label-md hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded"
+              href="#"
+              >Learning Path</a
+            >
+            <a
+              class="text-gray-600 dark:text-gray-400 hover:text-blue-500 font-label-md text-label-md hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded"
+              href="#"
+              >Certificates</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="hidden md:flex items-center justify-center p-2 text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full transition-all duration-200"
+          >
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button
+            class="hidden md:flex items-center justify-center p-2 text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-full transition-all duration-200"
+          >
+            <span class="material-symbols-outlined">account_circle</span>
+          </button>
+          <button
+            class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary-fixed-variant transition-colors active:scale-95 transform"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </nav>
+    <main class="flex-grow mt-16">
+      <!-- Hero Section -->
+      <section
+        class="relative pt-24 pb-32 px-4 md:px-8 lg:px-16 overflow-hidden"
+      >
+        <div
+          class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+        >
+          <div class="z-10 relative">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-container/10 text-primary mb-6"
+            >
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span class="font-label-md text-label-md text-primary"
+                >Micro-learning platform</span
+              >
+            </div>
+            <h1
+              class="font-display-lg text-display-lg text-on-background mb-6 leading-tight"
+            >
+              Master new skills in <span class="text-primary">minutes</span>,
+              not months.
+            </h1>
+            <p
+              class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-lg"
+            >
+              Bite-sized, expert-led courses designed for your busy schedule.
+              Learn faster, retain more, and achieve your career goals.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button
+                class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-primary-fixed-variant transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                Start Learning
+                <span class="material-symbols-outlined text-sm"
+                  >arrow_forward</span
+                >
+              </button>
+              <button
+                class="border border-outline-variant text-on-surface px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors flex items-center justify-center gap-2"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >play_circle</span
+                >
+                See How it Works
+              </button>
+            </div>
+            <div class="mt-12 flex items-center gap-6">
+              <div class="flex -space-x-4">
+                <img
+                  alt="Student"
+                  class="w-10 h-10 rounded-full border-2 border-surface"
+                  data-alt="close-up portrait of a young professional woman smiling warmly"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuANBGUl4juGcepiqsMmqYDxYj-VTr6X94NX_ltESdY_WX3OulQYn9wSXXGN_L_2DWFNS4V4GQrhSh_yPU7Ojss1oO0JejLgIhFkb6t8FSQb0Bvw5Wr_DxhGg9ZSh5GfhW0jNkQcrQChuTHYq8A_FCIv7lvFa71-puHIvtHhzWMfUf4DPeP2ooxxAzq5DsWoM48H8aYCW2ZQXXJMM_PYkBaJJenv6QJqCns4aTsloYr2grd2V6sY9sBwAX8l_P9baT_0AXBf88zDSwY"
+                />
+                <img
+                  alt="Student"
+                  class="w-10 h-10 rounded-full border-2 border-surface"
+                  data-alt="close-up portrait of a young professional man with a slight smile"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqNRr04djBe9dX1tyDQOBwdGp9bAbcTHaIgvfMgD3_EVG3_c-FoYFRDxK7k_lm-0ao8nBSHZPjLANqu60TutYm2XoM2W9Rl12IXKN18iRlTYgDOUakLC9x6E55DpR0_Gza_TxgZLrjb8GOFryBvrcRevi4lWABWJO57_7eAT9qicScqDWZHTUcvDu931R77iwXxtJVzZbr5UOjsHe4yK_kfj4iaofsX-GARIjQHTsUyXQtz5MIY04Xr29feYEELo1Ec0JXqbet4bE"
+                />
+                <img
+                  alt="Student"
+                  class="w-10 h-10 rounded-full border-2 border-surface"
+                  data-alt="close-up portrait of a young professional woman looking thoughtful"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJoilBq7tymovIoXcewa-2eIL_EU2Ue7uHb7QqPMbFMNuCUdGVo3OReTvVzoyYdcHzq1GmY150j3PNwaVB2KjahFrjJa3ixvjKjveRDUs-N55dAGCTdvpNVQSVLo9jAmrRvMKczG6uCWGvx9zUV3CTIwjJKwayn2ez47-sYbyQIICyy4YN3W7Xuct79R4BE_fFYOyQh9ehD6N84Lx3nbj8uYjF8uV1a_yuj3lfZL9xtyvWUVqQBiGChXRkIpsGkznGxoslN8GIGSE"
+                />
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-on-background">
+                  Joined by 10,000+ learners
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 lg:ml-auto">
+            <!-- Glassmorphism Card Element -->
+            <div
+              class="relative w-full max-w-md mx-auto aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-surface-container-lowest border border-outline-variant/30"
+            >
+              <img
+                alt="Learning"
+                class="absolute inset-0 w-full h-full object-cover"
+                data-alt="group of diverse young professionals collaborating and studying together around a laptop in a bright modern workspace"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmXTQWzh6_5F2T2epJJ-sB5CKfgrVcLq4rGOuEAq14FhknI6R-KC7E-ilINP2m-G9lHpV1hbL83z3yaaRvmpnBhEVCfm0oNvqtSWZeavw6KcL9wOA_h54nsEPEyXWDedXB6MAgpY5EoOwAhE2YOBQIxoYQ5jTGT1yJv3XMU0azyuaQ-rDSQ_c3UPdikcAea0caNWBdeF0rh2-Y8eH4uQJz6jYChR2KtgMA-u8qb_C-mS3Rg0pP1Zhgpy55C0q-Xn8zNQC3EAELPCI"
+              />
+              <!-- Floating UI Elements -->
+              <div
+                class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/20"
+              >
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container"
+                  >
+                    <span class="material-symbols-outlined">school</span>
+                  </div>
+                  <div>
+                    <h3 class="font-label-md text-label-md text-on-background">
+                      UX Design Fundamentals
+                    </h3>
+                    <div class="flex items-center gap-2 mt-1">
+                      <div
+                        class="w-full bg-surface-variant rounded-full h-1.5 w-24"
+                      >
+                        <div
+                          class="bg-secondary h-1.5 rounded-full w-3/4"
+                        ></div>
+                      </div>
+                      <span
+                        class="font-caption text-caption text-on-surface-variant"
+                        >75%</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md border border-white/20 flex items-center gap-1.5"
+              >
+                <span
+                  class="material-symbols-outlined text-secondary text-sm"
+                  data-weight="fill"
+                  >verified</span
+                >
+                <span
+                  class="font-caption text-caption text-on-background font-semibold"
+                  >Verified Learner</span
+                >
+              </div>
+            </div>
+            <!-- Decorative blobs -->
+            <div
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary-fixed to-secondary-fixed/30 rounded-full blur-3xl -z-10 opacity-60"
+            ></div>
+          </div>
+        </div>
+      </section>
+      <!-- Features Section -->
+      <section
+        class="py-24 bg-surface-container-lowest border-y border-outline-variant/30"
+      >
+        <div class="max-w-[1200px] mx-auto px-4 md:px-8 lg:px-16">
+          <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2
+              class="font-headline-md text-headline-md text-on-background mb-4"
+            >
+              Why learn with SkillUp?
+            </h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+              Our platform is designed to fit education into your life
+              seamlessly, providing high-impact learning in minimal time.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div
+              class="bg-surface p-8 rounded-2xl border border-outline-variant/30 hover:shadow-[0_8px_20px_rgba(0,0,0,0.04)] transition-shadow duration-300"
+            >
+              <div
+                class="w-14 h-14 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary mb-6"
+              >
+                <span class="material-symbols-outlined text-2xl">timer</span>
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-on-background mb-3"
+              >
+                Short Lessons
+              </h3>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                5-10 minute modules you can complete on your commute or during a
+                coffee break.
+              </p>
+            </div>
+            <!-- Feature 2 -->
+            <div
+              class="bg-surface p-8 rounded-2xl border border-outline-variant/30 hover:shadow-[0_8px_20px_rgba(0,0,0,0.04)] transition-shadow duration-300"
+            >
+              <div
+                class="w-14 h-14 rounded-xl bg-secondary-container/20 flex items-center justify-center text-on-secondary-container mb-6"
+              >
+                <span class="material-symbols-outlined text-2xl"
+                  >trending_up</span
+                >
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-on-background mb-3"
+              >
+                Progress Tracking
+              </h3>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                Visual dashboards that show exactly how far you've come and
+                what's next.
+              </p>
+            </div>
+            <!-- Feature 3 -->
+            <div
+              class="bg-surface p-8 rounded-2xl border border-outline-variant/30 hover:shadow-[0_8px_20px_rgba(0,0,0,0.04)] transition-shadow duration-300"
+            >
+              <div
+                class="w-14 h-14 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary mb-6"
+              >
+                <span class="material-symbols-outlined text-2xl"
+                  >workspace_premium</span
+                >
+              </div>
+              <h3
+                class="font-headline-sm text-headline-sm text-on-background mb-3"
+              >
+                Official Certificates
+              </h3>
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                Earn verified credentials you can share on LinkedIn to boost
+                your career profile.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 mt-auto"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-center py-8 px-12 gap-4 max-w-[1200px] mx-auto"
+      >
+        <div
+          class="font-bold text-gray-900 dark:text-white font-label-md text-label-md"
+        >
+          SkillUp
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+          <a
+            class="text-gray-500 hover:text-blue-500 font-lexend text-xs text-gray-500 transition-colors duration-200"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="text-gray-500 hover:text-blue-500 font-lexend text-xs text-gray-500 transition-colors duration-200"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="text-gray-500 hover:text-blue-500 font-lexend text-xs text-gray-500 transition-colors duration-200"
+            href="#"
+            >Help Center</a
+          >
+          <a
+            class="text-gray-500 hover:text-blue-500 font-lexend text-xs text-gray-500 transition-colors duration-200"
+            href="#"
+            >Contact Us</a
+          >
+        </div>
+        <div class="font-lexend text-xs text-gray-500">
+          © 2024 SkillUp Micro-learning platform. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- SkillUp - Landing Page -->
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lesson Player - SkillUp</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Lexend:wght@600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002116",
+              outline: "#727687",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#2e303a",
+              "on-secondary-fixed-variant": "#00513a",
+              "on-tertiary-fixed": "#390c00",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "secondary-fixed-dim": "#44dfab",
+              tertiary: "#a33200",
+              "on-primary-container": "#f8f7ff",
+              "on-tertiary-container": "#fff6f4",
+              "on-background": "#191b24",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#0066ff",
+              "surface-container-highest": "#e1e2ee",
+              "surface-dim": "#d8d9e6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-on-surface": "#eff0fd",
+              "inverse-primary": "#b3c5ff",
+              background: "#faf8ff",
+              "secondary-fixed": "#67fcc6",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424656",
+              surface: "#faf8ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#832600",
+              "on-surface": "#191b24",
+              secondary: "#006c4f",
+              error: "#ba1a1a",
+              "outline-variant": "#c2c6d8",
+              "primary-fixed": "#dae1ff",
+              "surface-container": "#ecedfa",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#cc4204",
+              "on-secondary-container": "#007354",
+              "on-primary-fixed": "#001849",
+              primary: "#0050cb",
+              "surface-tint": "#0054d6",
+              "on-primary-fixed-variant": "#003fa4",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e6e7f4",
+              "secondary-container": "#67fcc6",
+              "surface-variant": "#e1e2ee",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "base-unit": "8px",
+              "stack-lg": "32px",
+              "margin-mobile": "16px",
+              "stack-sm": "8px",
+              "container-max-width": "1200px",
+              "stack-md": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-md": ["Lexend"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "display-lg": ["Lexend"],
+              "headline-sm": ["Lexend"],
+              caption: ["Inter"],
+              headline: ["Lexend"],
+              display: ["Lexend"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .material-symbols-outlined.fill-icon {
+        font-variation-settings: "FILL" 1;
+      }
+      .card-shadow {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      }
+      .card-shadow-hover:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <nav
+      class="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-100 dark:border-gray-800 shadow-sm dark:shadow-none font-lexend text-sm font-medium tracking-tight"
+    >
+      <div
+        class="flex justify-between items-center h-16 px-8 max-w-full mx-auto"
+      >
+        <div class="flex items-center gap-8">
+          <span
+            class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tighter"
+            >SkillUp</span
+          >
+          <div class="hidden md:flex gap-6">
+            <a
+              class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-3 py-2 rounded-md"
+              href="#"
+              >Browse</a
+            >
+            <a
+              class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-3 py-2 rounded-md"
+              href="#"
+              >Learning Path</a
+            >
+            <a
+              class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-3 py-2 rounded-md"
+              href="#"
+              >Certificates</a
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="relative hidden sm:block">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-body-md"
+              >search</span
+            >
+            <input
+              class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors w-64"
+              placeholder="Search..."
+              type="text"
+            />
+          </div>
+          <button
+            class="p-2 text-outline hover:text-primary hover:bg-surface-container-low rounded-full transition-colors"
+          >
+            <span class="material-symbols-outlined" data-icon="notifications"
+              >notifications</span
+            >
+          </button>
+          <button
+            class="p-2 text-outline hover:text-primary hover:bg-surface-container-low rounded-full transition-colors"
+          >
+            <span class="material-symbols-outlined" data-icon="account_circle"
+              >account_circle</span
+            >
+          </button>
+          <button
+            class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md hover:bg-surface-tint active:scale-95 transform transition-transform ml-2"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- Main Content Layout -->
+    <main
+      class="flex-1 mt-16 flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden"
+    >
+      <!-- Video & Details Area (Left) -->
+      <div class="flex-1 overflow-y-auto bg-surface p-gutter space-y-stack-lg">
+        <!-- Video Player Area -->
+        <div
+          class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow"
+        >
+          <div class="aspect-video bg-inverse-surface relative group">
+            <img
+              alt="Video thumbnail showing a presenter pointing at a digital screen with code"
+              class="w-full h-full object-cover opacity-80"
+              data-alt="close up of a modern laptop screen displaying colorful code snippets in a dark room with soft blue bias lighting"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJMJZ4l1JGlUKXUUCrn4cukWBv19PNJqSSwjJtLrRmgESbZk58inc4hzIo5SQnzX0W52RySSAETIAeLZoYaOKSLOp0qPHa24Gl18UPSB0q26QToeCeYSq3xABWNZG31mh89nK_gA7y1rXURwa0dZ7ch0r5lR_F4RnZUMnn3zKoCktDA8c0sgeOzkIPKJJKXlMtO427iqc2Or7EFVrT3gN_ngXV9621U2Jbyj7-gA7b21cnVwRXI8e0ml4M3TyVCrAzAwZvAr-CHDI"
+            />
+            <!-- Fake Video Controls Overlay -->
+            <div
+              class="absolute inset-0 flex flex-col justify-between p-4 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            >
+              <div class="flex justify-between items-start text-white">
+                <span
+                  class="bg-black/50 px-3 py-1 rounded-full font-caption text-caption"
+                  >1080p</span
+                >
+              </div>
+              <div class="flex justify-center items-center h-full">
+                <button
+                  class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                >
+                  <span class="material-symbols-outlined text-[32px] fill-icon"
+                    >play_arrow</span
+                  >
+                </button>
+              </div>
+              <div class="flex items-center gap-4 text-white">
+                <button>
+                  <span class="material-symbols-outlined">play_arrow</span>
+                </button>
+                <div
+                  class="flex-1 h-1 bg-white/30 rounded-full overflow-hidden cursor-pointer"
+                >
+                  <div class="h-full bg-primary w-1/3"></div>
+                </div>
+                <span class="font-caption text-caption">03:45 / 12:30</span>
+                <button>
+                  <span class="material-symbols-outlined">volume_up</span>
+                </button>
+                <button>
+                  <span class="material-symbols-outlined">fullscreen</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Lesson Details -->
+        <div class="space-y-stack-md">
+          <div class="flex items-center gap-2">
+            <span
+              class="bg-primary/10 text-primary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1"
+            >
+              <span class="material-symbols-outlined text-[14px]">timer</span>
+              12 mins
+            </span>
+            <span
+              class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1"
+            >
+              <span class="material-symbols-outlined text-[14px]">school</span>
+              Intermediate
+            </span>
+          </div>
+          <h1 class="font-headline-md text-headline-md text-on-surface">
+            Understanding React Hooks: useState and useEffect
+          </h1>
+          <!-- Instructor Info -->
+          <div
+            class="flex items-center justify-between py-4 border-y border-outline-variant/30"
+          >
+            <div class="flex items-center gap-4">
+              <img
+                alt="Instructor Sarah Jenkins"
+                class="w-12 h-12 rounded-full object-cover"
+                data-alt="professional headshot of a young woman with curly hair smiling against a soft gray background"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtTagrgi5BOCRgan9WxeSzv_ohVf7D8aXnNgcCbCO9aCr_6KkwFdgIpcEr80kzcNq6CK1Vhhz17RIRFeGA0GrqQcmhN4O4DT9HOpmW6KCBxUwfl1PBBfnThumxOeR8w9lnGvBCPW9oM1HKmTVmW-szfg9sLgPT6_Lem_91ZzbUVL0W7Kp3mTbHHlEyATtPP4b3iw3SLyuKHLtgHVFKFkCF-SCxzMSmV7msmbkn9tD3ZeoJNNghC50EF_xD31A2jIyHXrNnT0iUQkI"
+              />
+              <div>
+                <p class="font-label-md text-label-md text-on-surface">
+                  Sarah Jenkins
+                </p>
+                <p class="font-caption text-caption text-outline">
+                  Senior Frontend Developer at TechFlow
+                </p>
+              </div>
+            </div>
+            <button
+              class="border border-outline text-on-surface hover:border-primary hover:text-primary px-4 py-2 rounded-full font-label-md text-label-md transition-colors"
+            >
+              Follow
+            </button>
+          </div>
+          <!-- Description -->
+          <div
+            class="prose prose-sm max-w-none text-on-surface-variant font-body-md text-body-md"
+          >
+            <p>
+              In this lesson, we dive deep into the fundamental building blocks
+              of modern React: hooks. We'll start by exploring
+              <code>useState</code> to manage local component state, moving
+              beyond class-based state management.
+            </p>
+            <p class="mt-4">
+              Then, we'll tackle the often-misunderstood
+              <code>useEffect</code> hook. You'll learn how to handle side
+              effects, manage subscriptions, and understand the dependency array
+              to prevent infinite loops and memory leaks.
+            </p>
+          </div>
+        </div>
+        <!-- Comments Section -->
+        <div
+          class="bg-surface-container-lowest p-stack-md rounded-xl card-shadow mt-stack-lg"
+        >
+          <h3
+            class="font-headline-sm text-headline-sm text-on-surface mb-stack-md"
+          >
+            Discussion (24)
+          </h3>
+          <!-- Add Comment -->
+          <div class="flex gap-4 mb-stack-lg">
+            <div
+              class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md flex-shrink-0"
+            >
+              JD
+            </div>
+            <div class="flex-1 relative">
+              <textarea
+                class="w-full border border-outline-variant rounded-lg p-3 font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none min-h-[80px] bg-surface-container-low"
+                placeholder="Ask a question or share your thoughts..."
+              ></textarea>
+              <button
+                class="absolute bottom-3 right-3 bg-primary text-on-primary px-4 py-1.5 rounded-md font-label-md text-label-md hover:bg-surface-tint"
+              >
+                Post
+              </button>
+            </div>
+          </div>
+          <!-- Comment List -->
+          <div class="space-y-stack-md">
+            <div class="flex gap-4">
+              <img
+                alt="User avatar"
+                class="w-10 h-10 rounded-full object-cover"
+                data-alt="headshot of a smiling young man with glasses in natural lighting"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvHrSvyGOk8hu_OsG-Z-6cRLGSsss478Lx0cokmut0aD0USIUDoy4ip-v5fm5jHvwCQXJAY7nOexy5R6zW9f88LdgoN6AvpKb1gD-qIuXXvwdFBP5CR08fyovZG_6sz5C4qg03n2mhzkbVItfiJZC0kl1v3V817ESmeEZgGkxagYvCDsEmNeS6NbWuo5tA_VnxpM8a_cLoV2jKsDac_wsOdW4qM9q8l5vcfJS_Yyk8WCIqC25mxXLH9SXhB01QvefplaV9JfaU358"
+              />
+              <div>
+                <div class="flex items-baseline gap-2">
+                  <span class="font-label-md text-label-md text-on-surface"
+                    >Alex Mercer</span
+                  >
+                  <span class="font-caption text-caption text-outline"
+                    >2 days ago</span
+                  >
+                </div>
+                <p
+                  class="font-body-md text-body-md text-on-surface-variant mt-1"
+                >
+                  Great explanation on the dependency array! I always struggled
+                  with knowing when to leave it empty vs adding dependencies.
+                  The visual diagram really helped.
+                </p>
+                <div class="flex items-center gap-4 mt-2">
+                  <button
+                    class="flex items-center gap-1 text-outline hover:text-primary font-caption text-caption transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >thumb_up</span
+                    >
+                    12
+                  </button>
+                  <button
+                    class="flex items-center gap-1 text-outline hover:text-primary font-caption text-caption transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >reply</span
+                    >
+                    Reply
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar: Curriculum (Right) -->
+      <aside
+        class="w-full lg:w-80 xl:w-96 bg-surface-container-lowest border-l border-outline-variant/30 flex flex-col h-full shrink-0"
+      >
+        <!-- Header & Progress -->
+        <div class="p-gutter border-b border-outline-variant/30">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface mb-2">
+            React Fundamentals
+          </h2>
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-caption text-caption text-outline"
+              >Course Progress</span
+            >
+            <span class="font-label-md text-label-md text-secondary"
+              >3/10 Lessons</span
+            >
+          </div>
+          <!-- Progress Bar -->
+          <div
+            class="h-2 w-full bg-surface-variant rounded-full overflow-hidden"
+          >
+            <div
+              class="h-full bg-secondary-fixed-dim w-[30%] rounded-full"
+            ></div>
+          </div>
+        </div>
+        <!-- Lesson List -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-2">
+          <!-- Completed Lesson -->
+          <a
+            class="block p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+            href="#"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="w-6 h-6 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-secondary/20"
+              >
+                <span
+                  class="material-symbols-outlined text-secondary text-[16px] fill-icon"
+                  >check_circle</span
+                >
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface">
+                  1. Introduction to React
+                </p>
+                <p
+                  class="font-caption text-caption text-outline flex items-center gap-1 mt-1"
+                >
+                  <span class="material-symbols-outlined text-[14px]"
+                    >play_circle</span
+                  >
+                  05:20
+                </p>
+              </div>
+            </div>
+          </a>
+          <!-- Completed Lesson -->
+          <a
+            class="block p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+            href="#"
+          >
+            <div class="flex items-start gap-3">
+              <div
+                class="w-6 h-6 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-secondary/20"
+              >
+                <span
+                  class="material-symbols-outlined text-secondary text-[16px] fill-icon"
+                  >check_circle</span
+                >
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface">
+                  2. Components and Props
+                </p>
+                <p
+                  class="font-caption text-caption text-outline flex items-center gap-1 mt-1"
+                >
+                  <span class="material-symbols-outlined text-[14px]"
+                    >play_circle</span
+                  >
+                  14:15
+                </p>
+              </div>
+            </div>
+          </a>
+          <!-- Current/Active Lesson -->
+          <div
+            class="block p-3 rounded-lg bg-primary-container/10 border border-primary/20 relative"
+          >
+            <div
+              class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-lg"
+            ></div>
+            <div class="flex items-start gap-3 pl-2">
+              <div
+                class="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 mt-0.5"
+              >
+                <span class="material-symbols-outlined text-primary text-[16px]"
+                  >play_arrow</span
+                >
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-primary font-bold">
+                  3. Understanding React Hooks
+                </p>
+                <p
+                  class="font-caption text-caption text-primary/80 flex items-center gap-1 mt-1"
+                >
+                  <span class="material-symbols-outlined text-[14px]"
+                    >schedule</span
+                  >
+                  12:30 • Playing
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Upcoming Lesson -->
+          <a
+            class="block p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+            href="#"
+          >
+            <div class="flex items-start gap-3 opacity-60">
+              <div
+                class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 mt-0.5"
+              >
+                <span class="font-caption text-caption text-outline-variant"
+                  >4</span
+                >
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface">
+                  4. Context API
+                </p>
+                <p
+                  class="font-caption text-caption text-outline flex items-center gap-1 mt-1"
+                >
+                  <span class="material-symbols-outlined text-[14px]"
+                    >lock</span
+                  >
+                  18:45
+                </p>
+              </div>
+            </div>
+          </a>
+          <!-- Upcoming Lesson -->
+          <a
+            class="block p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+            href="#"
+          >
+            <div class="flex items-start gap-3 opacity-60">
+              <div
+                class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 mt-0.5"
+              >
+                <span class="font-caption text-caption text-outline-variant"
+                  >5</span
+                >
+              </div>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface">
+                  5. React Router Basics
+                </p>
+                <p
+                  class="font-caption text-caption text-outline flex items-center gap-1 mt-1"
+                >
+                  <span class="material-symbols-outlined text-[14px]"
+                    >lock</span
+                  >
+                  22:10
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </aside>
+    </main>
+  </body>
+</html>
+
+<!-- SkillUp - Player de Lição -->
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Profile &amp; Certificates - SkillUp</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Lexend:wght@600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002116",
+              outline: "#727687",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#2e303a",
+              "on-secondary-fixed-variant": "#00513a",
+              "on-tertiary-fixed": "#390c00",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "secondary-fixed-dim": "#44dfab",
+              tertiary: "#a33200",
+              "on-primary-container": "#f8f7ff",
+              "on-tertiary-container": "#fff6f4",
+              "on-background": "#191b24",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#0066ff",
+              "surface-container-highest": "#e1e2ee",
+              "surface-dim": "#d8d9e6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-on-surface": "#eff0fd",
+              "inverse-primary": "#b3c5ff",
+              background: "#faf8ff",
+              "secondary-fixed": "#67fcc6",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424656",
+              surface: "#faf8ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#832600",
+              "on-surface": "#191b24",
+              secondary: "#006c4f",
+              error: "#ba1a1a",
+              "outline-variant": "#c2c6d8",
+              "primary-fixed": "#dae1ff",
+              "surface-container": "#ecedfa",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#cc4204",
+              "on-secondary-container": "#007354",
+              "on-primary-fixed": "#001849",
+              primary: "#0050cb",
+              "surface-tint": "#0054d6",
+              "on-primary-fixed-variant": "#003fa4",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e6e7f4",
+              "secondary-container": "#67fcc6",
+              "surface-variant": "#e1e2ee",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "base-unit": "8px",
+              "stack-lg": "32px",
+              "margin-mobile": "16px",
+              "stack-sm": "8px",
+              "container-max-width": "1200px",
+              "stack-md": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-md": ["Lexend"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "display-lg": ["Lexend"],
+              "headline-sm": ["Lexend"],
+              caption: ["Inter"],
+              headline: ["Lexend"],
+              display: ["Lexend"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md text-body-md flex h-screen overflow-hidden"
+  >
+    <!-- SideNavBar -->
+    <nav
+      class="bg-surface-container-lowest text-primary h-screen w-64 fixed left-0 top-0 border-r border-surface-variant flex flex-col p-4 gap-2 z-40 hidden md:flex"
+    >
+      <div class="mb-8 px-4 py-2">
+        <h1 class="text-xl font-bold text-primary">SkillUp Academy</h1>
+        <p class="text-caption font-caption text-on-surface-variant">
+          Micro-learning portal
+        </p>
+      </div>
+      <div class="flex-1 flex flex-col gap-2">
+        <a
+          class="text-on-surface-variant hover:bg-surface hover:pl-2 transition-all duration-300 rounded-lg flex items-center gap-3 p-3 text-label-md font-label-md"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 0"
+            >dashboard</span
+          >
+          Dashboard
+        </a>
+        <a
+          class="text-on-surface-variant hover:bg-surface hover:pl-2 transition-all duration-300 rounded-lg flex items-center gap-3 p-3 text-label-md font-label-md"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 0"
+            >school</span
+          >
+          My Lessons
+        </a>
+        <a
+          class="bg-primary-container/10 text-primary font-semibold rounded-lg flex items-center gap-3 p-3 text-label-md font-label-md"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >verified</span
+          >
+          Certificates
+        </a>
+        <a
+          class="text-on-surface-variant hover:bg-surface hover:pl-2 transition-all duration-300 rounded-lg flex items-center gap-3 p-3 text-label-md font-label-md"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 0"
+            >insights</span
+          >
+          Analytics
+        </a>
+        <a
+          class="text-on-surface-variant hover:bg-surface hover:pl-2 transition-all duration-300 rounded-lg flex items-center gap-3 p-3 text-label-md font-label-md"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 0"
+            >library_add</span
+          >
+          Content Manager
+        </a>
+        <a
+          class="text-on-surface-variant hover:bg-surface hover:pl-2 transition-all duration-300 rounded-lg flex items-center gap-3 p-3 text-label-md font-label-md mt-auto"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 0"
+            >settings</span
+          >
+          Settings
+        </a>
+      </div>
+      <button
+        class="bg-primary text-on-primary hover:bg-on-primary-fixed-variant transition-colors rounded-lg py-3 px-4 font-label-md text-label-md mt-4 w-full flex justify-center items-center gap-2"
+      >
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        New Lesson
+      </button>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-1 ml-0 md:ml-64 h-full overflow-y-auto bg-background">
+      <!-- TopNavBar (Mobile Only for this context, but rendered as requested for responsive behavior if needed, though SideNav is primary desktop nav. Using a simplified mobile header) -->
+      <header
+        class="md:hidden flex justify-between items-center h-16 px-gutter bg-surface-container-lowest border-b border-surface-variant sticky top-0 z-30"
+      >
+        <h1 class="text-xl font-bold text-primary">SkillUp</h1>
+        <div class="flex items-center gap-4 text-primary">
+          <span class="material-symbols-outlined">notifications</span>
+          <span class="material-symbols-outlined">account_circle</span>
+        </div>
+      </header>
+      <div
+        class="max-w-[1000px] mx-auto px-gutter py-stack-lg flex flex-col gap-stack-lg"
+      >
+        <!-- User Profile Header -->
+        <section
+          class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] flex flex-col sm:flex-row items-center sm:items-start gap-gutter"
+        >
+          <div
+            class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface shrink-0"
+          >
+            <img
+              alt="User Avatar"
+              class="w-full h-full object-cover"
+              data-alt="Close-up portrait of a young professional woman smiling confidently with soft natural lighting and a blurred office background"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqxgWLpVWgAN72eYdE8lTBj6COKyOl3oU4qM_JrkNt00OJGNpkV12NIm8ttZMlB93KlPI0EDZmraWLCJiqy0D8ei4_Y7hHOYvdVhI37oz_Ic1-nAB3lO_gau-rjXPBz6x_xdgdoWMKVI8WXJFbJLDDLZvcd3DceGVmSwv6n3gpVal-hqFvCyxTFDJAtn6tVKWklKHt3dM9It2yK0eWazkKtYb80JtiOLnnyXk8bwoFVjuaeczgv4W8B0O0ukG8m4sEWKf2T5vLiKg"
+            />
+          </div>
+          <div
+            class="flex-1 text-center sm:text-left flex flex-col justify-center h-full sm:pt-2"
+          >
+            <h2 class="font-headline-md text-headline-md text-on-surface mb-1">
+              Alex Chen
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-4">
+              UX/UI Design Learner • Member since 2023
+            </p>
+            <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
+              <span
+                class="bg-primary/10 text-primary font-caption text-caption px-3 py-1 rounded-full"
+                >Pro Learner</span
+              >
+              <span
+                class="bg-secondary/10 text-secondary font-caption text-caption px-3 py-1 rounded-full"
+                >Top 10%</span
+              >
+            </div>
+          </div>
+          <div class="sm:self-center mt-4 sm:mt-0">
+            <button
+              class="border border-outline text-on-surface hover:bg-surface-variant transition-colors rounded-lg py-2 px-4 font-label-md text-label-md"
+            >
+              Edit Profile
+            </button>
+          </div>
+        </section>
+        <!-- Learning Stats Bento Grid -->
+        <section>
+          <h3
+            class="font-headline-sm text-headline-sm text-on-surface mb-stack-md"
+          >
+            My Learning Stats
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-base-unit">
+            <div
+              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] flex flex-col items-center sm:items-start"
+            >
+              <div
+                class="bg-primary/10 w-10 h-10 rounded-full flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-primary"
+                  >play_lesson</span
+                >
+              </div>
+              <span class="font-display-lg text-display-lg text-on-surface mb-1"
+                >42</span
+              >
+              <span class="font-label-md text-label-md text-on-surface-variant"
+                >Lessons Completed</span
+              >
+            </div>
+            <div
+              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] flex flex-col items-center sm:items-start"
+            >
+              <div
+                class="bg-secondary/10 w-10 h-10 rounded-full flex items-center justify-center mb-3"
+              >
+                <span class="material-symbols-outlined text-secondary"
+                  >schedule</span
+                >
+              </div>
+              <span class="font-display-lg text-display-lg text-on-surface mb-1"
+                >128</span
+              >
+              <span class="font-label-md text-label-md text-on-surface-variant"
+                >Hours Watched</span
+              >
+            </div>
+            <div
+              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] flex flex-col items-center sm:items-start col-span-2 md:col-span-2 relative overflow-hidden"
+            >
+              <div
+                class="absolute right-0 bottom-0 opacity-5 pointer-events-none"
+              >
+                <span class="material-symbols-outlined text-[120px]"
+                  >local_fire_department</span
+                >
+              </div>
+              <div
+                class="bg-tertiary-container/10 w-10 h-10 rounded-full flex items-center justify-center mb-3 relative z-10"
+              >
+                <span class="material-symbols-outlined text-tertiary"
+                  >local_fire_department</span
+                >
+              </div>
+              <span
+                class="font-display-lg text-display-lg text-on-surface mb-1 relative z-10"
+                >14 Day</span
+              >
+              <span
+                class="font-label-md text-label-md text-on-surface-variant relative z-10"
+                >Current Streak</span
+              >
+              <div
+                class="w-full h-2 bg-surface-variant rounded-full mt-4 relative z-10"
+              >
+                <div class="h-full bg-tertiary rounded-full w-[70%]"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Earned Certificates -->
+        <section class="mb-stack-lg">
+          <div class="flex justify-between items-end mb-stack-md">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">
+              Earned Certificates
+            </h3>
+            <a
+              class="font-label-md text-label-md text-primary hover:underline flex items-center gap-1"
+              href="#"
+            >
+              View All
+              <span class="material-symbols-outlined text-[16px]"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-stack-md"
+          >
+            <!-- Certificate Card 1 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 group flex flex-col h-full"
+            >
+              <div
+                class="aspect-[4/3] w-full rounded-lg bg-surface-variant mb-4 overflow-hidden relative"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 mix-blend-multiply z-10"
+                ></div>
+                <img
+                  alt="Design Certificate"
+                  class="w-full h-full object-cover"
+                  data-alt="Abstract geometric background with subtle gradient flows from teal to navy blue, suggesting a high-tech modern certificate design"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpl1fluifMuai7CUFaPbbXkDV-BZHBrhex8ebzNZpleQIMv8bigBl089t3tsQ7zYgDeXxhX7G0qh-uA0_FsKC_hAYNvp8ML8dLH4QuX3Ct_4gsOzMuNp7H6SkNHRk-ncfP8gjd540NMd6Y9HYvD0mwSLTUiDJ6rZT9zUQGIaTtLFRRV_IbW_t7MGE5seUvymHhsQcEcj4gQ0bhRCgoI6DgBAmYD9Rv-AoIX4n5dRMl-qcYNLwzINcJq-uz3jFT6htudVhW3Ex0nY4"
+                />
+                <div
+                  class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-on-surface z-20 shadow-sm flex items-center gap-1"
+                >
+                  <span
+                    class="material-symbols-outlined text-[12px] text-primary"
+                    >verified</span
+                  >
+                  SkillUp
+                </div>
+              </div>
+              <div class="flex-1">
+                <h4
+                  class="font-label-md text-label-md text-on-surface mb-1 line-clamp-2 group-hover:text-primary transition-colors"
+                >
+                  Advanced UI Composition Patterns
+                </h4>
+                <p
+                  class="font-caption text-caption text-on-surface-variant mb-4"
+                >
+                  Issued Oct 12, 2024
+                </p>
+              </div>
+              <div class="flex gap-2 mt-auto">
+                <button
+                  class="flex-1 bg-surface-variant hover:bg-surface-dim text-on-surface transition-colors py-2 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >download</span
+                  >
+                  Download
+                </button>
+                <button
+                  class="w-10 bg-surface-variant hover:bg-primary-container hover:text-on-primary-container text-on-surface transition-colors rounded-lg flex justify-center items-center"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >share</span
+                  >
+                </button>
+              </div>
+            </div>
+            <!-- Certificate Card 2 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 group flex flex-col h-full"
+            >
+              <div
+                class="aspect-[4/3] w-full rounded-lg bg-surface-variant mb-4 overflow-hidden relative"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-tertiary/20 to-primary/20 mix-blend-multiply z-10"
+                ></div>
+                <img
+                  alt="React Certificate"
+                  class="w-full h-full object-cover"
+                  data-alt="Smooth flowing abstract liquid gradient background in soft purple and warm orange tones, professional and modern"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-dziJ33kzNdkUo0RT0hrO7dzG62YAKrtWsnAFHeeYtz-C-SNTtQnFEcz7EUu5dTsZXC1DxsvxLIxCewmMVl0Gf0SzZ8zGqFlIIV-VUZNuLjyrLuJbrNh_EW905lFHhQfL2mVtd1wYIe4nZLGieHcRsgWMFI5nfemMeBdHum1A4FaG2yVCunksIRb-mLCglBC637T7tTilEDlMe4LMb-1_qELO2YJSAdVpzqoCxpG2orM5hfXd2cMlBDv80WLNBu1QVpN26ykDwkg"
+                />
+                <div
+                  class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-on-surface z-20 shadow-sm flex items-center gap-1"
+                >
+                  <span
+                    class="material-symbols-outlined text-[12px] text-primary"
+                    >verified</span
+                  >
+                  SkillUp
+                </div>
+              </div>
+              <div class="flex-1">
+                <h4
+                  class="font-label-md text-label-md text-on-surface mb-1 line-clamp-2 group-hover:text-primary transition-colors"
+                >
+                  React Fundamentals for Designers
+                </h4>
+                <p
+                  class="font-caption text-caption text-on-surface-variant mb-4"
+                >
+                  Issued Sep 28, 2024
+                </p>
+              </div>
+              <div class="flex gap-2 mt-auto">
+                <button
+                  class="flex-1 bg-surface-variant hover:bg-surface-dim text-on-surface transition-colors py-2 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >download</span
+                  >
+                  Download
+                </button>
+                <button
+                  class="w-10 bg-surface-variant hover:bg-primary-container hover:text-on-primary-container text-on-surface transition-colors rounded-lg flex justify-center items-center"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >share</span
+                  >
+                </button>
+              </div>
+            </div>
+            <!-- Certificate Card 3 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 group flex flex-col h-full"
+            >
+              <div
+                class="aspect-[4/3] w-full rounded-lg bg-surface-variant mb-4 overflow-hidden relative"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-secondary/20 to-surface-tint/20 mix-blend-multiply z-10"
+                ></div>
+                <img
+                  alt="Typography Certificate"
+                  class="w-full h-full object-cover"
+                  data-alt="Minimalist architectural details with soft light and strong shadows, creating a structured and academic aesthetic"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKzsmev79TO0N9Wm7LKAftbsQXsDcyvStAr5tRfuIEby3ZSEpoawnlyLA-l_od2YyhPMdduNBxcKMTEV1y2k6314P30eGlSNohWqpkMiwxQJAr948q0bmqtxrrLCWUFVl8RH_CsCy29BI1g8G5CZ7krlabDM6TTuNlNoMAdFJgTr3eS5an57TPnQfDmg6msbnoqizxtX0xKMr_vQ8IiOzbpR91XDQSCptPxYwcbyl1p0Vypw7YTniz77Xjv2RNZaWPRFgZayWTOdk"
+                />
+                <div
+                  class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-on-surface z-20 shadow-sm flex items-center gap-1"
+                >
+                  <span
+                    class="material-symbols-outlined text-[12px] text-primary"
+                    >verified</span
+                  >
+                  SkillUp
+                </div>
+              </div>
+              <div class="flex-1">
+                <h4
+                  class="font-label-md text-label-md text-on-surface mb-1 line-clamp-2 group-hover:text-primary transition-colors"
+                >
+                  Web Typography Masterclass
+                </h4>
+                <p
+                  class="font-caption text-caption text-on-surface-variant mb-4"
+                >
+                  Issued Aug 05, 2024
+                </p>
+              </div>
+              <div class="flex gap-2 mt-auto">
+                <button
+                  class="flex-1 bg-surface-variant hover:bg-surface-dim text-on-surface transition-colors py-2 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >download</span
+                  >
+                  Download
+                </button>
+                <button
+                  class="w-10 bg-surface-variant hover:bg-primary-container hover:text-on-primary-container text-on-surface transition-colors rounded-lg flex justify-center items-center"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >share</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- Footer -->
+      <footer
+        class="w-full border-t border-outline-variant bg-surface-container-low flex flex-col md:flex-row justify-between items-center py-8 px-12 gap-4 mt-auto"
+      >
+        <div
+          class="font-headline-sm text-headline-sm font-bold text-on-surface"
+        >
+          SkillUp
+        </div>
+        <div
+          class="font-caption text-caption text-on-surface-variant text-center md:text-left"
+        >
+          © 2024 SkillUp Micro-learning platform. All rights reserved.
+        </div>
+        <div class="flex gap-4 font-caption text-caption">
+          <a
+            class="text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="#"
+            >Help Center</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="#"
+            >Contact Us</a
+          >
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<!-- SkillUp - Perfil & Certificados -->
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SkillUp Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Lexend:wght@600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002116",
+              outline: "#727687",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#2e303a",
+              "on-secondary-fixed-variant": "#00513a",
+              "on-tertiary-fixed": "#390c00",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "secondary-fixed-dim": "#44dfab",
+              tertiary: "#a33200",
+              "on-primary-container": "#f8f7ff",
+              "on-tertiary-container": "#fff6f4",
+              "on-background": "#191b24",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#0066ff",
+              "surface-container-highest": "#e1e2ee",
+              "surface-dim": "#d8d9e6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-on-surface": "#eff0fd",
+              "inverse-primary": "#b3c5ff",
+              background: "#faf8ff",
+              "secondary-fixed": "#67fcc6",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424656",
+              surface: "#faf8ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#832600",
+              "on-surface": "#191b24",
+              secondary: "#006c4f",
+              error: "#ba1a1a",
+              "outline-variant": "#c2c6d8",
+              "primary-fixed": "#dae1ff",
+              "surface-container": "#ecedfa",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#cc4204",
+              "on-secondary-container": "#007354",
+              "on-primary-fixed": "#001849",
+              primary: "#0050cb",
+              "surface-tint": "#0054d6",
+              "on-primary-fixed-variant": "#003fa4",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e6e7f4",
+              "secondary-container": "#67fcc6",
+              "surface-variant": "#e1e2ee",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "base-unit": "8px",
+              "stack-lg": "32px",
+              "margin-mobile": "16px",
+              "stack-sm": "8px",
+              "container-max-width": "1200px",
+              "stack-md": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-md": ["Lexend"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "display-lg": ["Lexend"],
+              "headline-sm": ["Lexend"],
+              caption: ["Inter"],
+              headline: ["Lexend"],
+              display: ["Lexend"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .material-symbols-outlined[data-weight="fill"] {
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md text-body-md antialiased flex"
+  >
+    <!-- SideNavBar (Shared Component) -->
+    <nav
+      class="h-screen w-64 fixed left-0 top-0 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 flex flex-col p-4 gap-2 z-40 hidden md:flex"
+    >
+      <div class="mb-8 px-2 flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm text-headline-sm"
+        >
+          S
+        </div>
+        <div>
+          <h1
+            class="text-xl font-bold text-blue-600 dark:text-blue-400 font-headline-sm text-headline-sm"
+          >
+            SkillUp Academy
+          </h1>
+          <p class="font-caption text-caption text-outline">
+            Micro-learning portal
+          </p>
+        </div>
+      </div>
+      <div class="flex-1 space-y-1">
+        <!-- Dashboard - Active -->
+        <a
+          class="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-semibold rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md transition-all duration-300 active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-weight="fill"
+            >dashboard</span
+          >
+          Dashboard
+        </a>
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300 active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">school</span>
+          My Lessons
+        </a>
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300 active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">verified</span>
+          Certificates
+        </a>
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300 active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">insights</span>
+          Analytics
+        </a>
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300 active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">library_add</span>
+          Content Manager
+        </a>
+      </div>
+      <div class="mt-auto pt-4 border-t border-surface-variant">
+        <a
+          class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300 active:opacity-80"
+          href="#"
+        >
+          <span class="material-symbols-outlined">settings</span>
+          Settings
+        </a>
+        <button
+          class="mt-4 w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-DEFAULT shadow-[0_4px_15px_rgba(0,80,203,0.2)] hover:bg-on-primary-fixed-variant transition-colors flex items-center justify-center gap-2"
+        >
+          <span class="material-symbols-outlined text-sm">add</span>
+          New Lesson
+        </button>
+      </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="flex-1 md:ml-64 min-h-screen pb-stack-lg">
+      <!-- Top App Bar / Header -->
+      <header
+        class="h-16 px-gutter flex items-center justify-between border-b border-surface-variant bg-surface-container-lowest/80 backdrop-blur-md sticky top-0 z-30"
+      >
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">
+          Dashboard Overview
+        </h2>
+        <div class="flex items-center gap-4">
+          <button
+            class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors"
+          >
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <div
+            class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center"
+          >
+            <img
+              alt="Admin Profile"
+              class="w-full h-full rounded-full object-cover"
+              data-alt="professional headshot of a man with glasses smiling"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpS7waDPGzlFLelDYcXE3SADPoQ7-AeFsIa_qvV9NK4IPnDc9_aWzMcTVJgkaDCzJNf_fP4Sdqh36Jla_NBv4snWRO2W57VP1xYd8ftFmDrmgW7QZkLiK5Q6p3K98vfHy8IiMqGFvpgDe-Cx5t9szjtpidjTC0xnifbVDJDy5mmVNAiZDFqiGo4We6kgz32bp2efjeWALzYDXmGuDX4A6dW0OPlW3cVPtO7zt01qCy-Og7GLq7e70aFZe34b-tGDrOh8JeclyrJyk"
+            />
+          </div>
+        </div>
+      </header>
+      <div class="p-gutter max-w-container-max-width mx-auto space-y-stack-lg">
+        <!-- Bento Grid: Key Metrics -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          <!-- Total Users Card -->
+          <div
+            class="bg-surface-container-lowest rounded-lg p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-shadow"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div class="p-2 bg-primary-container/10 text-primary rounded-lg">
+                <span class="material-symbols-outlined">group</span>
+              </div>
+              <span
+                class="inline-flex items-center gap-1 text-secondary font-label-md text-label-md bg-secondary-container/30 px-2 py-1 rounded-full"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >trending_up</span
+                >
+                12.5%
+              </span>
+            </div>
+            <h3
+              class="font-label-md text-label-md text-on-surface-variant mb-1"
+            >
+              Total Users
+            </h3>
+            <p class="font-display-lg text-display-lg text-on-surface">
+              24,592
+            </p>
+          </div>
+          <!-- Active Learners Today -->
+          <div
+            class="bg-surface-container-lowest rounded-lg p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-shadow"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div
+                class="p-2 bg-secondary-container/20 text-on-secondary-container rounded-lg"
+              >
+                <span class="material-symbols-outlined">menu_book</span>
+              </div>
+              <span
+                class="inline-flex items-center gap-1 text-secondary font-label-md text-label-md bg-secondary-container/30 px-2 py-1 rounded-full"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >trending_up</span
+                >
+                8.2%
+              </span>
+            </div>
+            <h3
+              class="font-label-md text-label-md text-on-surface-variant mb-1"
+            >
+              Active Learners Today
+            </h3>
+            <p class="font-display-lg text-display-lg text-on-surface">3,841</p>
+          </div>
+          <!-- Course Completion Rate -->
+          <div
+            class="bg-surface-container-lowest rounded-lg p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-shadow"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div
+                class="p-2 bg-tertiary-container/10 text-tertiary rounded-lg"
+              >
+                <span class="material-symbols-outlined">task_alt</span>
+              </div>
+              <span
+                class="inline-flex items-center gap-1 text-error font-label-md text-label-md bg-error-container/30 px-2 py-1 rounded-full"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >trending_down</span
+                >
+                1.4%
+              </span>
+            </div>
+            <h3
+              class="font-label-md text-label-md text-on-surface-variant mb-1"
+            >
+              Avg. Completion Rate
+            </h3>
+            <p class="font-display-lg text-display-lg text-on-surface">68.2%</p>
+          </div>
+        </section>
+        <!-- Main Content Grid -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+          <!-- Chart Area (Spans 2 columns) -->
+          <div
+            class="lg:col-span-2 bg-surface-container-lowest rounded-lg p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] border border-surface-variant flex flex-col"
+          >
+            <div class="flex justify-between items-center mb-6">
+              <h3
+                class="font-headline-md text-headline-md text-on-surface text-xl"
+              >
+                Platform Growth
+              </h3>
+              <div class="flex gap-2">
+                <button
+                  class="font-label-md text-label-md px-3 py-1 bg-surface-variant text-on-surface rounded-full"
+                >
+                  1M
+                </button>
+                <button
+                  class="font-label-md text-label-md px-3 py-1 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors"
+                >
+                  3M
+                </button>
+                <button
+                  class="font-label-md text-label-md px-3 py-1 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors"
+                >
+                  1Y
+                </button>
+              </div>
+            </div>
+            <!-- Faux Chart Area (Using gradient for visual representation) -->
+            <div
+              class="flex-1 relative min-h-[250px] w-full rounded-DEFAULT overflow-hidden bg-surface-container flex items-end pt-8"
+            >
+              <!-- Chart Lines/Grid -->
+              <div
+                class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none p-4"
+              >
+                <div class="border-b border-on-surface w-full"></div>
+                <div class="border-b border-on-surface w-full"></div>
+                <div class="border-b border-on-surface w-full"></div>
+                <div class="border-b border-on-surface w-full"></div>
+              </div>
+              <!-- Gradient Chart Area -->
+              <div
+                class="w-full h-[60%] bg-gradient-to-t from-primary/20 to-transparent relative border-t-2 border-primary"
+                style="
+                  clip-path: polygon(
+                    0 100%,
+                    0 50%,
+                    20% 40%,
+                    40% 60%,
+                    60% 20%,
+                    80% 30%,
+                    100% 0,
+                    100% 100%
+                  );
+                "
+              ></div>
+            </div>
+          </div>
+          <!-- Top Trending Lessons -->
+          <div
+            class="bg-surface-container-lowest rounded-lg p-stack-md shadow-[0_4px_15px_rgba(0,0,0,0.04)] border border-surface-variant"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-on-surface text-xl mb-4"
+            >
+              Top Trending Lessons
+            </h3>
+            <div class="space-y-4">
+              <!-- Lesson 1 -->
+              <div
+                class="flex items-start gap-3 p-2 hover:bg-surface-container-low rounded-DEFAULT transition-colors cursor-pointer group"
+              >
+                <div
+                  class="w-12 h-12 rounded bg-primary-container/20 flex-shrink-0 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors"
+                >
+                  <span class="material-symbols-outlined">code</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4
+                    class="font-label-md text-label-md text-on-surface truncate"
+                  >
+                    Advanced React Patterns
+                  </h4>
+                  <p class="font-caption text-caption text-on-surface-variant">
+                    1,240 active learners
+                  </p>
+                </div>
+                <div
+                  class="flex items-center text-secondary font-label-md text-label-md"
+                >
+                  <span class="material-symbols-outlined text-sm"
+                    >arrow_upward</span
+                  >
+                </div>
+              </div>
+              <!-- Lesson 2 -->
+              <div
+                class="flex items-start gap-3 p-2 hover:bg-surface-container-low rounded-DEFAULT transition-colors cursor-pointer group"
+              >
+                <div
+                  class="w-12 h-12 rounded bg-tertiary-container/20 flex-shrink-0 flex items-center justify-center text-tertiary group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors"
+                >
+                  <span class="material-symbols-outlined">design_services</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4
+                    class="font-label-md text-label-md text-on-surface truncate"
+                  >
+                    UX Fundamentals
+                  </h4>
+                  <p class="font-caption text-caption text-on-surface-variant">
+                    985 active learners
+                  </p>
+                </div>
+                <div
+                  class="flex items-center text-secondary font-label-md text-label-md"
+                >
+                  <span class="material-symbols-outlined text-sm"
+                    >arrow_upward</span
+                  >
+                </div>
+              </div>
+              <!-- Lesson 3 -->
+              <div
+                class="flex items-start gap-3 p-2 hover:bg-surface-container-low rounded-DEFAULT transition-colors cursor-pointer group"
+              >
+                <div
+                  class="w-12 h-12 rounded bg-secondary-container/20 flex-shrink-0 flex items-center justify-center text-on-secondary-container group-hover:bg-secondary group-hover:text-on-secondary transition-colors"
+                >
+                  <span class="material-symbols-outlined">query_stats</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4
+                    class="font-label-md text-label-md text-on-surface truncate"
+                  >
+                    Data Analysis Basics
+                  </h4>
+                  <p class="font-caption text-caption text-on-surface-variant">
+                    820 active learners
+                  </p>
+                </div>
+                <div
+                  class="flex items-center text-outline font-label-md text-label-md"
+                >
+                  <span class="material-symbols-outlined text-sm"
+                    >horizontal_rule</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Recent Activity List -->
+        <section
+          class="bg-surface-container-lowest rounded-lg shadow-[0_4px_15px_rgba(0,0,0,0.04)] border border-surface-variant overflow-hidden"
+        >
+          <div
+            class="px-stack-md py-4 border-b border-surface-variant flex justify-between items-center bg-surface-container-low/50"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-on-surface text-xl"
+            >
+              Recent User Activity
+            </h3>
+            <button
+              class="font-label-md text-label-md text-primary hover:underline"
+            >
+              View All
+            </button>
+          </div>
+          <div class="divide-y divide-surface-variant">
+            <!-- Activity Item 1 -->
+            <div
+              class="px-stack-md py-4 flex items-center gap-4 hover:bg-surface-container/30 transition-colors"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-surface-variant flex-shrink-0 overflow-hidden"
+              >
+                <img
+                  alt="Sarah J."
+                  class="w-full h-full object-cover"
+                  data-alt="portrait of a young woman with dark hair smiling"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAku9k1PlBT5-YhlGZ-rW_Syhsyx1qWbzbNgHJjL9ovwWSFfJm3Jkz_KkXJEkWCWHpDbz-loABpH8NN8ocbkOXdmNaAvdveCv_CRL2FpT-5X_KozHikHMFmnjK6jv5fgZoluNcDnQpBAmcwZUlef-ZsMj8JN3Dm-BmFYaSmRnPkB1wyRuw4iQ-XpyQnVpa7jTih12g5J9C_gLF-pVW3MoEHjNmYsXya02hGl3nA6pw2ip7TIWcBbhkz9_hdUE100rhZ6G2wU74XYUM"
+                />
+              </div>
+              <div class="flex-1">
+                <p class="font-body-md text-body-md text-on-surface">
+                  <span class="font-label-md text-label-md">Sarah J.</span>
+                  completed the module
+                  <span class="font-label-md text-label-md text-primary"
+                    >State Management in React</span
+                  >
+                </p>
+                <p class="font-caption text-caption text-on-surface-variant">
+                  2 minutes ago
+                </p>
+              </div>
+              <div class="hidden sm:block">
+                <span
+                  class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-caption text-caption"
+                  >Completed</span
+                >
+              </div>
+            </div>
+            <!-- Activity Item 2 -->
+            <div
+              class="px-stack-md py-4 flex items-center gap-4 hover:bg-surface-container/30 transition-colors"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-surface-variant flex-shrink-0 overflow-hidden"
+              >
+                <img
+                  alt="Michael C."
+                  class="w-full h-full object-cover"
+                  data-alt="portrait of a young man with short hair looking serious"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtuQB0w2stqeaR_e3q5KixtcpLH9voiiCJezji0EDe_gHc6q2tE9Q3xwz5DvlUGuYEuaLDuBYGpvs6rW1usQ91NWZFTyZpPecdtXDK31YVd30n-BUeFyKSPsAJ8ouvmFbPxrQOnxp7pfzGW6hU2Uuc8dtKrrIxugS7Dfsb9Xh2--NTFr-QyaKavq5SAduhWUMYWermndA795WjlU5Gd05U13vWiX78-74y1McxVg7bIVGxIN4Hn-IevWtUntNyibe2QGFhvqsbuho"
+                />
+              </div>
+              <div class="flex-1">
+                <p class="font-body-md text-body-md text-on-surface">
+                  <span class="font-label-md text-label-md">Michael C.</span>
+                  enrolled in
+                  <span class="font-label-md text-label-md text-primary"
+                    >Introduction to Python</span
+                  >
+                </p>
+                <p class="font-caption text-caption text-on-surface-variant">
+                  15 minutes ago
+                </p>
+              </div>
+              <div class="hidden sm:block">
+                <span
+                  class="inline-flex items-center px-2 py-1 rounded-full bg-primary-container/10 text-primary font-caption text-caption"
+                  >Enrolled</span
+                >
+              </div>
+            </div>
+            <!-- Activity Item 3 -->
+            <div
+              class="px-stack-md py-4 flex items-center gap-4 hover:bg-surface-container/30 transition-colors"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-tertiary-container/20 text-tertiary flex-shrink-0 flex items-center justify-center font-label-md text-label-md"
+              >
+                JD
+              </div>
+              <div class="flex-1">
+                <p class="font-body-md text-body-md text-on-surface">
+                  <span class="font-label-md text-label-md">John D.</span>
+                  earned a certificate for
+                  <span class="font-label-md text-label-md text-primary"
+                    >Advanced CSS Animations</span
+                  >
+                </p>
+                <p class="font-caption text-caption text-on-surface-variant">
+                  1 hour ago
+                </p>
+              </div>
+              <div class="hidden sm:block">
+                <span
+                  class="inline-flex items-center px-2 py-1 rounded-full bg-tertiary-container/20 text-tertiary font-caption text-caption flex gap-1"
+                  ><span class="material-symbols-outlined text-[12px]"
+                    >workspace_premium</span
+                  >
+                  Certificate</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
+
+<!-- SkillUp - Admin Dashboard -->
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SkillUp - Content Manager</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Lexend:wght@400;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed": "#002116",
+              outline: "#727687",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#2e303a",
+              "on-secondary-fixed-variant": "#00513a",
+              "on-tertiary-fixed": "#390c00",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#b3c5ff",
+              "secondary-fixed-dim": "#44dfab",
+              tertiary: "#a33200",
+              "on-primary-container": "#f8f7ff",
+              "on-tertiary-container": "#fff6f4",
+              "on-background": "#191b24",
+              "surface-container-low": "#f2f3ff",
+              "primary-container": "#0066ff",
+              "surface-container-highest": "#e1e2ee",
+              "surface-dim": "#d8d9e6",
+              "on-primary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb59d",
+              "tertiary-fixed": "#ffdbd0",
+              "inverse-on-surface": "#eff0fd",
+              "inverse-primary": "#b3c5ff",
+              background: "#faf8ff",
+              "secondary-fixed": "#67fcc6",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#424656",
+              surface: "#faf8ff",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed-variant": "#832600",
+              "on-surface": "#191b24",
+              secondary: "#006c4f",
+              error: "#ba1a1a",
+              "outline-variant": "#c2c6d8",
+              "primary-fixed": "#dae1ff",
+              "surface-container": "#ecedfa",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#cc4204",
+              "on-secondary-container": "#007354",
+              "on-primary-fixed": "#001849",
+              primary: "#0050cb",
+              "surface-tint": "#0054d6",
+              "on-primary-fixed-variant": "#003fa4",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e6e7f4",
+              "secondary-container": "#67fcc6",
+              "surface-variant": "#e1e2ee",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "base-unit": "8px",
+              "stack-lg": "32px",
+              "margin-mobile": "16px",
+              "stack-sm": "8px",
+              "container-max-width": "1200px",
+              "stack-md": "16px",
+            },
+            fontFamily: {
+              "label-md": ["Inter"],
+              "headline-md": ["Lexend"],
+              "body-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "display-lg": ["Lexend"],
+              "headline-sm": ["Lexend"],
+              caption: ["Inter"],
+              headline: ["Lexend"],
+              display: ["Lexend"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "label-md": [
+                "14px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["48px", { lineHeight: "1.1", fontWeight: "700" }],
+              "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              caption: ["12px", { lineHeight: "1.4", fontWeight: "500" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .shadow-level-1 {
+        box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.04);
+      }
+      .shadow-level-2 {
+        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.08);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md text-body-md antialiased flex"
+  >
+    <!-- SideNavBar Component -->
+    <nav
+      class="h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-lowest flex flex-col p-4 gap-2 z-40 hidden md:flex"
+    >
+      <div class="mb-8 px-2 flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container"
+        >
+          <span class="material-symbols-outlined font-bold text-xl"
+            >school</span
+          >
+        </div>
+        <div>
+          <h1
+            class="text-xl font-bold text-primary font-headline-md tracking-tight"
+          >
+            SkillUp Academy
+          </h1>
+          <p class="font-caption text-caption text-on-surface-variant">
+            Micro-learning portal
+          </p>
+        </div>
+      </div>
+      <button
+        class="mb-6 w-full flex items-center justify-center gap-2 bg-primary text-on-primary rounded-lg py-3 px-4 font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors shadow-level-1 hover:shadow-level-2"
+      >
+        <span class="material-symbols-outlined">add</span>
+        New Lesson
+      </button>
+      <div class="flex-1 overflow-y-auto flex flex-col gap-1">
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-300 hover:pl-4 font-label-md text-label-md"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span>
+          Dashboard
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-300 hover:pl-4 font-label-md text-label-md"
+          href="#"
+        >
+          <span class="material-symbols-outlined">school</span>
+          My Lessons
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-300 hover:pl-4 font-label-md text-label-md"
+          href="#"
+        >
+          <span class="material-symbols-outlined">verified</span>
+          Certificates
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-300 hover:pl-4 font-label-md text-label-md"
+          href="#"
+        >
+          <span class="material-symbols-outlined">insights</span>
+          Analytics
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 bg-primary-container/10 text-primary font-semibold rounded-lg font-label-md text-label-md"
+          href="#"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >library_add</span
+          >
+          Content Manager
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-300 hover:pl-4 font-label-md text-label-md mt-auto"
+          href="#"
+        >
+          <span class="material-symbols-outlined">settings</span>
+          Settings
+        </a>
+      </div>
+      <div
+        class="mt-4 pt-4 border-t border-outline-variant flex items-center gap-3 px-2"
+      >
+        <img
+          alt="User profile"
+          class="w-8 h-8 rounded-full object-cover border border-outline-variant"
+          data-alt="headshot of a smiling professional man in a modern office environment"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgQBl-zS4UWZ3RcyhCVcJvEP9yUdiKm7YXkSw_mTiLmeVQT-HXq9dpgA_00Xxnn-QkEFiVxTt2FN2FT49WuQ1xMHNOyVSBw3rs1t8zEzBXINHZOjVaFKfnzT8on2BRzybtp8o4Wd1r1HZwViNf5SJEnQHYImzCCqasx_Yfv9cDL_0kCZayKeSJ8bzIn_OeoMrYovTEft0sl9ye7glCz0nVnLhCKPL8JI109uLKJMoqFbYTl_MPWzgZnYrs3WlkLLclaByN-hniuRI"
+        />
+        <div class="flex-1 min-w-0">
+          <p class="font-label-md text-label-md text-on-surface truncate">
+            Admin User
+          </p>
+          <p class="font-caption text-caption text-on-surface-variant truncate">
+            admin@admin.com
+          </p>
+        </div>
+        <button
+          class="text-on-surface-variant hover:text-primary transition-colors"
+        >
+          <span class="material-symbols-outlined text-xl">logout</span>
+        </button>
+      </div>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-1 md:ml-64 min-h-screen flex flex-col bg-background">
+      <!-- Top Bar (Mobile Nav + Page Header) -->
+      <header
+        class="bg-surface-container-lowest border-b border-outline-variant px-gutter py-4 flex items-center justify-between sticky top-0 z-30"
+      >
+        <div class="flex items-center gap-4">
+          <button class="md:hidden text-on-surface-variant">
+            <span class="material-symbols-outlined text-2xl">menu</span>
+          </button>
+          <h2
+            class="font-headline-sm text-headline-sm text-on-surface tracking-tight"
+          >
+            Content Manager
+          </h2>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="text-on-surface-variant hover:text-primary transition-colors relative"
+          >
+            <span class="material-symbols-outlined text-xl">notifications</span>
+            <span
+              class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"
+            ></span>
+          </button>
+          <img
+            alt="User profile"
+            class="w-8 h-8 rounded-full object-cover md:hidden border border-outline-variant"
+            data-alt="headshot of a smiling professional man in a modern office environment"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj7yWrof_ECbOgefN7b_mYyXnGmuPHAw-b091kNTf9EJIFYEJRT1IZ9_vwspiBGpqxLKDcfAzg6gOT4C3FfDdgaqR4pBdR1ISvEGFlF_2dkyOHqKqIB1l03lhtfGVj7btFpPB1qrZdw5meMm5zzvGeIHGn-c8KDHPdOeMO9K7ipmF0piBcwxwCtqNA4w61dKbTxPfpHZI54N0YsMaKCZ0aRRkHAfS9Y8oiQYCEQORMJuC16vqtNsqeYy1HFHMMjueKjpsADNxdNis"
+          />
+        </div>
+      </header>
+      <div
+        class="p-gutter flex-1 max-w-[1400px] mx-auto w-full flex flex-col gap-stack-lg"
+      >
+        <!-- Controls Area: Search, Filter, Actions -->
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1"
+        >
+          <div class="flex-1 flex flex-col sm:flex-row gap-4 w-full">
+            <!-- Search -->
+            <div class="relative flex-1 max-w-md">
+              <span
+                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline"
+                >search</span
+              >
+              <input
+                class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md bg-surface text-on-surface placeholder:text-outline transition-all"
+                placeholder="Search lessons..."
+                type="text"
+              />
+            </div>
+            <!-- Filters -->
+            <div class="flex gap-2">
+              <button
+                class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md bg-surface"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >filter_list</span
+                >
+                Filter
+              </button>
+              <select
+                class="px-4 py-2 border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md bg-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary appearance-none pr-8 relative"
+              >
+                <option value="">All Topics</option>
+                <option value="leadership">Leadership</option>
+                <option value="tech">Technology</option>
+                <option value="soft-skills">Soft Skills</option>
+              </select>
+            </div>
+          </div>
+          <!-- Primary Action Mobile (Desktop in sidebar, but good to have here too for quick access) -->
+          <button
+            class="md:hidden flex items-center gap-2 bg-primary text-on-primary rounded-lg py-2 px-4 font-label-md text-label-md shadow-level-1 whitespace-nowrap w-full sm:w-auto justify-center"
+          >
+            <span class="material-symbols-outlined text-sm">add</span>
+            New Lesson
+          </button>
+        </div>
+        <!-- Bento Grid / Data Table Alternative Layout -->
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-stack-md">
+          <!-- Quick Stats (Bento Element) -->
+          <div class="xl:col-span-1 flex flex-col gap-stack-md">
+            <div
+              class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1 border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden group"
+            >
+              <div
+                class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500"
+              >
+                <span class="material-symbols-outlined text-6xl text-primary"
+                  >menu_book</span
+                >
+              </div>
+              <div>
+                <p
+                  class="font-caption text-caption text-on-surface-variant uppercase tracking-wider font-semibold"
+                >
+                  Total Lessons
+                </p>
+                <h3
+                  class="font-display-lg text-display-lg text-on-surface mt-2"
+                >
+                  142
+                </h3>
+              </div>
+              <div
+                class="mt-4 flex items-center gap-1 text-secondary font-label-md text-label-md"
+              >
+                <span class="material-symbols-outlined text-sm"
+                  >trending_up</span
+                >
+                <span>+12 this month</span>
+              </div>
+            </div>
+            <div
+              class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1 border border-outline-variant/30 flex flex-col justify-between relative overflow-hidden group"
+            >
+              <div
+                class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500"
+              >
+                <span class="material-symbols-outlined text-6xl text-tertiary"
+                  >edit_document</span
+                >
+              </div>
+              <div>
+                <p
+                  class="font-caption text-caption text-on-surface-variant uppercase tracking-wider font-semibold"
+                >
+                  Drafts
+                </p>
+                <h3
+                  class="font-display-lg text-display-lg text-on-surface mt-2"
+                >
+                  18
+                </h3>
+              </div>
+              <div
+                class="mt-4 flex items-center gap-1 text-on-surface-variant font-label-md text-label-md"
+              >
+                <span>Needs review</span>
+              </div>
+            </div>
+          </div>
+          <!-- Main Data View (Modern Card List) -->
+          <div
+            class="xl:col-span-3 bg-surface-container-lowest rounded-xl shadow-level-1 border border-outline-variant/30 overflow-hidden flex flex-col"
+          >
+            <!-- Table Header (Hidden on small mobile, visible sm+) -->
+            <div
+              class="hidden sm:grid grid-cols-12 gap-4 p-4 border-b border-outline-variant bg-surface/50 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"
+            >
+              <div class="col-span-5">Title &amp; Topic</div>
+              <div class="col-span-3">Author</div>
+              <div class="col-span-2">Status</div>
+              <div class="col-span-2 text-right">Actions</div>
+            </div>
+            <!-- List Items -->
+            <div class="divide-y divide-outline-variant overflow-y-auto">
+              <!-- Item 1 (Published) -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 items-center hover:bg-surface-container-low/50 transition-colors group"
+              >
+                <div class="col-span-1 sm:col-span-5 flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary relative overflow-hidden"
+                  >
+                    <img
+                      alt="Lesson thumbnail"
+                      class="absolute inset-0 w-full h-full object-cover opacity-20"
+                      data-alt="abstract business meeting blur"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM9wXSZ28AI5AWUMxfzm2MXoaqLhPMEnddxi6hNdw8rHoo9DCNSXsSIXLrXpOcIO5qblXPFfwdts-henvBFfvmoOBWTIzJkACEN9HlXpvrlH1iWXhmgAswt309i1AFGGWPwzTfC1PKFzHoZYRXGupOEZuNG6prYv-DxFtL8rIkrRK5wCsjq3G9F0c6ol3nm5Wf-dgCXGfqnRBwoldyw5RnmPi9EyK6-lzKHnFVKshPaBjE-3eCXOaqTK31XCGLGAfPpx4g2HHprLg"
+                    />
+                    <span
+                      class="material-symbols-outlined relative z-10"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >groups</span
+                    >
+                  </div>
+                  <div>
+                    <h4
+                      class="font-headline-sm text-base font-semibold text-on-surface leading-tight mb-1 group-hover:text-primary transition-colors"
+                    >
+                      Effective Team Leadership Fundamentals
+                    </h4>
+                    <div class="flex items-center gap-2">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary/10 text-primary font-caption text-[10px] uppercase font-bold tracking-wider"
+                        >Leadership</span
+                      >
+                      <span class="font-caption text-caption text-outline"
+                        >15 min read</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0"
+                >
+                  <div
+                    class="hidden sm:flex w-6 h-6 rounded-full bg-surface-variant items-center justify-center text-on-surface-variant font-caption text-[10px] font-bold"
+                  >
+                    SA
+                  </div>
+                  <span class="font-body-md text-sm text-on-surface-variant"
+                    >Sarah Adams</span
+                  >
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-2 mt-2 sm:mt-0 flex sm:block justify-between items-center"
+                >
+                  <span
+                    class="sm:hidden font-label-md text-xs text-outline uppercase tracking-wider"
+                    >Status:</span
+                  >
+                  <span
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary/10 text-secondary font-label-md text-xs"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Published
+                  </span>
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-2 flex items-center justify-end gap-2 mt-4 sm:mt-0 border-t border-outline-variant sm:border-none pt-4 sm:pt-0"
+                >
+                  <button
+                    class="p-2 text-outline hover:text-primary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-1 font-label-md text-xs sm:text-[0px]"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >edit</span
+                    >
+                    <span class="sm:hidden">Edit</span>
+                  </button>
+                  <button
+                    class="p-2 text-outline hover:text-error hover:bg-error/5 rounded-lg transition-colors flex items-center gap-1 font-label-md text-xs sm:text-[0px]"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >delete</span
+                    >
+                    <span class="sm:hidden">Delete</span>
+                  </button>
+                </div>
+              </div>
+              <!-- Item 2 (Draft) -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 items-center hover:bg-surface-container-low/50 transition-colors group"
+              >
+                <div class="col-span-1 sm:col-span-5 flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-tertiary/10 flex-shrink-0 flex items-center justify-center text-tertiary relative overflow-hidden"
+                  >
+                    <span
+                      class="material-symbols-outlined relative z-10"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >code</span
+                    >
+                  </div>
+                  <div>
+                    <h4
+                      class="font-headline-sm text-base font-semibold text-on-surface leading-tight mb-1 group-hover:text-primary transition-colors"
+                    >
+                      Introduction to TypeScript for React
+                    </h4>
+                    <div class="flex items-center gap-2">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-caption text-[10px] uppercase font-bold tracking-wider"
+                        >Technology</span
+                      >
+                      <span class="font-caption text-caption text-outline"
+                        >Last edited 2h ago</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0"
+                >
+                  <div
+                    class="hidden sm:flex w-6 h-6 rounded-full bg-surface-variant items-center justify-center text-on-surface-variant font-caption text-[10px] font-bold"
+                  >
+                    JD
+                  </div>
+                  <span class="font-body-md text-sm text-on-surface-variant"
+                    >John Doe</span
+                  >
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-2 mt-2 sm:mt-0 flex sm:block justify-between items-center"
+                >
+                  <span
+                    class="sm:hidden font-label-md text-xs text-outline uppercase tracking-wider"
+                    >Status:</span
+                  >
+                  <span
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-variant text-on-surface-variant font-label-md text-xs"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                    Draft
+                  </span>
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-2 flex items-center justify-end gap-2 mt-4 sm:mt-0 border-t border-outline-variant sm:border-none pt-4 sm:pt-0"
+                >
+                  <button
+                    class="p-2 text-outline hover:text-primary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-1 font-label-md text-xs sm:text-[0px]"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >edit</span
+                    >
+                    <span class="sm:hidden">Edit</span>
+                  </button>
+                  <button
+                    class="p-2 text-outline hover:text-error hover:bg-error/5 rounded-lg transition-colors flex items-center gap-1 font-label-md text-xs sm:text-[0px]"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >delete</span
+                    >
+                    <span class="sm:hidden">Delete</span>
+                  </button>
+                </div>
+              </div>
+              <!-- Item 3 (Published) -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 items-center hover:bg-surface-container-low/50 transition-colors group"
+              >
+                <div class="col-span-1 sm:col-span-5 flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-secondary/10 flex-shrink-0 flex items-center justify-center text-secondary relative overflow-hidden"
+                  >
+                    <span
+                      class="material-symbols-outlined relative z-10"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >forum</span
+                    >
+                  </div>
+                  <div>
+                    <h4
+                      class="font-headline-sm text-base font-semibold text-on-surface leading-tight mb-1 group-hover:text-primary transition-colors"
+                    >
+                      Mastering Conflict Resolution
+                    </h4>
+                    <div class="flex items-center gap-2">
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-caption text-[10px] uppercase font-bold tracking-wider"
+                        >Soft Skills</span
+                      >
+                      <span class="font-caption text-caption text-outline"
+                        >10 min read</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-3 flex items-center gap-2 mt-2 sm:mt-0"
+                >
+                  <div
+                    class="hidden sm:flex w-6 h-6 rounded-full bg-surface-variant items-center justify-center text-on-surface-variant font-caption text-[10px] font-bold"
+                  >
+                    ML
+                  </div>
+                  <span class="font-body-md text-sm text-on-surface-variant"
+                    >Maria Lopez</span
+                  >
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-2 mt-2 sm:mt-0 flex sm:block justify-between items-center"
+                >
+                  <span
+                    class="sm:hidden font-label-md text-xs text-outline uppercase tracking-wider"
+                    >Status:</span
+                  >
+                  <span
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary/10 text-secondary font-label-md text-xs"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Published
+                  </span>
+                </div>
+                <div
+                  class="col-span-1 sm:col-span-2 flex items-center justify-end gap-2 mt-4 sm:mt-0 border-t border-outline-variant sm:border-none pt-4 sm:pt-0"
+                >
+                  <button
+                    class="p-2 text-outline hover:text-primary hover:bg-primary/5 rounded-lg transition-colors flex items-center gap-1 font-label-md text-xs sm:text-[0px]"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >edit</span
+                    >
+                    <span class="sm:hidden">Edit</span>
+                  </button>
+                  <button
+                    class="p-2 text-outline hover:text-error hover:bg-error/5 rounded-lg transition-colors flex items-center gap-1 font-label-md text-xs sm:text-[0px]"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >delete</span
+                    >
+                    <span class="sm:hidden">Delete</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Pagination / Footer -->
+            <div
+              class="p-4 border-t border-outline-variant bg-surface flex items-center justify-between text-on-surface-variant font-caption text-caption mt-auto"
+            >
+              <span>Showing 1 to 3 of 142 entries</span>
+              <div class="flex gap-1">
+                <button
+                  class="p-1 rounded hover:bg-surface-variant disabled:opacity-50"
+                  disabled=""
+                >
+                  <span class="material-symbols-outlined text-sm"
+                    >chevron_left</span
+                  >
+                </button>
+                <button
+                  class="w-7 h-7 rounded bg-primary text-on-primary font-bold flex items-center justify-center"
+                >
+                  1
+                </button>
+                <button
+                  class="w-7 h-7 rounded hover:bg-surface-variant flex items-center justify-center"
+                >
+                  2
+                </button>
+                <button
+                  class="w-7 h-7 rounded hover:bg-surface-variant flex items-center justify-center"
+                >
+                  3
+                </button>
+                <span class="w-7 h-7 flex items-center justify-center"
+                  >...</span
+                >
+                <button class="p-1 rounded hover:bg-surface-variant">
+                  <span class="material-symbols-outlined text-sm"
+                    >chevron_right</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

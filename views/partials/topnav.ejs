@@ -1,0 +1,39 @@
+<nav class="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md font-label text-sm font-medium tracking-tight fixed top-0 w-full z-50 shadow-sm dark:shadow-none border-b border-gray-100 dark:border-gray-800">
+  <div class="flex justify-between items-center h-16 px-8 max-w-full mx-auto">
+    <div class="flex items-center gap-8">
+      <a class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tighter font-display" href="/">SkillUp</a>
+      <div class="hidden md:flex gap-6 items-center">
+        <a class="<%= currentPath === '/browse' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1' : 'text-gray-600 dark:text-gray-400 hover:text-blue-500' %> hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/browse">Explorar</a>
+        <a class="<%= currentPath === '/profile' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1' : 'text-gray-600 dark:text-gray-400 hover:text-blue-500' %> hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/profile">Trilha de Aprendizado</a>
+        <a class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/profile">Certificados</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="relative hidden lg:block mr-4">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">search</span>
+        <form action="/browse" method="GET">
+          <input name="search" class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-64 text-sm transition-colors" placeholder="Buscar aulas..." type="text">
+        </form>
+      </div>
+      <% if (user) { %>
+        <button class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 p-2 rounded-full">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <a href="/profile" class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 p-2 rounded-full">
+          <% if (user.avatar) { %>
+            <img src="<%= user.avatar %>" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+          <% } else { %>
+            <span class="material-symbols-outlined">account_circle</span>
+          <% } %>
+        </a>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors ml-2 shadow-sm">Admin</a>
+        <% } %>
+        <a href="/auth/logout" class="text-gray-500 hover:text-red-500 transition-colors px-2 py-1 text-sm">Sair</a>
+      <% } else { %>
+        <a href="/auth/login" class="text-gray-600 hover:text-blue-500 transition-colors px-2 py-1 text-sm">Entrar</a>
+        <a href="/auth/register" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors ml-2 shadow-sm">Começar</a>
+      <% } %>
+    </div>
+  </div>
+</nav>

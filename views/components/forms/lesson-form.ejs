@@ -1,0 +1,70 @@
+<% const isEdit = lesson && lesson.id; %>
+<form action="/admin/content/<%= isEdit ? lesson.id + '/edit' : 'create' %>" method="POST" enctype="multipart/form-data" class="space-y-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="md:col-span-2">
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Title</label>
+      <input type="text" name="title" required value="<%= isEdit ? lesson.title : '' %>" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+    </div>
+    <div class="md:col-span-2">
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Description</label>
+      <textarea name="description" rows="4" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface"><%= isEdit ? lesson.description || '' : '' %></textarea>
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Topic</label>
+      <select name="topicId" required class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+        <option value="">Select topic...</option>
+        <% topics.forEach(t => { %>
+          <option value="<%= t.id %>" <%= isEdit && lesson.topicId == t.id ? 'selected' : '' %>><%= t.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Course</label>
+      <select name="courseId" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+        <option value="">No course (standalone)</option>
+        <% if (typeof courses !== 'undefined') { courses.forEach(c => { %>
+          <option value="<%= c.id %>" <%= isEdit && lesson.courseId == c.id ? 'selected' : '' %>><%= c.title %></option>
+        <% }); } %>
+      </select>
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Level</label>
+      <select name="level" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+        <option value="beginner" <%= isEdit && lesson.level === 'beginner' ? 'selected' : '' %>>Beginner</option>
+        <option value="intermediate" <%= isEdit && lesson.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+        <option value="advanced" <%= isEdit && lesson.level === 'advanced' ? 'selected' : '' %>>Advanced</option>
+      </select>
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Duration (min)</label>
+      <input type="number" name="duration" min="1" value="<%= isEdit ? lesson.duration : 5 %>" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Order</label>
+      <input type="number" name="order" min="0" value="<%= isEdit ? lesson.order : 0 %>" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Status</label>
+      <select name="status" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+        <option value="draft" <%= isEdit && lesson.status === 'draft' ? 'selected' : '' %>>Draft</option>
+        <option value="published" <%= isEdit && lesson.status === 'published' ? 'selected' : '' %>>Published</option>
+      </select>
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Video</label>
+      <input type="file" name="video" accept="video/*" class="w-full px-4 py-3 border border-outline-variant rounded-lg bg-surface text-sm">
+      <% if (isEdit && lesson.videoUrl) { %><p class="text-caption text-outline mt-1">Current: <%= lesson.videoUrl %></p><% } %>
+    </div>
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Thumbnail</label>
+      <input type="file" name="thumbnail" accept="image/*" class="w-full px-4 py-3 border border-outline-variant rounded-lg bg-surface text-sm">
+      <% if (isEdit && lesson.thumbnail) { %><p class="text-caption text-outline mt-1">Current: <%= lesson.thumbnail %></p><% } %>
+    </div>
+  </div>
+  <div class="flex gap-4">
+    <button type="submit" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm">
+      <i class="fas fa-save mr-2"></i><%= isEdit ? 'Update Lesson' : 'Create Lesson' %>
+    </button>
+    <a href="/admin/content" class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors">Cancel</a>
+  </div>
+</form>

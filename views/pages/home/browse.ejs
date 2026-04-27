@@ -1,0 +1,35 @@
+<%# Browse Lessons %>
+<div class="w-full max-w-container-max-width mx-auto px-gutter py-stack-lg flex flex-col gap-stack-lg">
+  <section class="flex flex-col gap-stack-md">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <h1 class="font-headline-md text-headline-md text-on-background mb-2">Explorar Aulas</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">Encontre aprendizados curtos para impulsionar suas habilidades hoje.</p>
+      </div>
+      <div class="relative w-full md:hidden">
+        <%- include('../../components/ui/search-bar', { search, action: '/browse' }) %>
+      </div>
+    </div>
+    <%- include('../../components/ui/category-chips', { topics, currentTopic }) %>
+  </section>
+
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+    <% if (lessons.length > 0) { %>
+      <% lessons.forEach((lesson, idx) => { %>
+        <% if (idx === 0 && progressMap[lesson.id] && !progressMap[lesson.id].completed) { %>
+          <%- include('../../components/cards/lesson-card-featured', { lesson, progressMap }) %>
+        <% } else { %>
+          <%- include('../../components/cards/lesson-card', { lesson, progressMap }) %>
+        <% } %>
+      <% }); %>
+    <% } else { %>
+      <div class="col-span-full text-center py-16">
+        <span class="material-symbols-outlined text-6xl text-outline-variant mb-4">search_off</span>
+        <p class="font-headline-sm text-headline-sm text-on-surface-variant">Nenhuma aula encontrada</p>
+        <p class="text-on-surface-variant mt-2">Tente ajustar seus filtros ou termos de busca.</p>
+      </div>
+    <% } %>
+  </section>
+
+  <%- include('../../components/ui/pagination', { currentPage, totalPages, baseUrl: '/browse' }) %>
+</div>

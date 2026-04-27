@@ -1,0 +1,12 @@
+node_modules/
+.env
+public/uploads/videos/*
+public/uploads/thumbnails/*
+public/uploads/avatars/*
+!public/uploads/videos/.gitkeep
+!public/uploads/thumbnails/.gitkeep
+!public/uploads/avatars/.gitkeep
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

@@ -1,0 +1,45 @@
+<article class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer md:col-span-2 relative">
+  <a href="/lessons/<%= lesson.id %>" class="block">
+    <div class="h-48 w-full bg-surface-container-high relative overflow-hidden">
+      <% if (lesson.thumbnail) { %>
+        <img alt="<%= lesson.title %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="<%= lesson.thumbnail %>">
+      <% } else { %>
+        <div class="w-full h-full bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center">
+          <span class="material-symbols-outlined text-6xl text-primary/40">play_lesson</span>
+        </div>
+      <% } %>
+      <div class="absolute top-4 left-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-caption text-caption backdrop-blur-sm">In Progress</div>
+      <div class="absolute top-4 right-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1 backdrop-blur-sm">
+        <span class="material-symbols-outlined text-[14px]">timer</span> <%= lesson.duration %> min
+      </div>
+    </div>
+    <div class="p-stack-md flex flex-col flex-grow">
+      <% if (lesson.topic) { %>
+        <span class="text-primary font-label-md text-label-md bg-primary/10 px-2 py-1 rounded self-start mb-2"><%= lesson.topic.name %></span>
+      <% } %>
+      <h3 class="font-headline-sm text-headline-sm text-on-background mb-2 group-hover:text-primary transition-colors"><%= lesson.title %></h3>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2"><%= lesson.description %></p>
+      <div class="mt-auto">
+        <% if (lesson.author) { %>
+          <div class="flex items-center gap-2 mb-3">
+            <% if (lesson.author.avatar) { %>
+              <img alt="<%= lesson.author.name %>" class="w-6 h-6 rounded-full border border-outline-variant" src="<%= lesson.author.avatar %>">
+            <% } else { %>
+              <div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-caption text-[10px]"><%= lesson.author.name.substring(0,2).toUpperCase() %></div>
+            <% } %>
+            <span class="font-caption text-caption text-on-surface-variant"><%= lesson.author.name %></span>
+          </div>
+        <% } %>
+        <% if (typeof progressMap !== 'undefined' && progressMap[lesson.id]) { %>
+          <% const pct = progressMap[lesson.id].completed ? 100 : Math.min((progressMap[lesson.id].watchedMinutes / lesson.duration) * 100, 95); %>
+          <div class="w-full bg-surface-container-highest rounded-full h-2 mb-1">
+            <div class="bg-secondary h-2 rounded-full" style="width:<%= pct %>%"></div>
+          </div>
+          <div class="flex justify-between font-caption text-caption text-on-surface-variant">
+            <span><%= Math.round(pct) %>% Complete</span><span>Resume</span>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </a>
+</article>

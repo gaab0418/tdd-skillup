@@ -1,0 +1,8 @@
+<%# stat-card.ejs - Recebe: icon, value, label, iconBg, iconColor %>
+<div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1 flex flex-col items-center sm:items-start">
+  <div class="<%= typeof iconBg !== 'undefined' ? iconBg : 'bg-primary/10' %> w-10 h-10 rounded-full flex items-center justify-center mb-3">
+    <span class="material-symbols-outlined <%= typeof iconColor !== 'undefined' ? iconColor : 'text-primary' %>"><%= icon %></span>
+  </div>
+  <span class="font-display-lg text-display-lg text-on-surface mb-1"><%= value %></span>
+  <span class="font-label-md text-label-md text-on-surface-variant"><%= label %></span>
+</div>

@@ -1,0 +1,21 @@
+<%# video-player.ejs - Recebe: lesson %>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-level-1">
+  <div class="aspect-video bg-inverse-surface relative group">
+    <% if (lesson.videoUrl) { %>
+      <video id="lesson-video" class="w-full h-full object-cover" poster="<%= lesson.thumbnail || '' %>">
+        <source src="<%= lesson.videoUrl %>" type="video/mp4">
+      </video>
+    <% } else if (lesson.thumbnail) { %>
+      <img alt="<%= lesson.title %>" class="w-full h-full object-cover opacity-80" src="<%= lesson.thumbnail %>">
+    <% } else { %>
+      <div class="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+        <span class="material-symbols-outlined text-6xl text-white/30">play_circle</span>
+      </div>
+    <% } %>
+    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+      <button onclick="document.getElementById('lesson-video')?.play()" class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+        <span class="material-symbols-outlined text-[32px]">play_arrow</span>
+      </button>
+    </div>
+  </div>
+</div>

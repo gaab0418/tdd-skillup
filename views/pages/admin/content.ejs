@@ -1,0 +1,39 @@
+<%# Content Manager %>
+<div class="flex flex-col gap-stack-lg">
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1">
+    <div class="flex-1 flex flex-col sm:flex-row gap-4 w-full">
+      <div class="relative flex-1 max-w-md">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+        <form action="/admin/content" method="GET">
+          <input name="search" value="<%= search %>" class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md bg-surface placeholder:text-outline transition-all" placeholder="Buscar aulas..." type="text">
+        </form>
+      </div>
+    </div>
+    <a href="/admin/content/create" class="flex items-center gap-2 bg-primary text-on-primary rounded-lg py-2 px-4 font-label-md text-label-md shadow-level-1 whitespace-nowrap">
+      <span class="material-symbols-outlined text-sm">add</span> Nova Aula
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 xl:grid-cols-4 gap-stack-md">
+    <div class="xl:col-span-1 flex flex-col gap-stack-md">
+      <div class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1 border border-outline-variant/30 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500">
+          <span class="material-symbols-outlined text-6xl text-primary">menu_book</span>
+        </div>
+        <p class="font-caption text-caption text-on-surface-variant uppercase tracking-wider font-semibold">Total de Aulas</p>
+        <h3 class="font-display-lg text-display-lg text-on-surface mt-2"><%= totalLessons %></h3>
+      </div>
+      <div class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1 border border-outline-variant/30 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500">
+          <span class="material-symbols-outlined text-6xl text-tertiary">edit_document</span>
+        </div>
+        <p class="font-caption text-caption text-on-surface-variant uppercase tracking-wider font-semibold">Rascunhos</p>
+        <h3 class="font-display-lg text-display-lg text-on-surface mt-2"><%= draftCount %></h3>
+      </div>
+    </div>
+    <div class="xl:col-span-3">
+      <%- include('../../components/admin/content-table', { lessons }) %>
+      <%- include('../../components/ui/pagination', { currentPage, totalPages, baseUrl: '/admin/content' }) %>
+    </div>
+  </div>
+</div>

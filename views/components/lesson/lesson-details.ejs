@@ -1,0 +1,32 @@
+<%# lesson-details.ejs - Recebe: lesson %>
+<div class="space-y-stack-md">
+  <div class="flex items-center gap-2">
+    <span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
+      <span class="material-symbols-outlined text-[14px]">timer</span> <%= lesson.duration %> min
+    </span>
+    <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
+      <span class="material-symbols-outlined text-[14px]">school</span> <%= lesson.level %>
+    </span>
+  </div>
+  <h1 class="font-headline-md text-headline-md text-on-surface"><%= lesson.title %></h1>
+  <% if (lesson.author) { %>
+    <div class="flex items-center justify-between py-4 border-y border-outline-variant/30">
+      <div class="flex items-center gap-4">
+        <% if (lesson.author.avatar) { %>
+          <img alt="<%= lesson.author.name %>" class="w-12 h-12 rounded-full object-cover" src="<%= lesson.author.avatar %>">
+        <% } else { %>
+          <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold"><%= lesson.author.name.substring(0,2).toUpperCase() %></div>
+        <% } %>
+        <div>
+          <p class="font-label-md text-label-md text-on-surface"><%= lesson.author.name %></p>
+          <% if (lesson.author.bio) { %><p class="font-caption text-caption text-outline"><%= lesson.author.bio %></p><% } %>
+        </div>
+      </div>
+    </div>
+  <% } %>
+  <% if (lesson.description) { %>
+    <div class="prose prose-sm max-w-none text-on-surface-variant font-body-md text-body-md">
+      <p><%- lesson.description %></p>
+    </div>
+  <% } %>
+</div>

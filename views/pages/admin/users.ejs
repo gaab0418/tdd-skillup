@@ -1,0 +1,71 @@
+<%# Admin - Users Management %>
+<div class="flex flex-col gap-stack-lg">
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1">
+    <div>
+      <h1 class="font-headline-md text-headline-md text-on-surface">Usuários</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-1"><%= totalUsers %> usuários registrados</p>
+    </div>
+    <form action="/admin/users" method="GET" class="relative w-full sm:w-auto">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+      <input name="search" value="<%= search %>" class="w-full sm:w-64 pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md bg-surface placeholder:text-outline transition-all" placeholder="Buscar usuários..." type="text">
+    </form>
+  </div>
+
+  <div class="bg-surface-container-lowest rounded-xl shadow-level-1 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-outline-variant/30">
+            <th class="text-left p-4 font-label-md text-label-md text-on-surface-variant">Usuário</th>
+            <th class="text-left p-4 font-label-md text-label-md text-on-surface-variant">Email</th>
+            <th class="text-left p-4 font-label-md text-label-md text-on-surface-variant">Função</th>
+            <th class="text-left p-4 font-label-md text-label-md text-on-surface-variant">Registrado em</th>
+            <th class="text-right p-4 font-label-md text-label-md text-on-surface-variant">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (users && users.length > 0) { %>
+            <% users.forEach(u => { %>
+              <tr class="border-b border-outline-variant/10 hover:bg-surface-container-low/50 transition-colors">
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <% if (u.avatar) { %>
+                      <img src="<%= u.avatar %>" alt="" class="w-9 h-9 rounded-full object-cover border border-outline-variant">
+                    <% } else { %>
+                      <div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center text-xs font-bold text-on-primary-container"><%= u.name.substring(0,2).toUpperCase() %></div>
+                    <% } %>
+                    <span class="font-label-md text-label-md text-on-surface"><%= u.name %></span>
+                  </div>
+                </td>
+                <td class="p-4 font-body-md text-body-md text-on-surface-variant"><%= u.email %></td>
+                <td class="p-4">
+                  <span class="px-2.5 py-1 rounded-full font-caption text-caption <%= u.role === 'admin' ? 'bg-primary/10 text-primary' : 'bg-surface-variant text-on-surface-variant' %>">
+                    <%= u.role %>
+                  </span>
+                </td>
+                <td class="p-4 font-caption text-caption text-on-surface-variant"><%= new Date(u.createdAt).toLocaleDateString() %></td>
+                <td class="p-4 text-right">
+                  <div class="flex items-center justify-end gap-2">
+                    <a href="/admin/users/<%= u.id %>/edit" class="p-1.5 rounded-lg text-primary hover:bg-primary/10 transition-colors" title="Edit">
+                      <span class="material-symbols-outlined text-xl">edit</span>
+                    </a>
+                    <% if (u.id !== user.id) { %>
+                      <form action="/admin/users/<%= u.id %>/delete" method="POST" onsubmit="return confirm('Excluir este usuario?')">
+                        <button type="submit" class="p-1.5 rounded-lg text-error hover:bg-error/10 transition-colors" title="Delete">
+                          <span class="material-symbols-outlined text-xl">delete</span>
+                        </button>
+                      </form>
+                    <% } %>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="5" class="p-8 text-center text-on-surface-variant">Nenhum usuário encontrado.</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%- include('../../components/ui/pagination', { currentPage, totalPages, baseUrl: '/admin/users' }) %>
+</div>

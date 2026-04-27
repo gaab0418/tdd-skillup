@@ -1,0 +1,7 @@
+<%# Create/Edit Lesson Page %>
+<div class="space-y-stack-lg">
+  <h1 class="font-headline-md text-headline-md text-on-surface"><%= lesson ? 'Editar Aula' : 'Criar Nova Aula' %></h1>
+  <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
+    <%- include('../../components/forms/lesson-form', { lesson, topics }) %>
+  </div>
+</div>

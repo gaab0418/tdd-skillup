@@ -1,0 +1,23 @@
+<%# Profile + Certificates Page %>
+<div class="flex flex-col gap-stack-lg">
+  <%- include('../../components/profile/profile-header', { profileUser }) %>
+  <%- include('../../components/profile/learning-stats', { completedLessons, totalWatched, streak }) %>
+
+  <section class="mb-stack-lg">
+    <div class="flex justify-between items-end mb-stack-md">
+      <h3 class="font-headline-sm text-headline-sm text-on-surface">Certificados Conquistados</h3>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-stack-md">
+      <% if (certificates && certificates.length > 0) { %>
+        <% certificates.forEach(cert => { %>
+          <%- include('../../components/cards/certificate-card', { certificate: cert }) %>
+        <% }); %>
+      <% } else { %>
+        <div class="col-span-full text-center py-12">
+          <span class="material-symbols-outlined text-5xl text-outline-variant mb-4">workspace_premium</span>
+          <p class="text-on-surface-variant">Nenhum certificado ainda. Conclua um tópico para ganhar um!</p>
+        </div>
+      <% } %>
+    </div>
+  </section>
+</div>

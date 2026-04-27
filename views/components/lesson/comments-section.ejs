@@ -1,0 +1,44 @@
+<%# comments-section.ejs - Recebe: lesson, user %>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1 mt-stack-lg">
+  <h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md">Discussão (<%= lesson.comments ? lesson.comments.length : 0 %>)</h3>
+  <% if (user) { %>
+    <form action="/lessons/<%= lesson.id %>/comments" method="POST" class="flex gap-4 mb-stack-lg">
+      <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md flex-shrink-0">
+        <%= user.name.substring(0,2).toUpperCase() %>
+      </div>
+      <div class="flex-1 relative">
+        <textarea name="content" class="w-full border border-outline-variant rounded-lg p-3 font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none min-h-[80px] bg-surface-container-low" placeholder="Faça uma pergunta ou compartilhe suas ideias..."></textarea>
+        <button type="submit" class="absolute bottom-3 right-3 bg-primary text-on-primary px-4 py-1.5 rounded-md font-label-md text-label-md hover:bg-blue-700">Publicar</button>
+      </div>
+    </form>
+  <% } else { %>
+    <p class="text-on-surface-variant mb-4"><a href="/auth/login" class="text-primary hover:underline">Entrar</a> para participar da discussão.</p>
+  <% } %>
+  <div class="space-y-stack-md">
+    <% if (lesson.comments && lesson.comments.length > 0) { %>
+      <% lesson.comments.forEach(comment => { %>
+        <div class="flex gap-4">
+          <% if (comment.user && comment.user.avatar) { %>
+            <img alt="<%= comment.user.name %>" class="w-10 h-10 rounded-full object-cover" src="<%= comment.user.avatar %>">
+          <% } else { %>
+            <div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-caption text-[10px] font-bold flex-shrink-0"><%= comment.user ? comment.user.name.substring(0,2).toUpperCase() : '??' %></div>
+          <% } %>
+          <div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-label-md text-label-md text-on-surface"><%= comment.user ? comment.user.name : 'Anônimo' %></span>
+              <span class="font-caption text-caption text-outline"><%= new Date(comment.createdAt).toLocaleDateString() %></span>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1"><%= comment.content %></p>
+            <div class="flex items-center gap-4 mt-2">
+              <button class="flex items-center gap-1 text-outline hover:text-primary font-caption text-caption transition-colors">
+                <span class="material-symbols-outlined text-[16px]">thumb_up</span> <%= comment.likes %>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p class="text-on-surface-variant text-center py-8">Nenhum comentário ainda. Seja o primeiro!</p>
+    <% } %>
+  </div>
+</div>

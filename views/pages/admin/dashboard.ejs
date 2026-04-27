@@ -1,0 +1,42 @@
+<%# Admin Dashboard %>
+<div class="space-y-stack-lg">
+  <!-- Metric Cards -->
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+    <%- include('../../components/cards/metric-card', { icon: 'group', iconBg: 'bg-primary-container/10', iconColor: 'text-primary', title: 'Total de Usuários', value: totalUsers.toLocaleString(), trendValue: '', trendColor: '' }) %>
+    <%- include('../../components/cards/metric-card', { icon: 'folder', iconBg: 'bg-secondary-container/20', iconColor: 'text-on-secondary-container', title: 'Cursos', value: totalCourses, trendValue: '', trendColor: '' }) %>
+    <%- include('../../components/cards/metric-card', { icon: 'menu_book', iconBg: 'bg-tertiary-container/10', iconColor: 'text-tertiary', title: 'Aulas Publicadas', value: publishedLessons, trendValue: '', trendColor: '' }) %>
+    <%- include('../../components/cards/metric-card', { icon: 'task_alt', iconBg: 'bg-primary/10', iconColor: 'text-primary', title: 'Taxa de Conclusão', value: completionRate + '%', trendValue: '', trendColor: '' }) %>
+  </section>
+
+  <!-- Quick Stats -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+    <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-label-md text-label-md text-on-surface">Certificados Emitidos</h3>
+        <span class="material-symbols-outlined text-primary">verified</span>
+      </div>
+      <span class="font-headline-md text-3xl font-bold text-on-surface"><%= totalCertificates %></span>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-label-md text-label-md text-on-surface">Rascunhos de Aulas</h3>
+        <span class="material-symbols-outlined text-tertiary">edit_note</span>
+      </div>
+      <span class="font-headline-md text-3xl font-bold text-on-surface"><%= draftLessons %></span>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-label-md text-label-md text-on-surface">Tópicos</h3>
+        <span class="material-symbols-outlined text-secondary">category</span>
+      </div>
+      <span class="font-headline-md text-3xl font-bold text-on-surface"><%= totalTopics %></span>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+    <%- include('../../components/admin/chart-area') %>
+    <%- include('../../components/admin/trending-lessons', { trendingLessons }) %>
+  </section>
+
+  <%- include('../../components/admin/activity-list', { recentActivity }) %>
+</div>
