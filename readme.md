@@ -28,8 +28,13 @@ SkillUp é uma plataforma de microaprendizado desenvolvida como projeto de facul
 
 ## Comandos Principais
 
+Subir MySQL (opcional)
 ```bash
-docker-compose up -d    # Subir MySQL (opcional)
+docker-compose up -d    
+```
+
+Iniciar Projeto
+```bash
 npm install             # Instalar dependências
 npm run seed            # Popular banco com dados de teste
 npm run dev             # Rodar em desenvolvimento (nodemon)
