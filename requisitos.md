@@ -19,6 +19,12 @@ Os requisitos funcionais definem as ações que o sistema deve ser capaz de exec
   13. RF-13 - Moderação de Comentários (Admin): O administrador deve ter poder para remover comentários inadequados da plataforma.
   14. RF-14 - Dashboard de Estatísticas (Admin): O sistema deve exibir um painel com métricas de uso, como total de usuários, lições assistidas e certificados emitidos.
   15. RF-15 - Busca Global: O sistema deve permitir a busca de lições ou tópicos por palavras-chave através de uma barra de pesquisa.
+  16. RF-16 - Avaliação de Curso: O usuário deve poder atribuir uma nota de 1 a 5 estrelas e deixar um breve feedback sobre a qualidade do conteúdo.
+  17. RF-17 - Gamificação (Medalhas): O sistema deve conceder medalhas virtuais ao usuário por marcos alcançados, como "Primeira Lição Concluída" ou "100% de Aproveitamento em Provas".
+  18. RF-18 - Gestão de Categorias (Admin): O administrador deve poder gerenciar as categorias (tags) que organizam os cursos na plataforma.
+  19. RF-19 - Modo de Visualização (Tema): O usuário deve poder alternar entre o tema claro e escuro (Dark Mode) na interface.
+  20. RF-20 - Perfil do Instrutor: O sistema deve exibir informações sobre o autor do curso, incluindo bio e foto, nas páginas de detalhes do curso.
+  21. RF-21 - Sistema de Pontuação (XP): O usuário deve acumular pontos de experiência (XP) ao assistir vídeos e interagir com comentários na plataforma.
 
 ### 2. Requisitos Não Funcionais (RNF)
 Os requisitos não funcionais definem critérios de qualidade e restrições do sistema.
@@ -38,3 +44,8 @@ Os requisitos não funcionais definem critérios de qualidade e restrições do 
   13. RNF-13 - Integridade Referencial: O banco de dados deve garantir que a exclusão de um curso remova em cascata (ou trate adequadamente) seus tópicos e lições relacionados.
   14. RNF-14 - Armazenamento de Arquivos: Os uploads de mídia (vídeos e imagens) devem ser armazenados localmente na pasta public/uploads de forma organizada.
   15. RNF-15 - Facilidade de Manutenção: O código deve ser documentado e utilizar rotas modulares para facilitar a expansão futura da plataforma.
+  16. RNF-16 - Registro de Logs: O sistema deve utilizar uma biblioteca de logging (como `morgan` ou `winston`) para registrar erros e atividades críticas do servidor.
+  17. RNF-17 - Proteção contra Força Bruta: O sistema deve implementar um limitador de requisições (`rate-limit`) nas rotas de login para evitar ataques de força bruta.
+  18. RNF-18 - Isolamento de Variáveis: Todas as chaves de API e segredos de sessão devem ser armazenados exclusivamente em arquivos `.env`, nunca fixos no código.
+  19. RNF-19 -9Cache de Assets: O sistema deve configurar cabeçalhos de cache estático para que o navegador não precise baixar imagens e CSS repetidamente.
+  20. RNF-20 20Backup Automatizado: O ambiente Docker deve possuir um volume ou script configurado para realizar backups periódicos do banco de dados MySQL.
