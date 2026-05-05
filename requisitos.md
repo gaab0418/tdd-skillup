@@ -47,5 +47,5 @@ Os requisitos não funcionais definem critérios de qualidade e restrições do 
   16. RNF-16 - Registro de Logs: O sistema deve utilizar uma biblioteca de logging (como `morgan` ou `winston`) para registrar erros e atividades críticas do servidor.
   17. RNF-17 - Proteção contra Força Bruta: O sistema deve implementar um limitador de requisições (`rate-limit`) nas rotas de login para evitar ataques de força bruta.
   18. RNF-18 - Isolamento de Variáveis: Todas as chaves de API e segredos de sessão devem ser armazenados exclusivamente em arquivos `.env`, nunca fixos no código.
-  19. RNF-19 -9Cache de Assets: O sistema deve configurar cabeçalhos de cache estático para que o navegador não precise baixar imagens e CSS repetidamente.
-  20. RNF-20 20Backup Automatizado: O ambiente Docker deve possuir um volume ou script configurado para realizar backups periódicos do banco de dados MySQL.
+  19. RNF-19 - Cache de Assets: O sistema deve configurar cabeçalhos de cache estático para que o navegador não precise baixar imagens e CSS repetidamente.
+  20. RNF-20 - Backup Automatizado: O ambiente Docker deve possuir um volume ou script configurado para realizar backups periódicos do banco de dados MySQL.
