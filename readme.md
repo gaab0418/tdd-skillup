@@ -4,6 +4,10 @@
 
 SkillUp é uma plataforma de microaprendizado desenvolvida como projeto de faculdade. Permite que usuários assistam lições curtas em vídeo, acompanhem progresso, ganhem certificados e interajam via comentários.
 
+## Requisitos do Sistema
+
+ --> [Clique Aqui](https://google.com.br) <--
+
 ## Stack
 
 - **Backend**: Express.js 4.x + EJS + express-ejs-layouts
