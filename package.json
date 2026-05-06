@@ -6,9 +6,17 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "seed": "node seeders/seed.js"
+    "seed": "node seeders/seed.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
-  "keywords": ["microlearning", "education", "express", "ejs"],
+  "keywords": [
+    "microlearning",
+    "education",
+    "express",
+    "ejs"
+  ],
   "author": "SkillUp Team",
   "license": "ISC",
   "dependencies": {
@@ -29,6 +37,7 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "vitest": "^3.2.4"
   }
 }
