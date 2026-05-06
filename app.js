@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { execSync } = require('child_process');
 
 const express = require('express');
 const path = require('path');
@@ -21,6 +22,7 @@ const adminRoutes = require('./routes/admin');
 const contentRoutes = require('./routes/content');
 const topicRoutes = require('./routes/topics');
 const userRoutes = require('./routes/users');
+const healthRoutes = require('./routes/health');
 
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
@@ -67,6 +69,7 @@ app.use('/admin', adminRoutes);
 app.use('/admin/content', contentRoutes);
 app.use('/admin/topics', topicRoutes);
 app.use('/admin/users', userRoutes);
+app.use('/api/health', healthRoutes);
 
 // ======================
 // Error Handling
@@ -90,6 +93,16 @@ app.use((err, req, res, next) => {
 // ======================
 const startServer = async () => {
   try {
+    // Rodar testes antes de iniciar o servidor
+    console.log('Executando testes antes de iniciar...');
+    try {
+      execSync('npx vitest run', { stdio: 'inherit', cwd: __dirname });
+      console.log('Todos os testes passaram!');
+    } catch (testError) {
+      console.error('Testes falharam! Servidor não será iniciado.');
+      process.exit(1);
+    }
+
     await sequelize.authenticate();
     console.log('Conexão com o banco de dados estabelecida.');
 

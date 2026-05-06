@@ -19,6 +19,12 @@ const Comment = sequelize.define('Comment', {
     allowNull: false,
     defaultValue: 0,
   },
+  parentId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: null,
+    comment: 'ID do comentário pai (para respostas)',
+  },
 }, {
   tableName: 'comments',
 });
