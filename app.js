@@ -69,7 +69,7 @@ app.use('/admin', adminRoutes);
 app.use('/admin/content', contentRoutes);
 app.use('/admin/topics', topicRoutes);
 app.use('/admin/users', userRoutes);
-app.use('/api/health', healthRoutes);
+app.use('/health', healthRoutes);
 
 // ======================
 // Error Handling
@@ -118,6 +118,9 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Só inicia o servidor se executado diretamente (não em testes)
+if (require.main === module) {
+  startServer();
+}
 
 module.exports = app;
