@@ -4,11 +4,11 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['test/**/*.{test,spec}.{js,mjs}'],
+    include: ['tests/**/*.test.js'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
-      include: ['models/**', 'controllers/**', 'middlewares/**', 'routes/**'],
+      include: ['tests/**', 'models/**', 'controllers/**', 'middlewares/**', 'routes/**'],
     },
     testTimeout: 10000,
   },
