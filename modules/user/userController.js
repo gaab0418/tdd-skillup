@@ -39,7 +39,7 @@ const userController = {
         attributes: { exclude: ['password'] },
         include: [{ model: Course, as: 'enrolledCourses' }],
       });
-      if (!editUser) { req.flash('error', 'Usuario nao encontrado.'); return res.redirect('/admin/users'); }
+      if (!editUser) { req.flash('error', 'Usuario nao encontrado.'); return res.redirect('/admin/usuarios'); }
       const allCourses = await Course.findAll({ where: { status: 'published' }, order: [['title', 'ASC']] });
       const enrolledIds = editUser.enrolledCourses.map(c => c.id);
       res.render('pages/admin/user-edit', {
@@ -49,7 +49,7 @@ const userController = {
     } catch (error) {
       console.error('Erro ao editar usuario:', error);
       req.flash('error', 'Erro ao carregar usuario.');
-      res.redirect('/admin/users');
+      res.redirect('/admin/usuarios');
     }
   },
 
@@ -57,7 +57,7 @@ const userController = {
   update: async (req, res) => {
     try {
       const editUser = await User.findByPk(req.params.id);
-      if (!editUser) { req.flash('error', 'Usuario nao encontrado.'); return res.redirect('/admin/users'); }
+      if (!editUser) { req.flash('error', 'Usuario nao encontrado.'); return res.redirect('/admin/usuarios'); }
       const { name, email, role, bio } = req.body;
       editUser.name = name; editUser.email = email;
       editUser.role = role; editUser.bio = bio;
@@ -72,11 +72,11 @@ const userController = {
       }
 
       req.flash('success', 'Usuario atualizado!');
-      return res.redirect('/admin/users');
+      return res.redirect('/admin/usuarios');
     } catch (error) {
       console.error('Erro ao atualizar usuario:', error);
       req.flash('error', 'Erro ao atualizar usuario.');
-      return res.redirect(`/admin/users/${req.params.id}/edit`);
+      return res.redirect(`/admin/usuarios/${req.params.id}/edit`);
     }
   },
 
@@ -84,18 +84,18 @@ const userController = {
   destroy: async (req, res) => {
     try {
       const editUser = await User.findByPk(req.params.id);
-      if (!editUser) { req.flash('error', 'Usuario nao encontrado.'); return res.redirect('/admin/users'); }
+      if (!editUser) { req.flash('error', 'Usuario nao encontrado.'); return res.redirect('/admin/usuarios'); }
       if (editUser.id === req.session.userId) {
         req.flash('error', 'Voce nao pode excluir sua propria conta.');
-        return res.redirect('/admin/users');
+        return res.redirect('/admin/usuarios');
       }
       await editUser.destroy();
       req.flash('success', 'Usuario excluido!');
-      return res.redirect('/admin/users');
+      return res.redirect('/admin/usuarios');
     } catch (error) {
       console.error('Erro ao excluir usuario:', error);
       req.flash('error', 'Erro ao excluir usuario.');
-      return res.redirect('/admin/users');
+      return res.redirect('/admin/usuarios');
     }
   },
 };

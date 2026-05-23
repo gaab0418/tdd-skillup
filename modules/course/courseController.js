@@ -35,11 +35,11 @@ const courseController = {
       
       await Course.create({ title, description, level: level || 'beginner', status: status || 'draft', thumbnail });
       req.flash('success', 'Curso criado com sucesso!');
-      return res.redirect('/admin/courses');
+      return res.redirect('/admin/cursos');
     } catch (error) {
       console.error('Erro ao criar curso:', error);
       req.flash('error', 'Erro ao criar curso.');
-      return res.redirect('/admin/courses/create');
+      return res.redirect('/admin/cursos/create');
     }
   },
 
@@ -47,7 +47,7 @@ const courseController = {
   edit: async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
-      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/courses'); }
+      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/cursos'); }
       res.render('pages/admin/course-form', {
         title: 'Editar Curso - SkillUp', layout: 'layouts/admin',
         course, activePage: 'courses',
@@ -55,7 +55,7 @@ const courseController = {
     } catch (error) {
       console.error('Erro ao editar curso:', error);
       req.flash('error', 'Erro ao carregar curso.');
-      res.redirect('/admin/courses');
+      res.redirect('/admin/cursos');
     }
   },
 
@@ -63,7 +63,7 @@ const courseController = {
   update: async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
-      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/courses'); }
+      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/cursos'); }
       
       const { title, description, level, status } = req.body;
       course.title = title; course.description = description; 
@@ -75,11 +75,11 @@ const courseController = {
       
       await course.save();
       req.flash('success', 'Curso atualizado!');
-      return res.redirect('/admin/courses');
+      return res.redirect('/admin/cursos');
     } catch (error) {
       console.error('Erro ao atualizar curso:', error);
       req.flash('error', 'Erro ao atualizar curso.');
-      return res.redirect(`/admin/courses/${req.params.id}/edit`);
+      return res.redirect(`/admin/cursos/${req.params.id}/edit`);
     }
   },
 
@@ -87,15 +87,15 @@ const courseController = {
   destroy: async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
-      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/courses'); }
+      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/cursos'); }
       
       await course.destroy();
       req.flash('success', 'Curso excluido!');
-      return res.redirect('/admin/courses');
+      return res.redirect('/admin/cursos');
     } catch (error) {
       console.error('Erro ao excluir curso:', error);
       req.flash('error', 'Erro ao excluir curso.');
-      return res.redirect('/admin/courses');
+      return res.redirect('/admin/cursos');
     }
   },
 };

@@ -65,11 +65,11 @@ const contentController = {
       }
       await Lesson.create(lessonData);
       req.flash('success', 'Licao criada com sucesso!');
-      return res.redirect('/admin/content');
+      return res.redirect('/admin/conteudo');
     } catch (error) {
       console.error('Erro ao criar licao:', error);
       req.flash('error', 'Erro ao criar licao.');
-      return res.redirect('/admin/content/create');
+      return res.redirect('/admin/conteudo/create');
     }
   },
 
@@ -79,7 +79,7 @@ const contentController = {
       const lesson = await Lesson.findByPk(req.params.id, {
         include: [{ model: Topic, as: 'topic' }, { model: Course, as: 'course' }],
       });
-      if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/content'); }
+      if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/conteudo'); }
       const topics = await Topic.findAll({ order: [['name', 'ASC']] });
       const courses = await Course.findAll({ where: { status: 'published' }, order: [['title', 'ASC']] });
       res.render('pages/lessons/create', {
@@ -89,7 +89,7 @@ const contentController = {
     } catch (error) {
       console.error('Erro ao editar licao:', error);
       req.flash('error', 'Erro ao carregar licao.');
-      res.redirect('/admin/content');
+      res.redirect('/admin/conteudo');
     }
   },
 
@@ -97,7 +97,7 @@ const contentController = {
   update: async (req, res) => {
     try {
       const lesson = await Lesson.findByPk(req.params.id);
-      if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/content'); }
+      if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/conteudo'); }
       const { title, description, duration, level, status, topicId, courseId, order } = req.body;
       lesson.title = title; lesson.description = description;
       lesson.duration = parseInt(duration) || 5; lesson.level = level || 'beginner';
@@ -110,11 +110,11 @@ const contentController = {
       }
       await lesson.save();
       req.flash('success', 'Licao atualizada!');
-      return res.redirect('/admin/content');
+      return res.redirect('/admin/conteudo');
     } catch (error) {
       console.error('Erro ao atualizar licao:', error);
       req.flash('error', 'Erro ao atualizar licao.');
-      return res.redirect(`/admin/content/${req.params.id}/edit`);
+      return res.redirect(`/admin/conteudo/${req.params.id}/edit`);
     }
   },
 
@@ -122,14 +122,14 @@ const contentController = {
   destroy: async (req, res) => {
     try {
       const lesson = await Lesson.findByPk(req.params.id);
-      if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/content'); }
+      if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/conteudo'); }
       await lesson.destroy();
       req.flash('success', 'Licao excluida!');
-      return res.redirect('/admin/content');
+      return res.redirect('/admin/conteudo');
     } catch (error) {
       console.error('Erro ao excluir licao:', error);
       req.flash('error', 'Erro ao excluir licao.');
-      return res.redirect('/admin/content');
+      return res.redirect('/admin/conteudo');
     }
   },
 };

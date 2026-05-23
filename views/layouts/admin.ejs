@@ -13,11 +13,13 @@
         <button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
           <span class="material-symbols-outlined">notifications</span>
         </button>
-        <% if (user && user.avatar) { %>
-          <img src="<%= user.avatar %>" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
-        <% } else if (user) { %>
-          <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold"><%= user.name.substring(0,2).toUpperCase() %></div>
-        <% } %>
+        <a href="/profile" class="block">
+          <% if (user && user.avatar) { %>
+            <img src="<%= user.avatar %>" alt="Avatar" class="w-8 h-8 rounded-full object-cover">
+          <% } else if (user) { %>
+            <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold"><%= user.name.substring(0,2).toUpperCase() %></div>
+          <% } %>
+        </a>
       </div>
     </header>
     <div class="p-gutter max-w-container-max-width mx-auto">

@@ -37,11 +37,11 @@ const topicController = {
       const { name, slug, color, icon } = req.body;
       await Topic.create({ name, slug: slug || name.toLowerCase().replace(/\s+/g, '-'), color: color || '#0050cb', icon: icon || 'school' });
       req.flash('success', 'Topico criado com sucesso!');
-      return res.redirect('/admin/topics');
+      return res.redirect('/admin/topicos');
     } catch (error) {
       console.error('Erro ao criar topico:', error);
       req.flash('error', 'Erro ao criar topico.');
-      return res.redirect('/admin/topics/create');
+      return res.redirect('/admin/topicos/create');
     }
   },
 
@@ -49,7 +49,7 @@ const topicController = {
   edit: async (req, res) => {
     try {
       const topic = await Topic.findByPk(req.params.id);
-      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topics'); }
+      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
       res.render('pages/admin/topic-form', {
         title: 'Editar Topico - SkillUp', layout: 'layouts/admin',
         topic, activePage: 'topics',
@@ -57,7 +57,7 @@ const topicController = {
     } catch (error) {
       console.error('Erro ao editar topico:', error);
       req.flash('error', 'Erro ao carregar topico.');
-      res.redirect('/admin/topics');
+      res.redirect('/admin/topicos');
     }
   },
 
@@ -65,16 +65,16 @@ const topicController = {
   update: async (req, res) => {
     try {
       const topic = await Topic.findByPk(req.params.id);
-      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topics'); }
+      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
       const { name, slug, color, icon } = req.body;
       topic.name = name; topic.slug = slug; topic.color = color; topic.icon = icon;
       await topic.save();
       req.flash('success', 'Topico atualizado!');
-      return res.redirect('/admin/topics');
+      return res.redirect('/admin/topicos');
     } catch (error) {
       console.error('Erro ao atualizar topico:', error);
       req.flash('error', 'Erro ao atualizar topico.');
-      return res.redirect(`/admin/topics/${req.params.id}/edit`);
+      return res.redirect(`/admin/topicos/${req.params.id}/edit`);
     }
   },
 
@@ -84,18 +84,18 @@ const topicController = {
       const topic = await Topic.findByPk(req.params.id, {
         include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }],
       });
-      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topics'); }
+      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
       if (topic.lessons && topic.lessons.length > 0) {
         req.flash('error', 'Nao e possivel excluir topico com licoes vinculadas.');
-        return res.redirect('/admin/topics');
+        return res.redirect('/admin/topicos');
       }
       await topic.destroy();
       req.flash('success', 'Topico excluido!');
-      return res.redirect('/admin/topics');
+      return res.redirect('/admin/topicos');
     } catch (error) {
       console.error('Erro ao excluir topico:', error);
       req.flash('error', 'Erro ao excluir topico.');
-      return res.redirect('/admin/topics');
+      return res.redirect('/admin/topicos');
     }
   },
 };
