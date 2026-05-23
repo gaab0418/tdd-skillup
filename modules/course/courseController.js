@@ -1,13 +1,10 @@
-import { Course, Topic, Lesson  } from '../../models/index.js';
-import { Op  } from 'sequelize';
+import { courseService, CourseServiceError } from './courseService.js';
 
 const courseController = {
   /** GET /admin/courses */
   index: async (req, res) => {
     try {
-      const courses = await Course.findAll({
-        order: [['title', 'ASC']],
-      });
+      const courses = await courseService.getAllCourses();
       res.render('pages/admin/courses', {
         title: 'Cursos - SkillUp Admin', layout: 'layouts/admin',
         courses, activePage: 'courses',
@@ -30,10 +27,7 @@ const courseController = {
   /** POST /admin/courses */
   store: async (req, res) => {
     try {
-      const { title, description, level, status } = req.body;
-      const thumbnail = req.files && req.files.thumbnail ? `/uploads/thumbnails/${req.files.thumbnail[0].filename}` : null;
-      
-      await Course.create({ title, description, level: level || 'beginner', status: status || 'draft', thumbnail });
+      await courseService.createCourse(req.body, req.files);
       req.flash('success', 'Curso criado com sucesso!');
       return res.redirect('/admin/cursos');
     } catch (error) {
@@ -46,15 +40,18 @@ const courseController = {
   /** GET /admin/courses/:id/edit */
   edit: async (req, res) => {
     try {
-      const course = await Course.findByPk(req.params.id);
-      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/cursos'); }
+      const course = await courseService.getCourseById(req.params.id);
       res.render('pages/admin/course-form', {
         title: 'Editar Curso - SkillUp', layout: 'layouts/admin',
         course, activePage: 'courses',
       });
     } catch (error) {
-      console.error('Erro ao editar curso:', error);
-      req.flash('error', 'Erro ao carregar curso.');
+      if (error instanceof CourseServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao editar curso:', error);
+        req.flash('error', 'Erro ao carregar curso.');
+      }
       res.redirect('/admin/cursos');
     }
   },
@@ -62,23 +59,16 @@ const courseController = {
   /** POST /admin/courses/:id */
   update: async (req, res) => {
     try {
-      const course = await Course.findByPk(req.params.id);
-      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/cursos'); }
-      
-      const { title, description, level, status } = req.body;
-      course.title = title; course.description = description; 
-      course.level = level; course.status = status;
-      
-      if (req.files && req.files.thumbnail) {
-        course.thumbnail = `/uploads/thumbnails/${req.files.thumbnail[0].filename}`;
-      }
-      
-      await course.save();
+      await courseService.updateCourse(req.params.id, req.body, req.files);
       req.flash('success', 'Curso atualizado!');
       return res.redirect('/admin/cursos');
     } catch (error) {
-      console.error('Erro ao atualizar curso:', error);
-      req.flash('error', 'Erro ao atualizar curso.');
+      if (error instanceof CourseServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao atualizar curso:', error);
+        req.flash('error', 'Erro ao atualizar curso.');
+      }
       return res.redirect(`/admin/cursos/${req.params.id}/edit`);
     }
   },
@@ -86,19 +76,19 @@ const courseController = {
   /** POST /admin/courses/:id/delete */
   destroy: async (req, res) => {
     try {
-      const course = await Course.findByPk(req.params.id);
-      if (!course) { req.flash('error', 'Curso nao encontrado.'); return res.redirect('/admin/cursos'); }
-      
-      await course.destroy();
+      await courseService.deleteCourse(req.params.id);
       req.flash('success', 'Curso excluido!');
       return res.redirect('/admin/cursos');
     } catch (error) {
-      console.error('Erro ao excluir curso:', error);
-      req.flash('error', 'Erro ao excluir curso.');
+      if (error instanceof CourseServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao excluir curso:', error);
+        req.flash('error', 'Erro ao excluir curso.');
+      }
       return res.redirect('/admin/cursos');
     }
   },
 };
 
-export default courseController;;
-
+export default courseController;

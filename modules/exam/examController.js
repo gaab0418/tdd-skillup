@@ -1,58 +1,26 @@
-import { Course, Exam, ExamQuestion, ExamAttempt, Progress, Certificate, Lesson  } from '../../models/index.js';
+import { examService, ExamServiceError } from './examService.js';
 
 const examController = {
   renderExam: async (req, res) => {
     try {
-      const courseId = req.params.id;
-      const course = await Course.findByPk(courseId, {
-        include: [
-          {
-            model: Exam,
-            as: 'exam',
-            include: [{ model: ExamQuestion, as: 'questions' }]
-          }
-        ]
-      });
-
-      if (!course || !course.exam) {
-        req.flash('error', 'Prova não encontrada para este curso.');
-        return res.redirect(`/browse/${courseId}`);
-      }
-
-      // Verifica se o usuário concluiu 100% das aulas
-      const lessons = await Lesson.findAll({ where: { courseId, status: 'published' } });
-      if (lessons.length > 0) {
-        const lessonIds = lessons.map(l => l.id);
-        const progressCount = await Progress.count({
-          where: { userId: req.session.userId, lessonId: lessonIds, completed: true }
-        });
-        
-        if (progressCount < lessons.length) {
-          req.flash('error', 'Você precisa concluir todas as aulas antes de fazer a prova.');
-          return res.redirect(`/browse/${courseId}`);
-        }
-      } else {
-        req.flash('error', 'O curso não possui aulas. Conclua as aulas para fazer a prova.');
-        return res.redirect(`/browse/${courseId}`);
-      }
-
-      // Verifica se o usuário já passou na prova
-      const passedAttempt = await ExamAttempt.findOne({
-        where: { userId: req.session.userId, examId: course.exam.id, passed: true }
-      });
-
-      if (passedAttempt) {
-        req.flash('info', 'Você já foi aprovado nesta prova!');
-        return res.redirect('/profile'); // ou outra página
-      }
+      const data = await examService.getExamForRender(req.params.id, req.session.userId);
 
       res.render('pages/course/exam', {
-        title: `Prova: ${course.exam.title} - SkillUp`,
+        title: `Prova: ${data.exam.title} - SkillUp`,
         layout: 'layouts/main',
-        course,
-        exam: course.exam
+        course: data.course,
+        exam: data.exam
       });
     } catch (error) {
+      if (error instanceof ExamServiceError) {
+        if (error.isPassed) {
+          req.flash('info', error.message);
+          return res.redirect('/profile');
+        } else {
+          req.flash('error', error.message);
+          return res.redirect(`/browse/${req.params.id}`);
+        }
+      }
       console.error(error);
       req.flash('error', 'Erro ao carregar prova.');
       res.redirect('/browse');
@@ -61,83 +29,25 @@ const examController = {
 
   submitExam: async (req, res) => {
     try {
-      const courseId = req.params.id;
-      const userId = req.session.userId;
-      const answers = req.body; // { 'question_1': 'A', 'question_2': 'B' }
-
-      const course = await Course.findByPk(courseId, {
-        include: [{
-          model: Exam,
-          as: 'exam',
-          include: [{ model: ExamQuestion, as: 'questions' }]
-        }]
-      });
-
-      if (!course || !course.exam) {
-        return res.redirect('/browse');
-      }
-
-      // Verifica se o usuário concluiu 100% das aulas
-      const lessons = await Lesson.findAll({ where: { courseId, status: 'published' } });
-      if (lessons.length > 0) {
-        const lessonIds = lessons.map(l => l.id);
-        const progressCount = await Progress.count({
-          where: { userId: req.session.userId, lessonId: lessonIds, completed: true }
-        });
-        
-        if (progressCount < lessons.length) {
-          req.flash('error', 'Você precisa concluir todas as aulas antes de fazer a prova.');
-          return res.redirect(`/browse/${courseId}`);
-        }
-      } else {
-        req.flash('error', 'O curso não possui aulas. Conclua as aulas para fazer a prova.');
-        return res.redirect(`/browse/${courseId}`);
-      }
-
-      const exam = course.exam;
-      let correctAnswers = 0;
-      const totalQuestions = exam.questions.length;
-
-      exam.questions.forEach(q => {
-        if (answers[`question_${q.id}`] === q.correctOption) {
-          correctAnswers++;
-        }
-      });
-
-      const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-      const passed = score >= exam.passingScore;
-
-      await ExamAttempt.create({
-        userId,
-        examId: exam.id,
-        score,
-        totalCorrect: correctAnswers,
-        totalQuestions,
-        passed
-      });
-
-      if (passed) {
-        // Gerar o certificado no banco
-        await Certificate.create({
-          userId,
-          courseId: course.id,
-          // se quiser atrelar topicId também, pode pegar course.topicId se disponível
-        });
-      }
+      const result = await examService.submitExamAnswers(req.params.id, req.session.userId, req.body);
 
       res.render('pages/course/exam-result', {
         title: 'Resultado da Prova',
         layout: 'layouts/main',
-        course,
-        exam,
-        score,
-        correctAnswers,
-        totalQuestions,
-        passed,
-        passingScore: exam.passingScore
+        course: result.course,
+        exam: result.exam,
+        score: result.score,
+        correctAnswers: result.correctAnswers,
+        totalQuestions: result.totalQuestions,
+        passed: result.passed,
+        passingScore: result.passingScore
       });
 
     } catch (error) {
+      if (error instanceof ExamServiceError) {
+        req.flash('error', error.message);
+        return res.redirect(`/browse/${req.params.id}`);
+      }
       console.error(error);
       req.flash('error', 'Erro ao processar a prova.');
       res.redirect(`/browse/${req.params.id}`);
@@ -145,4 +55,4 @@ const examController = {
   }
 };
 
-export default examController;;
+export default examController;

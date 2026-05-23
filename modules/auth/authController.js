@@ -1,4 +1,4 @@
-import { User  } from '../../models/index.js';
+import { authService, AuthError } from './authService.js';
 
 const authController = {
   /** GET /auth/login */
@@ -13,23 +13,7 @@ const authController = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-
-      if (!email || !password) {
-        req.flash('error', 'Preencha todos os campos.');
-        return res.redirect('/auth/login');
-      }
-
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-        req.flash('error', 'E-mail ou senha inválidos.');
-        return res.redirect('/auth/login');
-      }
-
-      const isValid = await user.comparePassword(password);
-      if (!isValid) {
-        req.flash('error', 'E-mail ou senha inválidos.');
-        return res.redirect('/auth/login');
-      }
+      const user = await authService.login(email, password);
 
       req.session.userId = user.id;
       req.flash('success', `Bem-vindo de volta, ${user.name}!`);
@@ -39,8 +23,12 @@ const authController = {
       }
       return res.redirect('/browse');
     } catch (error) {
-      console.error('Erro no login:', error);
-      req.flash('error', 'Erro interno. Tente novamente.');
+      if (error instanceof AuthError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro no login:', error);
+        req.flash('error', 'Erro interno. Tente novamente.');
+      }
       return res.redirect('/auth/login');
     }
   },
@@ -57,38 +45,18 @@ const authController = {
   register: async (req, res) => {
     try {
       const { name, email, password, confirmPassword } = req.body;
-
-      if (!name || !email || !password || !confirmPassword) {
-        req.flash('error', 'Preencha todos os campos.');
-        return res.redirect('/auth/register');
-      }
-
-      if (password !== confirmPassword) {
-        req.flash('error', 'As senhas não coincidem.');
-        return res.redirect('/auth/register');
-      }
-
-      if (password.length < 6) {
-        req.flash('error', 'A senha deve ter no mínimo 6 caracteres.');
-        return res.redirect('/auth/register');
-      }
-
-      const existingUser = await User.findOne({ where: { email } });
-      if (existingUser) {
-        req.flash('error', 'Este e-mail já está cadastrado.');
-        return res.redirect('/auth/register');
-      }
-
-      await User.create({ name, email, password });
+      await authService.register(name, email, password, confirmPassword);
 
       req.flash('success', 'Conta criada com sucesso! Faça login.');
       return res.redirect('/auth/login');
     } catch (error) {
-      console.error('Erro no registro:', error);
-      if (error.name === 'SequelizeValidationError') {
+      if (error instanceof AuthError) {
+        req.flash('error', error.message);
+      } else if (error.name === 'SequelizeValidationError') {
         const messages = error.errors.map((e) => e.message);
         req.flash('error', messages.join(', '));
       } else {
+        console.error('Erro no registro:', error);
         req.flash('error', 'Erro interno. Tente novamente.');
       }
       return res.redirect('/auth/register');
@@ -104,5 +72,4 @@ const authController = {
   },
 };
 
-export default authController;;
-
+export default authController;

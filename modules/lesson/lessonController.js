@@ -1,96 +1,31 @@
-import { Lesson, Topic, Progress, Comment, User, UserCourse, Like  } from '../../models/index.js';
+import { lessonService, LessonServiceError } from './lessonService.js';
 
 const lessonController = {
   /** GET /lessons/:id - Player da lição */
   player: async (req, res) => {
     try {
-      const lesson = await Lesson.findByPk(req.params.id, {
-        include: [
-          { model: User, as: 'author', attributes: ['id', 'name', 'avatar', 'bio'] },
-          {
-            model: Comment,
-            as: 'comments',
-            include: [{ model: User, as: 'user', attributes: ['id', 'name', 'avatar'] }],
-            order: [['createdAt', 'DESC']],
-          },
-        ],
-      });
-
-      if (!lesson || lesson.status !== 'published') {
-        req.flash('error', 'Lição não encontrada.');
-        return res.redirect('/browse');
-      }
-
-      // Verificar inscrição no curso
-      if (lesson.courseId && req.session.userId) {
-        const enrollment = await UserCourse.findOne({
-          where: { userId: req.session.userId, courseId: lesson.courseId },
-        });
-        if (!enrollment) {
-          req.flash('error', 'Você precisa se inscrever no curso para assistir esta aula.');
-          return res.redirect(`/browse/${lesson.courseId}`);
-        }
-      }
-
-      // Buscar todas as lições do mesmo curso (currículo/sidebar)
-      let curriculum = [];
-      if (lesson.courseId) {
-        curriculum = await Lesson.findAll({
-          where: { courseId: lesson.courseId, status: 'published' },
-          order: [['order', 'ASC']],
-          attributes: ['id', 'title', 'duration', 'order'],
-        });
-      } else {
-        curriculum = [lesson]; // Se for avulsa, mostra apenas ela
-      }
-
-      // Progresso do usuário
-      let userProgress = null;
-      let curriculumProgress = {};
-      if (req.session.userId) {
-        userProgress = await Progress.findOne({
-          where: { userId: req.session.userId, lessonId: lesson.id },
-        });
-
-        const allProgress = await Progress.findAll({
-          where: { userId: req.session.userId },
-        });
-        allProgress.forEach((p) => {
-          curriculumProgress[p.lessonId] = p;
-        });
-      }
-
-      // Buscar likes do usuário nos comentários desta lição
-      let userLikes = [];
-      if (req.session.userId && lesson.comments) {
-        const commentIds = lesson.comments.map(c => c.id);
-        if (commentIds.length > 0) {
-          const likes = await Like.findAll({
-            where: {
-              userId: req.session.userId,
-              targetType: 'comment',
-              targetId: commentIds,
-            },
-          });
-          userLikes = likes.map(l => l.targetId);
-        }
-      }
-
-      const completedCount = Object.values(curriculumProgress).filter((p) => p.completed).length;
+      const data = await lessonService.getLessonPlayer(req.params.id, req.session.userId);
 
       res.render('pages/lessons/player', {
-        title: `${lesson.title} - SkillUp`,
+        title: `${data.lesson.title} - SkillUp`,
         layout: 'layouts/main',
-        lesson,
-        curriculum,
-        userProgress,
-        curriculumProgress,
-        completedCount,
-        userLikes,
+        lesson: data.lesson,
+        curriculum: data.curriculum,
+        userProgress: data.userProgress,
+        curriculumProgress: data.curriculumProgress,
+        completedCount: data.completedCount,
+        userLikes: data.userLikes,
       });
     } catch (error) {
-      console.error('Erro no player:', error);
-      req.flash('error', 'Erro ao carregar lição.');
+      if (error instanceof LessonServiceError) {
+        req.flash('error', error.message);
+        if (error.courseId) {
+          return res.redirect(`/browse/${error.courseId}`);
+        }
+      } else {
+        console.error('Erro no player:', error);
+        req.flash('error', 'Erro ao carregar lição.');
+      }
       res.redirect('/browse');
     }
   },
@@ -98,24 +33,7 @@ const lessonController = {
   /** POST /lessons/:id/progress - Atualizar progresso */
   updateProgress: async (req, res) => {
     try {
-      const { completed, watchedMinutes } = req.body;
-      const [progress] = await Progress.findOrCreate({
-        where: { userId: req.session.userId, lessonId: req.params.id },
-        defaults: { completed: false, watchedMinutes: 0 },
-      });
-
-      if (completed === 'true' || completed === true) {
-        progress.completed = true;
-        progress.completedAt = new Date();
-      } else if (completed === 'false' || completed === false) {
-        progress.completed = false;
-        progress.completedAt = null;
-      }
-      if (watchedMinutes !== undefined && watchedMinutes !== null) {
-        progress.watchedMinutes = parseInt(watchedMinutes);
-      }
-
-      await progress.save();
+      const progress = await lessonService.updateProgress(req.params.id, req.session.userId, req.body);
       res.json({ success: true, progress });
     } catch (error) {
       console.error('Erro ao atualizar progresso:', error);
@@ -126,24 +44,16 @@ const lessonController = {
   /** POST /lessons/:id/comments - Adicionar comentário */
   addComment: async (req, res) => {
     try {
-      const { content } = req.body;
-
-      if (!content || content.trim() === '') {
-        req.flash('error', 'O comentário não pode ser vazio.');
-        return res.redirect(`/lessons/${req.params.id}`);
-      }
-
-      await Comment.create({
-        content: content.trim(),
-        userId: req.session.userId,
-        lessonId: req.params.id,
-      });
-
+      await lessonService.addComment(req.params.id, req.session.userId, req.body.content);
       req.flash('success', 'Comentário adicionado!');
       return res.redirect(`/lessons/${req.params.id}`);
     } catch (error) {
-      console.error('Erro ao adicionar comentário:', error);
-      req.flash('error', 'Erro ao adicionar comentário.');
+      if (error instanceof LessonServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao adicionar comentário:', error);
+        req.flash('error', 'Erro ao adicionar comentário.');
+      }
       return res.redirect(`/lessons/${req.params.id}`);
     }
   },
@@ -151,37 +61,16 @@ const lessonController = {
   /** POST /lessons/:id/comments/:commentId/like - Toggle like */
   toggleLike: async (req, res) => {
     try {
-      const { commentId } = req.params;
-      const userId = req.session.userId;
-
-      const comment = await Comment.findByPk(commentId);
-      if (!comment) {
-        return res.status(404).json({ success: false, error: 'Comentário não encontrado' });
-      }
-
-      const existingLike = await Like.findOne({
-        where: { userId, targetType: 'comment', targetId: commentId },
-      });
-
-      let liked;
-      if (existingLike) {
-        await existingLike.destroy();
-        comment.likes = Math.max(0, comment.likes - 1);
-        liked = false;
-      } else {
-        await Like.create({ userId, targetType: 'comment', targetId: commentId });
-        comment.likes = comment.likes + 1;
-        liked = true;
-      }
-
-      await comment.save();
-
-      return res.json({ success: true, liked, likeCount: comment.likes });
+      const result = await lessonService.toggleLike(req.params.commentId, req.session.userId);
+      return res.json({ success: true, liked: result.liked, likeCount: result.likeCount });
     } catch (error) {
+      if (error instanceof LessonServiceError) {
+        return res.status(404).json({ success: false, error: error.message });
+      }
       console.error('Erro ao curtir:', error);
       return res.status(500).json({ success: false, error: 'Erro ao curtir comentário' });
     }
   },
 };
 
-export default lessonController;;
+export default lessonController;

@@ -1,25 +1,11 @@
 import PDFDocument from 'pdfkit';
-import { Certificate, User, Course  } from '../../models/index.js';
+import { certificateService, CertificateServiceError } from './certificateService.js';
 import path from 'path';
 
 const certificateController = {
   downloadCertificate: async (req, res) => {
     try {
-      const certificateId = req.params.id;
-      const userId = req.session.userId;
-
-      const certificate = await Certificate.findOne({
-        where: { id: certificateId, userId },
-        include: [
-          { model: User, as: 'user' },
-          { model: Course, as: 'course' }
-        ]
-      });
-
-      if (!certificate) {
-        req.flash('error', 'Certificado não encontrado.');
-        return res.redirect('/profile');
-      }
+      const certificate = await certificateService.getCertificateForDownload(req.params.id, req.session.userId);
 
       const doc = new PDFDocument({
         layout: 'landscape',
@@ -96,6 +82,10 @@ const certificateController = {
       doc.end();
 
     } catch (error) {
+      if (error instanceof CertificateServiceError) {
+        req.flash('error', error.message);
+        return res.redirect('/profile');
+      }
       console.error('Erro ao gerar certificado:', error);
       req.flash('error', 'Erro ao gerar o PDF do certificado.');
       res.redirect('/profile');
@@ -103,4 +93,4 @@ const certificateController = {
   }
 };
 
-export default certificateController;;
+export default certificateController;

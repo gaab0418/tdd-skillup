@@ -1,16 +1,10 @@
-import { Topic, Course, Lesson  } from '../../models/index.js';
-import { Op  } from 'sequelize';
+import { topicService, TopicServiceError } from './topicService.js';
 
 const topicController = {
   /** GET /admin/topics */
   index: async (req, res) => {
     try {
-      const topics = await Topic.findAll({
-        include: [
-          { model: Course, as: 'courses', include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }] },
-        ],
-        order: [['name', 'ASC']],
-      });
+      const topics = await topicService.getAllTopics();
       res.render('pages/admin/topics', {
         title: 'Tópicos - SkillUp Admin', layout: 'layouts/admin',
         topics, activePage: 'topics',
@@ -33,8 +27,7 @@ const topicController = {
   /** POST /admin/topics */
   store: async (req, res) => {
     try {
-      const { name, slug, color, icon } = req.body;
-      await Topic.create({ name, slug: slug || name.toLowerCase().replace(/\s+/g, '-'), color: color || '#0050cb', icon: icon || 'school' });
+      await topicService.createTopic(req.body);
       req.flash('success', 'Topico criado com sucesso!');
       return res.redirect('/admin/topicos');
     } catch (error) {
@@ -47,15 +40,18 @@ const topicController = {
   /** GET /admin/topics/:id/edit */
   edit: async (req, res) => {
     try {
-      const topic = await Topic.findByPk(req.params.id);
-      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
+      const topic = await topicService.getTopicById(req.params.id);
       res.render('pages/admin/topic-form', {
         title: 'Editar Topico - SkillUp', layout: 'layouts/admin',
         topic, activePage: 'topics',
       });
     } catch (error) {
-      console.error('Erro ao editar topico:', error);
-      req.flash('error', 'Erro ao carregar topico.');
+      if (error instanceof TopicServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao editar topico:', error);
+        req.flash('error', 'Erro ao carregar topico.');
+      }
       res.redirect('/admin/topicos');
     }
   },
@@ -63,16 +59,16 @@ const topicController = {
   /** POST /admin/topics/:id */
   update: async (req, res) => {
     try {
-      const topic = await Topic.findByPk(req.params.id);
-      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
-      const { name, slug, color, icon } = req.body;
-      topic.name = name; topic.slug = slug; topic.color = color; topic.icon = icon;
-      await topic.save();
+      await topicService.updateTopic(req.params.id, req.body);
       req.flash('success', 'Topico atualizado!');
       return res.redirect('/admin/topicos');
     } catch (error) {
-      console.error('Erro ao atualizar topico:', error);
-      req.flash('error', 'Erro ao atualizar topico.');
+      if (error instanceof TopicServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao atualizar topico:', error);
+        req.flash('error', 'Erro ao atualizar topico.');
+      }
       return res.redirect(`/admin/topicos/${req.params.id}/edit`);
     }
   },
@@ -80,24 +76,19 @@ const topicController = {
   /** POST /admin/topics/:id/delete */
   destroy: async (req, res) => {
     try {
-      const topic = await Topic.findByPk(req.params.id, {
-        include: [{ model: Course, as: 'courses', attributes: ['id'] }],
-      });
-      if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
-      if (topic.courses && topic.courses.length > 0) {
-        req.flash('error', 'Nao e possivel excluir topico com cursos vinculados.');
-        return res.redirect('/admin/topicos');
-      }
-      await topic.destroy();
+      await topicService.deleteTopic(req.params.id);
       req.flash('success', 'Topico excluido!');
       return res.redirect('/admin/topicos');
     } catch (error) {
-      console.error('Erro ao excluir topico:', error);
-      req.flash('error', 'Erro ao excluir topico.');
+      if (error instanceof TopicServiceError) {
+        req.flash('error', error.message);
+      } else {
+        console.error('Erro ao excluir topico:', error);
+        req.flash('error', 'Erro ao excluir topico.');
+      }
       return res.redirect('/admin/topicos');
     }
   },
 };
 
-export default topicController;;
-
+export default topicController;
