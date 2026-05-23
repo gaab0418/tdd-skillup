@@ -4,8 +4,8 @@
       <a class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tighter font-display" href="/">SkillUp</a>
       <div class="hidden md:flex gap-6 items-center">
         <a class="<%= currentPath === '/browse' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1' : 'text-gray-600 dark:text-gray-400 hover:text-blue-500' %> hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/browse">Explorar</a>
-        <a class="<%= currentPath === '/profile' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1' : 'text-gray-600 dark:text-gray-400 hover:text-blue-500' %> hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/profile">Trilha de Aprendizado</a>
-        <a class="text-gray-600 dark:text-gray-400 hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/profile">Certificados</a>
+        <a class="<%= currentPath === '/profile' && query.tab !== 'certificates' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1' : 'text-gray-600 dark:text-gray-400 hover:text-blue-500' %> hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/profile">Trilha de Aprendizado</a>
+        <a class="<%= currentPath === '/profile' && query.tab === 'certificates' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-1' : 'text-gray-600 dark:text-gray-400 hover:text-blue-500' %> hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-200 px-2 py-1 rounded" href="/profile?tab=certificates#certificados">Certificados</a>
       </div>
     </div>
     <div class="flex items-center gap-4">

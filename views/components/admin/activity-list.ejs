@@ -1,7 +1,7 @@
 <%# activity-list.ejs - Recebe: recentActivity %>
 <section class="bg-surface-container-lowest rounded-lg shadow-level-1 border border-surface-variant overflow-hidden">
   <div class="px-stack-md py-4 border-b border-surface-variant flex justify-between items-center bg-surface-container-low/50">
-    <h3 class="font-headline-sm text-xl text-on-surface">Recent User Activity</h3>
+    <h3 class="font-headline-sm text-xl text-on-surface">Atividade Recente</h3>
   </div>
   <div class="divide-y divide-surface-variant">
     <% if (recentActivity && recentActivity.length > 0) { %>
@@ -14,16 +14,16 @@
           <% } %>
           <div class="flex-1">
             <p class="font-body-md text-body-md text-on-surface">
-              <span class="font-label-md text-label-md"><%= activity.user ? activity.user.name : 'User' %></span>
-              completed <span class="font-label-md text-label-md text-primary"><%= activity.lesson ? activity.lesson.title : 'a lesson' %></span>
+              <span class="font-label-md text-label-md"><%= activity.user ? activity.user.name : 'Usuário' %></span>
+              concluiu <span class="font-label-md text-label-md text-primary"><%= activity.lesson ? activity.lesson.title : 'uma aula' %></span>
             </p>
             <p class="font-caption text-caption text-on-surface-variant"><%= activity.completedAt ? new Date(activity.completedAt).toLocaleString() : '' %></p>
           </div>
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-caption text-caption hidden sm:block">Completed</span>
+          <span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container/20 text-on-secondary-container font-caption text-caption hidden sm:block">Concluído</span>
         </div>
       <% }); %>
     <% } else { %>
-      <p class="px-stack-md py-8 text-center text-on-surface-variant">No recent activity</p>
+      <p class="px-stack-md py-8 text-center text-on-surface-variant">Nenhuma atividade recente</p>
     <% } %>
   </div>
 </section>

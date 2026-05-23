@@ -46,6 +46,9 @@ const User = sequelize.define('User', {
   bio: {
     type: DataTypes.TEXT,
     allowNull: true,
+    validate: {
+      len: { args: [0, 500], msg: 'A biografia deve ter no máximo 500 caracteres' }
+    }
   },
 }, {
   tableName: 'users',

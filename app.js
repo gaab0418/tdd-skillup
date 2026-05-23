@@ -56,6 +56,7 @@ app.use(attachUser);
 // Variáveis globais para views
 app.use((req, res, next) => {
   res.locals.currentPath = req.path;
+  res.locals.query = req.query;
   next();
 });
 

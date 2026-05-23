@@ -33,7 +33,7 @@
     </div>
     <div>
       <label class="font-label-md text-label-md text-on-surface mb-1 block">Biografia</label>
-      <textarea name="bio" rows="3" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface"><%= editUser.bio || '' %></textarea>
+      <textarea name="bio" rows="3" maxlength="500" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface"><%= editUser.bio || '' %></textarea>
     </div>
 
     <% if (allCourses && allCourses.length > 0) { %>

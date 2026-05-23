@@ -1,8 +1,8 @@
 <%# Analytics Page %>
 <div class="flex flex-col gap-stack-lg">
   <div class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1">
-    <h1 class="font-headline-md text-headline-md text-on-surface">Analytics</h1>
-    <p class="font-body-md text-body-md text-on-surface-variant mt-1">Platform overview and metrics</p>
+    <h1 class="font-headline-md text-headline-md text-on-surface">Estatísticas</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant mt-1">Visão geral e métricas da plataforma</p>
   </div>
 
   <!-- Summary Cards -->
@@ -12,7 +12,7 @@
         <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
           <span class="material-symbols-outlined text-primary">group</span>
         </div>
-        <span class="font-label-md text-label-md text-on-surface-variant">Users</span>
+        <span class="font-label-md text-label-md text-on-surface-variant">Usuários</span>
       </div>
       <span class="font-display-lg text-3xl font-bold text-on-surface"><%= totalUsers %></span>
     </div>
@@ -21,7 +21,7 @@
         <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
           <span class="material-symbols-outlined text-secondary">folder</span>
         </div>
-        <span class="font-label-md text-label-md text-on-surface-variant">Courses</span>
+        <span class="font-label-md text-label-md text-on-surface-variant">Cursos</span>
       </div>
       <span class="font-display-lg text-3xl font-bold text-on-surface"><%= totalCourses %></span>
     </div>
@@ -30,7 +30,7 @@
         <div class="w-10 h-10 rounded-full bg-tertiary/10 flex items-center justify-center">
           <span class="material-symbols-outlined text-tertiary">play_lesson</span>
         </div>
-        <span class="font-label-md text-label-md text-on-surface-variant">Lessons</span>
+        <span class="font-label-md text-label-md text-on-surface-variant">Aulas</span>
       </div>
       <span class="font-display-lg text-3xl font-bold text-on-surface"><%= totalLessons %></span>
     </div>
@@ -39,50 +39,63 @@
         <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
           <span class="material-symbols-outlined text-primary">verified</span>
         </div>
-        <span class="font-label-md text-label-md text-on-surface-variant">Certificates</span>
+        <span class="font-label-md text-label-md text-on-surface-variant">Certificados</span>
       </div>
       <span class="font-display-lg text-3xl font-bold text-on-surface"><%= totalCertificates %></span>
     </div>
   </div>
 
-  <!-- Completion Rate -->
   <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
-    <h3 class="font-headline-sm text-lg text-on-surface mb-4">Completion Rate</h3>
+    <h3 class="font-headline-sm text-lg text-on-surface mb-4">Taxa de Conclusão</h3>
     <div class="flex items-center gap-6">
       <div class="flex-1">
         <div class="h-4 bg-surface-variant rounded-full overflow-hidden">
-          <div class="h-full bg-secondary rounded-full transition-all duration-500" style="width: <%= completionRate %>%"></div>
+          <div class="h-full bg-secondary rounded-full transition-all duration-500" data-width="<%= completionRate %>"></div>
         </div>
       </div>
       <span class="font-headline-md text-xl font-bold text-on-surface"><%= completionRate %>%</span>
     </div>
-    <p class="text-on-surface-variant text-sm mt-2"><%= completedProgress %> of <%= totalProgress %> lesson attempts completed</p>
+    <p class="text-on-surface-variant text-sm mt-2"><%= completedProgress %> de <%= totalProgress %> tentativas de aulas concluídas</p>
   </div>
 
-  <!-- Topics Breakdown -->
+  <!-- Detalhamento por Tópicos -->
   <div class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
-    <h3 class="font-headline-sm text-lg text-on-surface mb-4">Topics Breakdown</h3>
+    <h3 class="font-headline-sm text-lg text-on-surface mb-4">Detalhamento por Tópicos</h3>
     <div class="space-y-4">
       <% if (topicStats && topicStats.length > 0) { %>
         <% topicStats.forEach(t => { %>
           <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: <%= t.color %>15;">
-              <span class="material-symbols-outlined" style="color: <%= t.color %>"><%= t.icon %></span>
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center" data-bg="<%= t.color %>" data-bg-alpha="15">
+              <span class="material-symbols-outlined" data-color="<%= t.color %>"><%= t.icon %></span>
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex justify-between items-center mb-1">
                 <span class="font-label-md text-label-md text-on-surface truncate"><%= t.name %></span>
-                <span class="font-caption text-caption text-on-surface-variant"><%= t.lessonCount %> lessons</span>
+                <span class="font-caption text-caption text-on-surface-variant"><%= t.lessonCount %> aulas</span>
               </div>
               <div class="h-2 bg-surface-variant rounded-full overflow-hidden">
-                <div class="h-full rounded-full" style="width: <%= t.percentage %>%; background-color: <%= t.color %>"></div>
+                <div class="h-full rounded-full" data-width="<%= t.percentage %>" data-bg="<%= t.color %>"></div>
               </div>
             </div>
           </div>
         <% }); %>
       <% } else { %>
-        <p class="text-on-surface-variant">No topics created yet.</p>
+        <p class="text-on-surface-variant">Nenhum tópico criado ainda.</p>
       <% } %>
     </div>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll('[data-width]').forEach(el => {
+    el.style.width = el.dataset.width + '%';
+  });
+  document.querySelectorAll('[data-bg]').forEach(el => {
+    const color = el.dataset.bg;
+    const alpha = el.dataset.bgAlpha || '';
+    el.style.backgroundColor = color + alpha;
+  });
+  document.querySelectorAll('[data-color]').forEach(el => {
+    el.style.color = el.dataset.color;
+  });
+</script>

@@ -13,9 +13,15 @@
         Cursos rápidos, conduzidos por especialistas e projetados para sua rotina. Aprenda mais rápido, retenha mais e alcance seus objetivos profissionais.
       </p>
       <div class="flex flex-col sm:flex-row gap-4">
-        <a href="/auth/register" class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2">
-          Comece a Aprender <span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </a>
+        <% if (typeof user !== 'undefined' && user) { %>
+          <a href="/profile" class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+            Minha Trilha <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        <% } else { %>
+          <a href="/auth/register" class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+            Comece a Aprender <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        <% } %>
         <a href="/browse" class="border border-outline-variant text-on-surface px-8 py-4 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
           <span class="material-symbols-outlined text-sm">play_circle</span> Explorar Aulas
         </a>

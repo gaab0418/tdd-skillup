@@ -9,7 +9,7 @@
   </div>
   <div class="flex-1 text-center sm:text-left flex flex-col justify-center h-full sm:pt-2">
     <h2 class="font-headline-md text-headline-md text-on-surface mb-1"><%= profileUser.name %></h2>
-    <p class="font-body-md text-body-md text-on-surface-variant mb-4"><%= profileUser.bio || 'Aluno' %> • Membro desde <%= new Date(profileUser.createdAt).getFullYear() %></p>
+    <p class="font-body-md text-body-md text-on-surface-variant mb-4">Membro desde <%= new Date(profileUser.createdAt).getFullYear() %></p>
     <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
       <span class="bg-primary/10 text-primary font-caption text-caption px-3 py-1 rounded-full"><%= profileUser.role === 'admin' ? 'Admin' : 'Aluno Pro' %></span>
     </div>

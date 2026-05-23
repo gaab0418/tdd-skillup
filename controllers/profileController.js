@@ -52,7 +52,7 @@ const profileController = {
 
       res.render('pages/profile/index', {
         title: 'Meu Perfil - SkillUp',
-        layout: 'layouts/admin',
+        layout: 'layouts/main',
         profileUser: user,
         completedLessons,
         totalWatched,
@@ -76,7 +76,7 @@ const profileController = {
 
       res.render('pages/profile/settings', {
         title: 'Configurações - SkillUp',
-        layout: 'layouts/admin',
+        layout: 'layouts/main',
         profileUser: user,
         activePage: 'settings',
       });

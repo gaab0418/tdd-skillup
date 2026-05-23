@@ -8,6 +8,14 @@ router.use(isAuthenticated);
 
 router.get('/', profileController.index);
 router.get('/settings', profileController.settings);
-router.post('/settings', uploadAvatar.single('avatar'), profileController.updateSettings);
+router.post('/settings', (req, res, next) => {
+  uploadAvatar.single('avatar')(req, res, (err) => {
+    if (err) {
+      req.flash('error', err.message);
+      return res.redirect('/profile/settings');
+    }
+    next();
+  });
+}, profileController.updateSettings);
 
 module.exports = router;

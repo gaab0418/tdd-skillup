@@ -1,6 +1,6 @@
 <%# trending-lessons.ejs - Recebe: trendingLessons %>
 <div class="bg-surface-container-lowest rounded-lg p-stack-md shadow-level-1 border border-surface-variant">
-  <h3 class="font-headline-sm text-xl text-on-surface mb-4">Top Trending Lessons</h3>
+  <h3 class="font-headline-sm text-xl text-on-surface mb-4">Aulas em Alta</h3>
   <div class="space-y-4">
     <% if (trendingLessons && trendingLessons.length > 0) { %>
       <% trendingLessons.forEach(lesson => { %>
@@ -10,12 +10,12 @@
           </div>
           <div class="flex-1 min-w-0">
             <h4 class="font-label-md text-label-md text-on-surface truncate"><%= lesson.title %></h4>
-            <p class="font-caption text-caption text-on-surface-variant"><%= lesson.progress ? lesson.progress.length : 0 %> active learners</p>
+            <p class="font-caption text-caption text-on-surface-variant"><%= lesson.progress ? lesson.progress.length : 0 %> alunos ativos</p>
           </div>
         </div>
       <% }); %>
     <% } else { %>
-      <p class="text-on-surface-variant text-center py-4">No trending lessons</p>
+      <p class="text-on-surface-variant text-center py-4">Nenhuma aula em alta</p>
     <% } %>
   </div>
 </div>

@@ -29,7 +29,7 @@ const seed = async () => {
       email: 'user@user.com',
       password: 'user123',
       role: 'user',
-      bio: 'Regular learner',
+      bio: 'Aluno regular',
     });
 
     console.log('[OK] Users created (admin@admin.com / admin123, user@user.com / user123)');

@@ -46,12 +46,12 @@
                 <td class="p-4 font-caption text-caption text-on-surface-variant"><%= new Date(u.createdAt).toLocaleDateString() %></td>
                 <td class="p-4 text-right">
                   <div class="flex items-center justify-end gap-2">
-                    <a href="/admin/users/<%= u.id %>/edit" class="p-1.5 rounded-lg text-primary hover:bg-primary/10 transition-colors" title="Edit">
+                    <a href="/admin/users/<%= u.id %>/edit" class="p-1.5 rounded-lg text-primary hover:bg-primary/10 transition-colors" title="Editar">
                       <span class="material-symbols-outlined text-xl">edit</span>
                     </a>
                     <% if (u.id !== user.id) { %>
                       <form action="/admin/users/<%= u.id %>/delete" method="POST" onsubmit="return confirm('Excluir este usuario?')">
-                        <button type="submit" class="p-1.5 rounded-lg text-error hover:bg-error/10 transition-colors" title="Delete">
+                        <button type="submit" class="p-1.5 rounded-lg text-error hover:bg-error/10 transition-colors" title="Excluir">
                           <span class="material-symbols-outlined text-xl">delete</span>
                         </button>
                       </form>

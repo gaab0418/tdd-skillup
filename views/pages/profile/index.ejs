@@ -1,9 +1,13 @@
 <%# Profile + Certificates Page %>
-<div class="flex flex-col gap-stack-lg">
+<div class="w-full max-w-container-max-width mx-auto px-gutter py-stack-lg flex flex-col gap-stack-lg">
   <%- include('../../components/profile/profile-header', { profileUser }) %>
   <%- include('../../components/profile/learning-stats', { completedLessons, totalWatched, streak }) %>
 
-  <section class="mb-stack-lg">
+  <section class="mb-stack-lg bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1">
+    <h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Sobre mim</h3>
+    <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-wrap break-words break-all"><%= profileUser.bio ? profileUser.bio : 'Nenhuma biografia informada.' %></p>
+  </section>
+  <section id="certificados" class="mb-stack-lg">
     <div class="flex justify-between items-end mb-stack-md">
       <h3 class="font-headline-sm text-headline-sm text-on-surface">Certificados Conquistados</h3>
     </div>
