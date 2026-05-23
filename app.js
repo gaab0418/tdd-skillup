@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { execSync } = require('child_process');
 
 const express = require('express');
 const path = require('path');
@@ -11,19 +10,18 @@ const expressLayouts = require('express-ejs-layouts');
 const sessionConfig = require('./config/session');
 const flashMiddleware = require('./middlewares/flash');
 const { attachUser } = require('./middlewares/auth');
-const { sequelize } = require('./models');
 
 // Rotas
-const indexRoutes = require('./routes/index');
-const authRoutes = require('./routes/auth');
-const lessonRoutes = require('./routes/lessons');
-const profileRoutes = require('./routes/profile');
-const adminRoutes = require('./routes/admin');
-const contentRoutes = require('./routes/content');
-const topicRoutes = require('./routes/topics');
-const userRoutes = require('./routes/users');
-const courseRoutes = require('./routes/courses');
-const healthRoutes = require('./routes/health');
+const indexRoutes = require('./modules/core/index');
+const healthRoutes = require('./modules/core/health');
+const authRoutes = require('./modules/auth/auth');
+const lessonRoutes = require('./modules/lesson/lessons');
+const profileRoutes = require('./modules/user/profile');
+const userRoutes = require('./modules/user/users');
+const adminRoutes = require('./modules/admin/admin');
+const contentRoutes = require('./modules/admin/content');
+const topicRoutes = require('./modules/topic/topics');
+const courseRoutes = require('./modules/course/courses');
 
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
@@ -90,40 +88,5 @@ app.use((err, req, res, next) => {
   console.error('Erro:', err);
   res.status(500).send('Erro interno do servidor');
 });
-
-// ======================
-// Start Server
-// ======================
-const startServer = async () => {
-  try {
-    // Rodar testes antes de iniciar o servidor
-    console.log('Executando testes antes de iniciar...');
-    try {
-      execSync('npx vitest run', { stdio: 'inherit', cwd: __dirname });
-      console.log('Todos os testes passaram!');
-    } catch (testError) {
-      console.error('Testes falharam! Servidor não será iniciado.');
-      process.exit(1);
-    }
-
-    await sequelize.authenticate();
-    console.log('Conexão com o banco de dados estabelecida.');
-
-    await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
-    console.log('Modelos sincronizados com o banco de dados.');
-
-    app.listen(PORT, () => {
-      console.log(`SkillUp rodando em http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error('Erro ao iniciar servidor:', error);
-    process.exit(1);
-  }
-};
-
-// Só inicia o servidor se executado diretamente (não em testes)
-if (require.main === module) {
-  startServer();
-}
 
 module.exports = app;

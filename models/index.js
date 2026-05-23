@@ -1,12 +1,12 @@
 const sequelize = require('../config/database');
-const User = require('./User');
-const Topic = require('./Topic');
-const Course = require('./Course');
-const Lesson = require('./Lesson');
-const Progress = require('./Progress');
-const Certificate = require('./Certificate');
-const Comment = require('./Comment');
-const UserCourse = require('./UserCourse');
+const User = require('../modules/user/User');
+const Topic = require('../modules/topic/Topic');
+const Course = require('../modules/course/Course');
+const Lesson = require('../modules/lesson/Lesson');
+const Progress = require('../modules/exam/Progress');
+const Certificate = require('../modules/gamification/Certificate');
+const Comment = require('../modules/interaction/Comment');
+const UserCourse = require('../modules/course/UserCourse');
 
 // =============================================
 // Associacoes
