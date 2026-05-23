@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config.js';
 import { sequelize,
   User,
   Topic,
@@ -21,7 +20,7 @@ const seed = async () => {
       email: 'admin@admin.com',
       password: 'admin123',
       role: 'admin',
-      bio: 'Platform Administrator',
+      bio: 'Administrador da Plataforma',
     });
 
     const userDefault = await User.create({
@@ -36,8 +35,8 @@ const seed = async () => {
 
     // ======= TOPIC =======
     const techTopic = await Topic.create({
-      name: 'Technology',
-      slug: 'tech',
+      name: 'Tecnologia',
+      slug: 'tecnologia',
       color: '#0050cb',
       icon: 'code',
     });
@@ -46,8 +45,8 @@ const seed = async () => {
 
     // ======= COURSE =======
     const reactCourse = await Course.create({
-      title: 'React Fundamentals',
-      description: 'Learn the core concepts of React.js from scratch.',
+      title: 'Fundamentos do React',
+      description: 'Aprenda os conceitos principais do React.js do zero.',
       level: 'beginner',
       status: 'published',
       topicId: techTopic.id,
@@ -57,13 +56,13 @@ const seed = async () => {
 
     // ======= LESSON =======
     await Lesson.create({
-      title: 'Introduction to React',
-      description: 'Learn the basics of React.js, including components, JSX, and the virtual DOM.',
+      title: 'Introdução ao React',
+      description: 'Aprenda o básico do React.js, incluindo componentes, JSX e o DOM virtual.',
       videoUrl: '/uploads/videos/sample.mp4',
       duration: 8,
       level: 'beginner',
       status: 'published',
-      topicId: techTopic.id,
+
       courseId: reactCourse.id,
       authorId: admin.id,
       order: 1,

@@ -7,8 +7,7 @@ const topicController = {
     try {
       const topics = await Topic.findAll({
         include: [
-          { model: Course, as: 'courses', attributes: ['id'] },
-          { model: Lesson, as: 'lessons', attributes: ['id'] },
+          { model: Course, as: 'courses', include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }] },
         ],
         order: [['name', 'ASC']],
       });
@@ -82,11 +81,11 @@ const topicController = {
   destroy: async (req, res) => {
     try {
       const topic = await Topic.findByPk(req.params.id, {
-        include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }],
+        include: [{ model: Course, as: 'courses', attributes: ['id'] }],
       });
       if (!topic) { req.flash('error', 'Topico nao encontrado.'); return res.redirect('/admin/topicos'); }
-      if (topic.lessons && topic.lessons.length > 0) {
-        req.flash('error', 'Nao e possivel excluir topico com licoes vinculadas.');
+      if (topic.courses && topic.courses.length > 0) {
+        req.flash('error', 'Nao e possivel excluir topico com cursos vinculados.');
         return res.redirect('/admin/topicos');
       }
       await topic.destroy();

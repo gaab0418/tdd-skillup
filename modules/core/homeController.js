@@ -95,6 +95,7 @@ const homeController = {
 
       let isEnrolled = false;
       let userProgress = {};
+      let isCourseCompleted = false;
       if (req.session.userId) {
         const enrollment = await UserCourse.findOne({
           where: { userId: req.session.userId, courseId: course.id },
@@ -109,6 +110,10 @@ const homeController = {
           progressRecords.forEach(p => {
             userProgress[p.lessonId] = true;
           });
+          
+          if (progressRecords.length === course.lessons.length) {
+            isCourseCompleted = true;
+          }
         }
       }
 
@@ -123,6 +128,7 @@ const homeController = {
         lessonCount: sortedLessons.length,
         topicLessons: sortedLessons,
         userProgress,
+        isCourseCompleted,
       });
     } catch (error) {
       console.error('Erro no detalhe do curso:', error);

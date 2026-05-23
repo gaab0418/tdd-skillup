@@ -29,9 +29,7 @@ Course.belongsTo(Topic, { foreignKey: 'topicId', as: 'topic' });
 Course.hasMany(Lesson, { foreignKey: 'courseId', as: 'lessons' });
 Lesson.belongsTo(Course, { foreignKey: 'courseId', as: 'course' });
 
-// Topic 1:N Lesson (mantido para filtro rapido)
-Topic.hasMany(Lesson, { foreignKey: 'topicId', as: 'lessons' });
-Lesson.belongsTo(Topic, { foreignKey: 'topicId', as: 'topic' });
+// Relacionamento Topic e Lesson removido a pedido
 
 // User 1:N Progress
 User.hasMany(Progress, { foreignKey: 'userId', as: 'progress' });

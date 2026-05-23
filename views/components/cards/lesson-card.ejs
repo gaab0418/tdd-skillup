@@ -16,8 +16,10 @@
       <% } %>
     </div>
     <div class="p-stack-md flex flex-col flex-grow">
-      <% if (lesson.topic) { %>
-        <span class="text-primary font-label-md text-label-md bg-primary/10 px-2 py-1 rounded self-start mb-2" style="color:<%= lesson.topic.color %>; background-color:<%= lesson.topic.color %>15"><%= lesson.topic.name %></span>
+      <% if (lesson.course && lesson.course.topic) { %>
+        <span class="text-primary font-label-md text-label-md bg-primary/10 px-2 py-1 rounded self-start mb-2" style="color:<%= lesson.course.topic.color %>; background-color:<%= lesson.course.topic.color %>15"><%= lesson.course.topic.name %></span>
+      <% } else if (lesson.course) { %>
+        <span class="text-primary font-label-md text-label-md bg-primary/10 px-2 py-1 rounded self-start mb-2"><%= lesson.course.title %></span>
       <% } %>
       <h3 class="font-headline-sm text-[20px] leading-tight text-on-background mb-2 group-hover:text-primary transition-colors"><%= lesson.title %></h3>
       <div class="mt-auto pt-4">

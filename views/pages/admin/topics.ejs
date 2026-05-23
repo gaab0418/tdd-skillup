@@ -25,9 +25,17 @@
             <div class="w-3 h-3 rounded-full border-2" data-bg="<%= topic.color %>" data-border="<%= topic.color %>"></div>
           </div>
           <div class="flex items-center gap-4 mb-4 text-on-surface-variant">
+            <% 
+              let totalLessons = 0;
+              if (topic.courses) {
+                topic.courses.forEach(c => {
+                  if (c.lessons) totalLessons += c.lessons.length;
+                });
+              }
+            %>
             <span class="font-caption text-caption flex items-center gap-1">
               <span class="material-symbols-outlined text-sm">menu_book</span>
-              <%= topic.lessons ? topic.lessons.length : 0 %> aulas
+              <%= totalLessons %> aulas
             </span>
             <span class="font-caption text-caption flex items-center gap-1">
               <span class="material-symbols-outlined text-sm">folder</span>

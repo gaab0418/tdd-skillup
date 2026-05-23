@@ -12,13 +12,13 @@
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 p-4 items-center hover:bg-surface-container-low/50 transition-colors group">
           <div class="col-span-1 sm:col-span-5 flex items-start gap-4">
             <div class="w-12 h-12 rounded-lg bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary">
-              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1"><%= lesson.topic ? lesson.topic.icon : 'school' %></span>
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1"><%= lesson.course && lesson.course.topic ? lesson.course.topic.icon : 'play_circle' %></span>
             </div>
             <div>
               <h4 class="font-label-md text-base font-semibold text-on-surface leading-tight mb-1 group-hover:text-primary transition-colors"><%= lesson.title %></h4>
               <div class="flex items-center gap-2">
-                <% if (lesson.topic) { %>
-                  <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary/10 text-primary font-caption text-[10px] uppercase font-bold tracking-wider"><%= lesson.topic.name %></span>
+                <% if (lesson.course) { %>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary/10 text-primary font-caption text-[10px] uppercase font-bold tracking-wider"><%= lesson.course.title %></span>
                 <% } %>
                 <span class="font-caption text-caption text-outline"><%= lesson.duration %> min</span>
               </div>

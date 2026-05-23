@@ -1,4 +1,4 @@
-import { Course, Exam, ExamQuestion, ExamAttempt, Progress, Certificate  } from '../../models/index.js';
+import { Course, Exam, ExamQuestion, ExamAttempt, Progress, Certificate, Lesson  } from '../../models/index.js';
 
 const examController = {
   renderExam: async (req, res) => {
@@ -16,6 +16,23 @@ const examController = {
 
       if (!course || !course.exam) {
         req.flash('error', 'Prova não encontrada para este curso.');
+        return res.redirect(`/browse/${courseId}`);
+      }
+
+      // Verifica se o usuário concluiu 100% das aulas
+      const lessons = await Lesson.findAll({ where: { courseId, status: 'published' } });
+      if (lessons.length > 0) {
+        const lessonIds = lessons.map(l => l.id);
+        const progressCount = await Progress.count({
+          where: { userId: req.session.userId, lessonId: lessonIds, completed: true }
+        });
+        
+        if (progressCount < lessons.length) {
+          req.flash('error', 'Você precisa concluir todas as aulas antes de fazer a prova.');
+          return res.redirect(`/browse/${courseId}`);
+        }
+      } else {
+        req.flash('error', 'O curso não possui aulas. Conclua as aulas para fazer a prova.');
         return res.redirect(`/browse/${courseId}`);
       }
 
@@ -58,6 +75,23 @@ const examController = {
 
       if (!course || !course.exam) {
         return res.redirect('/browse');
+      }
+
+      // Verifica se o usuário concluiu 100% das aulas
+      const lessons = await Lesson.findAll({ where: { courseId, status: 'published' } });
+      if (lessons.length > 0) {
+        const lessonIds = lessons.map(l => l.id);
+        const progressCount = await Progress.count({
+          where: { userId: req.session.userId, lessonId: lessonIds, completed: true }
+        });
+        
+        if (progressCount < lessons.length) {
+          req.flash('error', 'Você precisa concluir todas as aulas antes de fazer a prova.');
+          return res.redirect(`/browse/${courseId}`);
+        }
+      } else {
+        req.flash('error', 'O curso não possui aulas. Conclua as aulas para fazer a prova.');
+        return res.redirect(`/browse/${courseId}`);
       }
 
       const exam = course.exam;

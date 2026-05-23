@@ -26,12 +26,10 @@ const contentController = {
       const offset = (page - 1) * limit;
       const where = {};
       if (search) where.title = { [Op.like]: `%${search}%` };
-      if (topic) where.topicId = topic;
 
       const { rows: lessons, count } = await Lesson.findAndCountAll({
         where,
         include: [
-          { model: Topic, as: 'topic' },
           { model: Course, as: 'course', attributes: ['id', 'title'] },
           { model: User, as: 'author', attributes: ['id', 'name', 'avatar'] },
         ],
@@ -68,11 +66,11 @@ const contentController = {
   /** POST /admin/content/create */
   store: async (req, res) => {
     try {
-      const { title, description, duration, level, status, topicId, courseId, order } = req.body;
+      const { title, description, duration, level, status, courseId, order } = req.body;
       const lessonData = {
         title, description, duration: parseInt(duration) || 5,
         level: level || 'beginner', status: status || 'draft',
-        topicId, courseId: courseId || null,
+        courseId: courseId || null,
         authorId: req.session.userId, order: parseInt(order) || 0,
       };
 
@@ -109,7 +107,7 @@ const contentController = {
   edit: async (req, res) => {
     try {
       const lesson = await Lesson.findByPk(req.params.id, {
-        include: [{ model: Topic, as: 'topic' }, { model: Course, as: 'course' }],
+        include: [{ model: Course, as: 'course' }],
       });
       if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/conteudo'); }
       const topics = await Topic.findAll({ order: [['name', 'ASC']] });
@@ -130,10 +128,10 @@ const contentController = {
     try {
       const lesson = await Lesson.findByPk(req.params.id);
       if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/conteudo'); }
-      const { title, description, duration, level, status, topicId, courseId, order } = req.body;
+      const { title, description, duration, level, status, courseId, order } = req.body;
       lesson.title = title; lesson.description = description;
       lesson.level = level || 'beginner';
-      lesson.status = status || 'draft'; lesson.topicId = topicId;
+      lesson.status = status || 'draft';
       lesson.courseId = courseId || null;
       lesson.order = parseInt(order) || 0;
       

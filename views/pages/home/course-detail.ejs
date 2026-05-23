@@ -69,12 +69,17 @@
                   Ir para a Trilha
                 </a>
                 <% if (course.exam) { %>
+                  <% if (typeof isCourseCompleted !== 'undefined' && isCourseCompleted) { %>
                   <a href="/browse/<%= course.id %>/prova"
                     class="block w-full text-center border border-primary text-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-colors mb-3">
-                    <span class="material-symbols-outlined align-middle text-sm mr-1">assignment</span> Fazer Prova
-                    Final
+                    <span class="material-symbols-outlined align-middle text-sm mr-1">assignment</span> Fazer Prova Final
                   </a>
+                  <% } else { %>
+                  <div class="block w-full text-center border border-outline-variant text-outline-variant py-3 rounded-lg font-label-md text-label-md mb-3 opacity-70 cursor-not-allowed" title="Conclua todas as aulas para liberar a prova">
+                    <span class="material-symbols-outlined align-middle text-sm mr-1">lock</span> Fazer Prova Final
+                  </div>
                   <% } %>
+                <% } %>
                     <form action="/browse/<%= course.id %>/unenroll" method="POST" class="text-center">
                       <button type="submit"
                         class="text-error hover:text-error-container text-sm font-medium transition-colors"

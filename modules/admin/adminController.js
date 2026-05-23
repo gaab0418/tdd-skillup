@@ -18,7 +18,7 @@ const adminController = {
         include: [
           { model: User, as: 'user', attributes: ['id', 'name', 'avatar'] },
           { model: Lesson, as: 'lesson', attributes: ['id', 'title'],
-            include: [{ model: Topic, as: 'topic', attributes: ['name'] }] },
+            include: [{ model: Course, as: 'course', include: [{ model: Topic, as: 'topic', attributes: ['name'] }] }] },
         ],
         order: [['completedAt', 'DESC']],
         limit: 10,
@@ -26,7 +26,7 @@ const adminController = {
 
       const trendingLessons = await Lesson.findAll({
         where: { status: 'published' },
-        include: [{ model: Topic, as: 'topic' }, { model: Progress, as: 'progress' }],
+        include: [{ model: Course, as: 'course', include: [{ model: Topic, as: 'topic' }] }, { model: Progress, as: 'progress' }],
         limit: 5,
       });
 
@@ -119,16 +119,33 @@ const adminController = {
 
       // --- Dados para o Grafico de Distribuicao de Topicos ---
       const topics = await Topic.findAll({
-        include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }],
+        include: [
+          { 
+            model: Course, 
+            as: 'courses', 
+            include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }] 
+          }
+        ],
         order: [['name', 'ASC']],
       });
-      const maxLessons = Math.max(...topics.map(t => t.lessons.length), 1);
-      const topicStats = topics.map(t => ({
-        name: t.name,
-        color: t.color,
-        icon: t.icon,
-        lessonCount: t.lessons.length,
-        percentage: Math.round((t.lessons.length / maxLessons) * 100),
+      const topicStatsData = topics.map(t => {
+        let lessonCount = 0;
+        if (t.courses) {
+           t.courses.forEach(c => {
+             if (c.lessons) lessonCount += c.lessons.length;
+           });
+        }
+        return {
+          name: t.name,
+          color: t.color,
+          icon: t.icon,
+          lessonCount,
+        };
+      });
+      const maxLessons = Math.max(...topicStatsData.map(t => t.lessonCount), 1);
+      const topicStats = topicStatsData.map(t => ({
+        ...t,
+        percentage: Math.round((t.lessonCount / maxLessons) * 100),
       }));
 
       res.render('pages/admin/dashboard', {
@@ -157,17 +174,34 @@ const adminController = {
       const completionRate = totalProgress > 0 ? ((completedProgress / totalProgress) * 100).toFixed(1) : 0;
 
       const topics = await Topic.findAll({
-        include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }],
+        include: [
+          { 
+            model: Course, 
+            as: 'courses', 
+            include: [{ model: Lesson, as: 'lessons', attributes: ['id'] }] 
+          }
+        ],
         order: [['name', 'ASC']],
       });
 
-      const maxLessons = Math.max(...topics.map(t => t.lessons.length), 1);
-      const topicStats = topics.map(t => ({
-        name: t.name,
-        color: t.color,
-        icon: t.icon,
-        lessonCount: t.lessons.length,
-        percentage: Math.round((t.lessons.length / maxLessons) * 100),
+      const topicStatsData = topics.map(t => {
+        let lessonCount = 0;
+        if (t.courses) {
+           t.courses.forEach(c => {
+             if (c.lessons) lessonCount += c.lessons.length;
+           });
+        }
+        return {
+          name: t.name,
+          color: t.color,
+          icon: t.icon,
+          lessonCount,
+        };
+      });
+      const maxLessons = Math.max(...topicStatsData.map(t => t.lessonCount), 1);
+      const topicStats = topicStatsData.map(t => ({
+        ...t,
+        percentage: Math.round((t.lessonCount / maxLessons) * 100),
       }));
 
       res.render('pages/admin/analytics', {

@@ -6,7 +6,6 @@ const lessonController = {
     try {
       const lesson = await Lesson.findByPk(req.params.id, {
         include: [
-          { model: Topic, as: 'topic' },
           { model: User, as: 'author', attributes: ['id', 'name', 'avatar', 'bio'] },
           {
             model: Comment,
@@ -33,12 +32,17 @@ const lessonController = {
         }
       }
 
-      // Buscar todas as lições do mesmo tópico (currículo/sidebar)
-      const curriculum = await Lesson.findAll({
-        where: { topicId: lesson.topicId, status: 'published' },
-        order: [['order', 'ASC']],
-        attributes: ['id', 'title', 'duration', 'order'],
-      });
+      // Buscar todas as lições do mesmo curso (currículo/sidebar)
+      let curriculum = [];
+      if (lesson.courseId) {
+        curriculum = await Lesson.findAll({
+          where: { courseId: lesson.courseId, status: 'published' },
+          order: [['order', 'ASC']],
+          attributes: ['id', 'title', 'duration', 'order'],
+        });
+      } else {
+        curriculum = [lesson]; // Se for avulsa, mostra apenas ela
+      }
 
       // Progresso do usuário
       let userProgress = null;
