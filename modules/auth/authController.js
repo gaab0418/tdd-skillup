@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+import { User  } from '../../models/index.js';
 
 const authController = {
   /** GET /auth/login */
@@ -104,5 +104,5 @@ const authController = {
   },
 };
 
-module.exports = authController;
+export default authController;;
 

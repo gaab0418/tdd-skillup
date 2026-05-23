@@ -1,4 +1,4 @@
-const { Course, Exam, ExamQuestion, ExamAttempt, Progress, Certificate } = require('../../models');
+import { Course, Exam, ExamQuestion, ExamAttempt, Progress, Certificate  } from '../../models/index.js';
 
 const examController = {
   renderExam: async (req, res) => {
@@ -111,4 +111,4 @@ const examController = {
   }
 };
 
-module.exports = examController;
+export default examController;;

@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const topicController = require('./topicController');
-const { isAuthenticated, isAdmin } = require('../../middlewares/auth');
+import topicController from './topicController.js';
+import { isAuthenticated, isAdmin  } from '../../middlewares/auth.js';
 
 router.use(isAuthenticated, isAdmin);
 
@@ -12,5 +12,5 @@ router.get('/:id/editar', topicController.edit);
 router.post('/:id', topicController.update);
 router.post('/:id/excluir', topicController.destroy);
 
-module.exports = router;
+export default router;;
 

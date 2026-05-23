@@ -1,9 +1,10 @@
-const { User } = require('../models');
+import db from '../models/index.js';
+const { User } = db;
 
 /**
  * Middleware que verifica se o usuário está autenticado
  */
-const isAuthenticated = (req, res, next) => {
+export const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.userId) {
     return next();
   }
@@ -14,7 +15,7 @@ const isAuthenticated = (req, res, next) => {
 /**
  * Middleware que verifica se o usuário é admin
  */
-const isAdmin = (req, res, next) => {
+export const isAdmin = (req, res, next) => {
   if (req.session && req.session.userId && res.locals.user && res.locals.user.role === 'admin') {
     return next();
   }
@@ -25,7 +26,7 @@ const isAdmin = (req, res, next) => {
 /**
  * Middleware global que anexa o usuário logado em res.locals
  */
-const attachUser = async (req, res, next) => {
+export const attachUser = async (req, res, next) => {
   res.locals.user = null;
   if (req.session && req.session.userId) {
     try {
@@ -44,4 +45,3 @@ const attachUser = async (req, res, next) => {
   next();
 };
 
-module.exports = { isAuthenticated, isAdmin, attachUser };

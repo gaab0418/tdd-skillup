@@ -1,12 +1,12 @@
-require('dotenv').config();
-const {
-  sequelize,
+import dotenv from 'dotenv';
+dotenv.config();
+import { sequelize,
   User,
   Topic,
   Course,
   Lesson,
   UserCourse,
-} = require('../models');
+ } from '../models/index.js';
 
 const seed = async () => {
   try {

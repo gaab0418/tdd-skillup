@@ -1,12 +1,18 @@
-const { Lesson, Topic, Course, User } = require('../../models');
-const { Op } = require('sequelize');
-const path = require('path');
+import { Lesson, Topic, Course, User  } from '../../models/index.js';
+import { Op  } from 'sequelize';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let getVideoDurationInSeconds;
 let ffprobe;
 try {
-  getVideoDurationInSeconds = require('get-video-duration').getVideoDurationInSeconds;
-  ffprobe = require('ffprobe-static');
+  const gvd = await import('get-video-duration');
+  getVideoDurationInSeconds = gvd.getVideoDurationInSeconds;
+  const ff = await import('ffprobe-static');
+  ffprobe = ff.default || ff;
 } catch (err) {
   console.warn('Dependências de duração de vídeo não instaladas. A duração será fixa.');
 }
@@ -183,4 +189,4 @@ const contentController = {
   },
 };
 
-module.exports = contentController;
+export default contentController;;

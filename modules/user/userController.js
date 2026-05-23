@@ -1,5 +1,5 @@
-const { User, Course, UserCourse } = require('../../models');
-const { Op } = require('sequelize');
+import { User, Course, UserCourse  } from '../../models/index.js';
+import { Op  } from 'sequelize';
 
 const userController = {
   /** GET /admin/users */
@@ -144,5 +144,5 @@ const userController = {
   },
 };
 
-module.exports = userController;
+export default userController;;
 

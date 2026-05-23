@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
-const crypto = require('crypto');
+import { DataTypes  } from 'sequelize';
+import sequelize from '../../config/database.js';
+import crypto from 'crypto';
 
 const Certificate = sequelize.define('Certificate', {
   id: {
@@ -29,5 +29,5 @@ const Certificate = sequelize.define('Certificate', {
   },
 });
 
-module.exports = Certificate;
+export default Certificate;;
 

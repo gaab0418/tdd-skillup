@@ -1,5 +1,5 @@
 import { afterAll } from 'vitest';
-const { sequelize } = require('../models/index.js');
+import { sequelize  } from '../models/index.js';
 
 afterAll(async () => {
   await sequelize.close();

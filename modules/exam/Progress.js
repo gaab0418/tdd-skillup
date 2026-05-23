@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+import { DataTypes  } from 'sequelize';
+import sequelize from '../../config/database.js';
 
 const Progress = sequelize.define('Progress', {
   id: {
@@ -25,5 +25,5 @@ const Progress = sequelize.define('Progress', {
   tableName: 'progress',
 });
 
-module.exports = Progress;
+export default Progress;;
 

@@ -1,20 +1,25 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const courseController = require('./courseController');
-const examAdminController = require('../exam/examAdminController');
-const { isAuthenticated, isAdmin } = require('../../middlewares/auth');
-const multer = require('multer');
+import courseController from './courseController.js';
+import examAdminController from '../exam/examAdminController.js';
+import { isAuthenticated, isAdmin  } from '../../middlewares/auth.js';
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 router.use(isAuthenticated, isAdmin);
 
 const courseUpload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, require('path').join(__dirname, '..', '..', 'public', 'uploads', 'thumbnails'));
+      cb(null, path.join(__dirname, '..', '..', 'public', 'uploads', 'thumbnails'));
     },
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, `${file.fieldname}-${uniqueSuffix}${require('path').extname(file.originalname)}`);
+      cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
     },
   }),
 }).fields([
@@ -33,5 +38,5 @@ router.post('/:id/prova', examAdminController.saveExam);
 router.post('/:id/prova/questao', examAdminController.addQuestion);
 router.post('/:id/prova/questao/:questionId/excluir', examAdminController.deleteQuestion);
 
-module.exports = router;
+export default router;;
 

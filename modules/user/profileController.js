@@ -1,5 +1,5 @@
-const { User, Progress, Certificate, Lesson, Topic, Course, UserCourse } = require('../../models');
-const { uploadAvatar } = require('../../middlewares/upload');
+import { User, Progress, Certificate, Lesson, Topic, Course, UserCourse, Exam } from '../../models/index.js';
+import { uploadAvatar  } from '../../middlewares/upload.js';
 
 const profileController = {
   /** GET /profile - Perfil + Cursos Inscritos + Certificados */
@@ -129,7 +129,7 @@ const profileController = {
             where: { status: 'published' },
             required: false,
           },
-          { model: require('../../models').Exam, as: 'exam' }
+          { model: Exam, as: 'exam' }
         ],
       });
 
@@ -220,4 +220,4 @@ const profileController = {
   },
 };
 
-module.exports = profileController;
+export default profileController;;

@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+import { DataTypes  } from 'sequelize';
+import sequelize from '../../config/database.js';
 
 const UserCourse = sequelize.define('UserCourse', {
   id: {
@@ -17,5 +17,5 @@ const UserCourse = sequelize.define('UserCourse', {
   timestamps: true,
 });
 
-module.exports = UserCourse;
+export default UserCourse;;
 

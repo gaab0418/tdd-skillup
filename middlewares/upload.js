@@ -1,6 +1,10 @@
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const createStorage = (subfolder) => {
   const uploadPath = path.join(__dirname, '..', 'public', 'uploads', subfolder);
@@ -28,22 +32,22 @@ const fileFilter = (allowedTypes) => (req, file, cb) => {
 
 const maxSize = parseInt(process.env.UPLOAD_MAX_SIZE) || 52428800; // 50MB
 
-const uploadVideo = multer({
+export const uploadVideo = multer({
   storage: createStorage('videos'),
   fileFilter: fileFilter(['video/mp4', 'video/webm', 'video/ogg']),
   limits: { fileSize: maxSize },
 });
 
-const uploadThumbnail = multer({
+export const uploadThumbnail = multer({
   storage: createStorage('thumbnails'),
   fileFilter: fileFilter(['image/jpeg', 'image/png', 'image/webp']),
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
-const uploadAvatar = multer({
+export const uploadAvatar = multer({
   storage: createStorage('avatars'),
   fileFilter: fileFilter(['image/jpeg', 'image/png', 'image/webp']),
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
 });
 
-module.exports = { uploadVideo, uploadThumbnail, uploadAvatar };
+
