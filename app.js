@@ -22,6 +22,7 @@ const adminRoutes = require('./routes/admin');
 const contentRoutes = require('./routes/content');
 const topicRoutes = require('./routes/topics');
 const userRoutes = require('./routes/users');
+const courseRoutes = require('./routes/courses');
 const healthRoutes = require('./routes/health');
 
 const app = express();
@@ -66,6 +67,7 @@ app.use('/auth', authRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/profile', profileRoutes);
 app.use('/admin', adminRoutes);
+app.use('/admin/courses', courseRoutes);
 app.use('/admin/content', contentRoutes);
 app.use('/admin/topics', topicRoutes);
 app.use('/admin/users', userRoutes);

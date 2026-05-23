@@ -44,4 +44,4 @@ npm start               # Rodar em produção
 ## Credenciais de Teste
 
 - **Admin**: admin@admin.com / admin123
-- **User**: john@example.com / user123
+- **User**: user@user.com / user123

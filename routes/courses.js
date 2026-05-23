@@ -1,0 +1,30 @@
+const express = require('express');
+const router = express.Router();
+const courseController = require('../controllers/courseController');
+const { isAuthenticated, isAdmin } = require('../middlewares/auth');
+const multer = require('multer');
+
+router.use(isAuthenticated, isAdmin);
+
+const courseUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, require('path').join(__dirname, '..', 'public', 'uploads', 'thumbnails'));
+    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      cb(null, `${file.fieldname}-${uniqueSuffix}${require('path').extname(file.originalname)}`);
+    },
+  }),
+}).fields([
+  { name: 'thumbnail', maxCount: 1 },
+]);
+
+router.get('/', courseController.index);
+router.get('/create', courseController.create);
+router.post('/create', courseUpload, courseController.store);
+router.get('/:id/edit', courseController.edit);
+router.post('/:id/edit', courseUpload, courseController.update);
+router.post('/:id/delete', courseController.destroy);
+
+module.exports = router;

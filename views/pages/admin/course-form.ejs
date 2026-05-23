@@ -1,0 +1,68 @@
+<%# Admin - Course Form %>
+<div class="flex flex-col gap-stack-lg">
+  <div class="flex items-center gap-4 bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1">
+    <a href="/admin/courses" class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+    <div>
+      <h1 class="font-headline-md text-headline-md text-on-surface"><%= course ? 'Editar Curso' : 'Novo Curso' %></h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-1">Preencha os detalhes do curso</p>
+    </div>
+  </div>
+
+  <form action="<%= course ? `/admin/courses/${course.id}/edit` : '/admin/courses/create' %>" method="POST" enctype="multipart/form-data" class="bg-surface-container-lowest rounded-xl shadow-level-1 p-stack-lg max-w-3xl">
+    <div class="space-y-6">
+      <div>
+        <label class="block font-label-md text-label-md text-on-surface mb-2">Título do Curso</label>
+        <input type="text" name="title" value="<%= course ? course.title : '' %>" required
+               class="w-full bg-surface text-on-surface border border-outline rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+      </div>
+
+      <div>
+        <label class="block font-label-md text-label-md text-on-surface mb-2">Descrição</label>
+        <textarea name="description" rows="4" 
+                  class="w-full bg-surface text-on-surface border border-outline rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors resize-none"><%= course ? course.description : '' %></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-2">Nível</label>
+          <select name="level" class="w-full bg-surface text-on-surface border border-outline rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+            <option value="beginner" <%= course && course.level === 'beginner' ? 'selected' : '' %>>Iniciante</option>
+            <option value="intermediate" <%= course && course.level === 'intermediate' ? 'selected' : '' %>>Intermediário</option>
+            <option value="advanced" <%= course && course.level === 'advanced' ? 'selected' : '' %>>Avançado</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-2">Status</label>
+          <select name="status" class="w-full bg-surface text-on-surface border border-outline rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+            <option value="draft" <%= course && course.status === 'draft' ? 'selected' : '' %>>Rascunho</option>
+            <option value="published" <%= course && course.status === 'published' ? 'selected' : '' %>>Publicado</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-label-md text-label-md text-on-surface mb-2">Thumbnail (Capa do curso)</label>
+        <% if (course && course.thumbnail) { %>
+          <div class="mb-4">
+            <img src="<%= course.thumbnail %>" alt="Thumbnail atual" class="h-32 object-cover rounded-lg border border-outline-variant">
+            <p class="font-caption text-caption text-on-surface-variant mt-2">Imagem atual. Envie uma nova para substituir.</p>
+          </div>
+        <% } %>
+        <input type="file" name="thumbnail" accept="image/*"
+               class="w-full bg-surface text-on-surface border border-outline rounded-lg px-4 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
+      </div>
+    </div>
+
+    <div class="mt-8 flex justify-end gap-4 pt-6 border-t border-outline-variant/20">
+      <a href="/admin/courses" class="px-6 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">
+        Cancelar
+      </a>
+      <button type="submit" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-level-1">
+        Salvar Curso
+      </button>
+    </div>
+  </form>
+</div>
