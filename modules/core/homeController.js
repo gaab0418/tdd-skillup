@@ -1,4 +1,4 @@
-const { Course, Topic, Lesson, User, UserCourse } = require('../../models');
+const { Course, Topic, Lesson, User, UserCourse, Progress } = require('../../models');
 const { Op } = require('sequelize');
 
 const homeController = {
@@ -94,11 +94,22 @@ const homeController = {
       }
 
       let isEnrolled = false;
+      let userProgress = {};
       if (req.session.userId) {
         const enrollment = await UserCourse.findOne({
           where: { userId: req.session.userId, courseId: course.id },
         });
         isEnrolled = !!enrollment;
+
+        if (course.lessons && course.lessons.length > 0) {
+          const lessonIds = course.lessons.map(l => l.id);
+          const progressRecords = await Progress.findAll({
+            where: { userId: req.session.userId, lessonId: lessonIds, completed: true }
+          });
+          progressRecords.forEach(p => {
+            userProgress[p.lessonId] = true;
+          });
+        }
       }
 
       // Sort lessons by order
@@ -111,6 +122,7 @@ const homeController = {
         isEnrolled,
         lessonCount: sortedLessons.length,
         topicLessons: sortedLessons,
+        userProgress,
       });
     } catch (error) {
       console.error('Erro no detalhe do curso:', error);

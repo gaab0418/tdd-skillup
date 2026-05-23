@@ -103,16 +103,25 @@
         <div
           class="bg-surface-container-lowest rounded-xl shadow-level-1 overflow-hidden border border-outline-variant/20">
           <% topicLessons.forEach((lesson, idx)=> { %>
-            <% const isLast=idx===topicLessons.length - 1; %>
+            <% 
+              const isLast = idx === topicLessons.length - 1; 
+              const isCompleted = typeof userProgress !== 'undefined' && userProgress[lesson.id];
+              const bgClass = isCompleted ? 'bg-secondary/10 hover:bg-secondary/20' : 'hover:bg-surface-container-low';
+              const borderClass = !isLast ? 'border-b border-outline-variant/20' : '';
+            %>
               <div
-                class="flex items-center gap-4 p-4 <%= !isLast ? 'border-b border-outline-variant/20' : '' %> hover:bg-surface-container-low transition-colors">
+                class="flex items-center gap-4 p-4 <%= borderClass %> <%= bgClass %> transition-colors">
                 <div
-                  class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-label-md text-sm shrink-0">
-                  <%= lesson.order || (idx + 1) %>
+                  class="w-8 h-8 rounded-full <%= isCompleted ? 'bg-secondary text-on-secondary' : 'bg-primary/10 text-primary' %> flex items-center justify-center font-label-md text-sm shrink-0">
+                  <% if (isCompleted) { %>
+                    <span class="material-symbols-outlined text-[16px]">check</span>
+                  <% } else { %>
+                    <%= lesson.order || (idx + 1) %>
+                  <% } %>
                 </div>
 
                 <div class="flex-grow min-w-0">
-                  <h4 class="font-label-md text-label-md text-on-surface truncate">
+                  <h4 class="font-label-md text-label-md <%= isCompleted ? 'text-secondary' : 'text-on-surface' %> truncate">
                     <%= lesson.title %>
                   </h4>
                 </div>
