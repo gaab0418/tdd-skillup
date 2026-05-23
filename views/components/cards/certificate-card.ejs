@@ -10,16 +10,16 @@
   </div>
   <div class="flex-1">
     <h4 class="font-label-md text-label-md text-on-surface mb-1 line-clamp-2 group-hover:text-primary transition-colors">
-      <%= certificate.topic ? certificate.topic.name : 'Certificate' %>
+      <%= certificate.course ? certificate.course.title : (certificate.topic ? certificate.topic.name : 'Certificado') %>
     </h4>
     <p class="font-caption text-caption text-on-surface-variant mb-4">
       Issued <%= new Date(certificate.issuedAt).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }) %>
     </p>
   </div>
   <div class="flex gap-2 mt-auto">
-    <button class="flex-1 bg-surface-variant hover:bg-surface-dim text-on-surface transition-colors py-2 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2">
+    <a href="/profile/certificados/<%= certificate.id %>/download" class="flex-1 bg-surface-variant hover:bg-surface-dim text-on-surface transition-colors py-2 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2">
       <span class="material-symbols-outlined text-[18px]">download</span> Download
-    </button>
+    </a>
     <button class="w-10 bg-surface-variant hover:bg-primary-container hover:text-on-primary-container text-on-surface transition-colors rounded-lg flex justify-center items-center">
       <span class="material-symbols-outlined text-[18px]">share</span>
     </button>

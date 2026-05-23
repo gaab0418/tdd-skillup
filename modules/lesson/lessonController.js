@@ -103,8 +103,11 @@ const lessonController = {
       if (completed === 'true' || completed === true) {
         progress.completed = true;
         progress.completedAt = new Date();
+      } else if (completed === 'false' || completed === false) {
+        progress.completed = false;
+        progress.completedAt = null;
       }
-      if (watchedMinutes) {
+      if (watchedMinutes !== undefined && watchedMinutes !== null) {
         progress.watchedMinutes = parseInt(watchedMinutes);
       }
 

@@ -1,0 +1,63 @@
+<div class="max-w-3xl mx-auto px-4 py-12">
+  <div class="mb-8">
+    <a href="/browse/<%= course.id %>" class="text-primary hover:underline flex items-center gap-1 mb-4">
+      <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar para o Curso
+    </a>
+    <h1 class="text-3xl font-display font-semibold text-gray-900 dark:text-white mb-2"><%= exam.title %></h1>
+    <p class="text-gray-600 dark:text-gray-400"><%= exam.description %></p>
+    
+    <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 rounded-lg flex items-start gap-3">
+      <span class="material-symbols-outlined">info</span>
+      <div>
+        <p class="font-medium">Instruções:</p>
+        <p class="text-sm mt-1">Responda todas as questões. Para ser aprovado e garantir seu certificado, você precisa acertar pelo menos <%= exam.passingScore %>% da prova.</p>
+      </div>
+    </div>
+  </div>
+
+  <form action="/browse/<%= course.id %>/prova" method="POST" class="space-y-8">
+    <% if (exam.questions && exam.questions.length > 0) { %>
+      <% exam.questions.forEach((q, index) => { %>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
+            <span class="text-primary mr-2"><%= index + 1 %>.</span> <%= q.question %>
+          </h3>
+          
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors">
+              <input type="radio" name="question_<%= q.id %>" value="A" required class="w-4 h-4 text-primary">
+              <span class="text-gray-700 dark:text-gray-300 font-medium w-4">A.</span>
+              <span class="text-gray-700 dark:text-gray-300 flex-1"><%= q.optionA %></span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors">
+              <input type="radio" name="question_<%= q.id %>" value="B" required class="w-4 h-4 text-primary">
+              <span class="text-gray-700 dark:text-gray-300 font-medium w-4">B.</span>
+              <span class="text-gray-700 dark:text-gray-300 flex-1"><%= q.optionB %></span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors">
+              <input type="radio" name="question_<%= q.id %>" value="C" required class="w-4 h-4 text-primary">
+              <span class="text-gray-700 dark:text-gray-300 font-medium w-4">C.</span>
+              <span class="text-gray-700 dark:text-gray-300 flex-1"><%= q.optionC %></span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors">
+              <input type="radio" name="question_<%= q.id %>" value="D" required class="w-4 h-4 text-primary">
+              <span class="text-gray-700 dark:text-gray-300 font-medium w-4">D.</span>
+              <span class="text-gray-700 dark:text-gray-300 flex-1"><%= q.optionD %></span>
+            </label>
+          </div>
+        </div>
+      <% }); %>
+      
+      <div class="flex justify-end pt-4">
+        <button type="submit" class="px-8 py-3 bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container rounded-xl font-medium text-lg transition-colors shadow-sm">
+          Finalizar Prova
+        </button>
+      </div>
+    <% } else { %>
+      <div class="text-center py-12 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+        <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">construction</span>
+        <p class="text-gray-500 dark:text-gray-400">Esta prova ainda não possui questões. Volte mais tarde.</p>
+      </div>
+    <% } %>
+  </form>
+</div>

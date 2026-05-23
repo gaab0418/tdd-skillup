@@ -1,0 +1,48 @@
+<div class="max-w-2xl mx-auto px-4 py-16 text-center">
+  <% if (passed) { %>
+    <div class="mb-8">
+      <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-5xl">verified</span>
+      </div>
+      <h1 class="text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">Parabéns! Você foi aprovado.</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400">
+        Você obteve <strong class="text-green-600 dark:text-green-400"><%= score %>%</strong> de acertos (<%= correctAnswers %> de <%= totalQuestions %>).
+      </p>
+    </div>
+    
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 max-w-lg mx-auto mt-8">
+      <span class="material-symbols-outlined text-4xl text-yellow-500 mb-4 block">workspace_premium</span>
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Seu Certificado está pronto!</h3>
+      <p class="text-gray-600 dark:text-gray-400 mb-6">O certificado de conclusão do curso "<%= course.title %>" já foi emitido e está disponível no seu perfil.</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/profile" class="px-6 py-3 bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container rounded-lg font-medium transition-colors">
+          Acessar Meu Perfil
+        </a>
+        <a href="/browse/<%= course.id %>" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg font-medium transition-colors">
+          Voltar ao Curso
+        </a>
+      </div>
+    </div>
+
+  <% } else { %>
+    <div class="mb-8">
+      <div class="w-24 h-24 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mx-auto mb-6">
+        <span class="material-symbols-outlined text-5xl">cancel</span>
+      </div>
+      <h1 class="text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">Não foi dessa vez.</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400">
+        Você obteve <strong class="text-red-600 dark:text-red-400"><%= score %>%</strong> de acertos. A nota mínima para aprovação é <strong><%= passingScore %>%</strong>.
+      </p>
+    </div>
+    
+    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/browse/<%= course.id %>/prova" class="px-6 py-3 bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container rounded-lg font-medium transition-colors">
+        Tentar Novamente
+      </a>
+      <a href="/browse/<%= course.id %>" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg font-medium transition-colors">
+        Revisar o Curso
+      </a>
+    </div>
+  <% } %>
+</div>

@@ -39,7 +39,7 @@ const homeController = {
         where,
         include: [
           { model: Topic, as: 'topic' },
-          { model: Lesson, as: 'lessons', attributes: ['id'], where: { status: 'published' }, required: false },
+          { model: Lesson, as: 'lessons', attributes: ['id', 'duration'], where: { status: 'published' }, required: false },
         ],
         order: [['createdAt', 'DESC']],
         limit,
@@ -84,6 +84,7 @@ const homeController = {
         include: [
           { model: Topic, as: 'topic' },
           { model: Lesson, as: 'lessons', where: { status: 'published' }, required: false },
+          { model: require('../../models').Exam, as: 'exam' }
         ],
       });
 

@@ -9,6 +9,10 @@ const Comment = require('../modules/interaction/Comment');
 const UserCourse = require('../modules/course/UserCourse');
 const Like = require('../modules/interaction/Like');
 
+const Exam = require('../modules/exam/Exam');
+const ExamQuestion = require('../modules/exam/ExamQuestion');
+const ExamAttempt = require('../modules/exam/ExamAttempt');
+
 // =============================================
 // Associacoes
 // =============================================
@@ -61,6 +65,26 @@ Like.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 User.belongsToMany(Course, { through: UserCourse, foreignKey: 'userId', as: 'enrolledCourses' });
 Course.belongsToMany(User, { through: UserCourse, foreignKey: 'courseId', as: 'enrolledUsers' });
 
+// Course 1:1 Exam
+Course.hasOne(Exam, { foreignKey: 'courseId', as: 'exam' });
+Exam.belongsTo(Course, { foreignKey: 'courseId', as: 'course' });
+
+// Exam 1:N ExamQuestion
+Exam.hasMany(ExamQuestion, { foreignKey: 'examId', as: 'questions' });
+ExamQuestion.belongsTo(Exam, { foreignKey: 'examId', as: 'exam' });
+
+// User 1:N ExamAttempt
+User.hasMany(ExamAttempt, { foreignKey: 'userId', as: 'examAttempts' });
+ExamAttempt.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+// Exam 1:N ExamAttempt
+Exam.hasMany(ExamAttempt, { foreignKey: 'examId', as: 'attempts' });
+ExamAttempt.belongsTo(Exam, { foreignKey: 'examId', as: 'exam' });
+
+// Course 1:N Certificate
+Course.hasMany(Certificate, { foreignKey: 'courseId', as: 'courseCertificates' });
+Certificate.belongsTo(Course, { foreignKey: 'courseId', as: 'course' });
+
 module.exports = {
   sequelize,
   User,
@@ -72,4 +96,7 @@ module.exports = {
   Comment,
   UserCourse,
   Like,
+  Exam,
+  ExamQuestion,
+  ExamAttempt,
 };

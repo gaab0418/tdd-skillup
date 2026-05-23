@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const courseController = require('./courseController');
+const examAdminController = require('../exam/examAdminController');
 const { isAuthenticated, isAdmin } = require('../../middlewares/auth');
 const multer = require('multer');
 
@@ -26,6 +27,11 @@ router.post('/criar', courseUpload, courseController.store);
 router.get('/:id/editar', courseController.edit);
 router.post('/:id/editar', courseUpload, courseController.update);
 router.post('/:id/excluir', courseController.destroy);
+
+router.get('/:id/prova', examAdminController.manageExam);
+router.post('/:id/prova', examAdminController.saveExam);
+router.post('/:id/prova/questao', examAdminController.addQuestion);
+router.post('/:id/prova/questao/:questionId/excluir', examAdminController.deleteQuestion);
 
 module.exports = router;
 

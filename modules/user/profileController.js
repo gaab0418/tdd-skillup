@@ -19,7 +19,10 @@ const profileController = {
 
       const certificates = await Certificate.findAll({
         where: { userId: req.session.userId },
-        include: [{ model: Topic, as: 'topic' }],
+        include: [
+          { model: Topic, as: 'topic' },
+          { model: Course, as: 'course' }
+        ],
         order: [['issuedAt', 'DESC']],
       });
 
@@ -126,6 +129,7 @@ const profileController = {
             where: { status: 'published' },
             required: false,
           },
+          { model: require('../../models').Exam, as: 'exam' }
         ],
       });
 

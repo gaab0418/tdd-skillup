@@ -11,7 +11,7 @@
     </div>
     
     <% if (typeof userProgress !== 'undefined' && userProgress && userProgress.completed) { %>
-      <button class="bg-secondary/10 text-secondary px-4 py-2 rounded-lg font-label-md text-sm flex items-center gap-2" disabled>
+      <button id="mark-uncompleted-btn" class="bg-secondary/10 text-secondary px-4 py-2 rounded-lg font-label-md text-sm hover:bg-secondary/20 transition-colors shadow-sm flex items-center gap-2 cursor-pointer" title="Desmarcar como Assistida">
         <span class="material-symbols-outlined text-[18px]">check_circle</span> Assistida
       </button>
     <% } else { %>
@@ -64,6 +64,27 @@
         }
       } catch (err) {
         console.error('Erro ao marcar como assistida:', err);
+      }
+    });
+  }
+
+  const markUncompletedBtn = document.getElementById('mark-uncompleted-btn');
+  if (markUncompletedBtn) {
+    markUncompletedBtn.addEventListener('click', async () => {
+      try {
+        const res = await fetch('/lessons/<%= lesson.id %>/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            completed: false, 
+            watchedMinutes: 0 
+          })
+        });
+        if (res.ok) {
+          window.location.reload();
+        }
+      } catch (err) {
+        console.error('Erro ao desmarcar como assistida:', err);
       }
     });
   }

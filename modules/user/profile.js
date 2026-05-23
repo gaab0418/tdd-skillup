@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const profileController = require('./profileController');
+const certificateController = require('../gamification/certificateController');
 const { isAuthenticated } = require('../../middlewares/auth');
 const { uploadAvatar } = require('../../middlewares/upload');
 
@@ -8,6 +9,7 @@ router.use(isAuthenticated);
 
 router.get('/', profileController.index);
 router.get('/course/:id', profileController.myCourse);
+router.get('/certificados/:id/download', certificateController.downloadCertificate);
 router.get('/settings', profileController.settings);
 router.post('/settings', (req, res, next) => {
   uploadAvatar.single('avatar')(req, res, (err) => {

@@ -127,10 +127,15 @@
         </div>
         
         <% if (progressPercent === 100) { %>
-          <div class="bg-secondary/10 border border-secondary/20 rounded-lg p-3 text-center">
+          <div class="bg-secondary/10 border border-secondary/20 rounded-lg p-3 text-center mb-4">
             <span class="material-symbols-outlined text-secondary mb-1">emoji_events</span>
             <p class="text-xs font-bold text-secondary">Curso Concluído!</p>
           </div>
+          <% if (course.exam) { %>
+            <a href="/browse/<%= course.id %>/prova" class="block w-full text-center bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+              <span class="material-symbols-outlined align-middle text-sm mr-1">assignment</span> Fazer Prova Final
+            </a>
+          <% } %>
         <% } %>
       </div>
     </div>

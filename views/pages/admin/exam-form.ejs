@@ -1,0 +1,148 @@
+<div class="flex items-center justify-between mt-4 mb-8">
+  <div class="flex items-center gap-4">
+    <a href="/admin/cursos" class="w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-center transition-colors">
+      <span class="material-symbols-outlined text-gray-500">arrow_back</span>
+    </a>
+    <h1 class="text-3xl font-display font-semibold text-gray-900 dark:text-white">
+      Gerenciar Prova: <%= course.title %>
+    </h1>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Detalhes da Prova -->
+  <div class="lg:col-span-1">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Configurações da Prova</h2>
+      
+      <form action="/admin/cursos/<%= course.id %>/prova" method="POST">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título da Prova</label>
+            <input type="text" name="title" value="<%= exam ? exam.title : 'Prova Final' %>" required
+              class="w-full px-4 py-2 bg-surface dark:bg-surface-dim border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-primary dark:text-white">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
+            <textarea name="description" rows="3"
+              class="w-full px-4 py-2 bg-surface dark:bg-surface-dim border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-primary dark:text-white"><%= exam ? exam.description : 'Responda as questões abaixo para emitir seu certificado.' %></textarea>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nota Mínima (%)</label>
+            <input type="number" name="passingScore" value="<%= exam ? exam.passingScore : 70 %>" min="0" max="100" required
+              class="w-full px-4 py-2 bg-surface dark:bg-surface-dim border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-primary dark:text-white">
+          </div>
+        </div>
+        
+        <button type="submit" class="mt-6 w-full px-4 py-2 bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors font-medium shadow-level-1">
+          <%= exam ? 'Atualizar Prova' : 'Criar Prova' %>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Questões -->
+  <div class="lg:col-span-2 space-y-6">
+    <% if (exam) { %>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Adicionar Nova Questão</h2>
+        
+        <form action="/admin/cursos/<%= course.id %>/prova/questao" method="POST">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Enunciado</label>
+              <textarea name="question" rows="2" required
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:text-white"></textarea>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alternativa A</label>
+                <input type="text" name="optionA" required
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:text-white">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alternativa B</label>
+                <input type="text" name="optionB" required
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:text-white">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alternativa C</label>
+                <input type="text" name="optionC" required
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:text-white">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alternativa D</label>
+                <input type="text" name="optionD" required
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:text-white">
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alternativa Correta</label>
+              <select name="correctOption" required
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 dark:text-white">
+                <option value="A">Alternativa A</option>
+                <option value="B">Alternativa B</option>
+                <option value="C">Alternativa C</option>
+                <option value="D">Alternativa D</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="mt-4 px-4 py-2 bg-secondary text-on-secondary hover:bg-secondary-container hover:text-on-secondary-container rounded-lg transition-colors font-medium shadow-level-1">
+            Adicionar Questão
+          </button>
+        </form>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Questões Cadastradas (<%= exam.questions ? exam.questions.length : 0 %>)</h2>
+        
+        <% if (exam.questions && exam.questions.length > 0) { %>
+          <div class="space-y-4">
+            <% exam.questions.forEach((q, index) => { %>
+              <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700">
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="font-medium text-gray-900 dark:text-white">Questão <%= index + 1 %></h3>
+                  <form action="/admin/cursos/<%= course.id %>/prova/questao/<%= q.id %>/excluir" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta questão?');">
+                    <button type="submit" class="text-red-500 hover:text-red-700 p-1">
+                      <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                  </form>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-3"><%= q.question %></p>
+                <div class="grid grid-cols-2 gap-2 text-sm">
+                  <div class="p-2 rounded <%= q.correctOption === 'A' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700' %>">
+                    <strong>A.</strong> <%= q.optionA %>
+                  </div>
+                  <div class="p-2 rounded <%= q.correctOption === 'B' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700' %>">
+                    <strong>B.</strong> <%= q.optionB %>
+                  </div>
+                  <div class="p-2 rounded <%= q.correctOption === 'C' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700' %>">
+                    <strong>C.</strong> <%= q.optionC %>
+                  </div>
+                  <div class="p-2 rounded <%= q.correctOption === 'D' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700' %>">
+                    <strong>D.</strong> <%= q.optionD %>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <div class="text-center py-8">
+            <span class="material-symbols-outlined text-4xl text-gray-400 mb-2">quiz</span>
+            <p class="text-gray-500 dark:text-gray-400">Nenhuma questão cadastrada ainda.</p>
+          </div>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 p-6 rounded-2xl flex items-center gap-4">
+        <span class="material-symbols-outlined text-3xl">info</span>
+        <p>Salve as "Configurações da Prova" ao lado esquerdo primeiro para poder adicionar questões.</p>
+      </div>
+    <% } %>
+  </div>
+</div>
