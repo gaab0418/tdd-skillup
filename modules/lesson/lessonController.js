@@ -1,4 +1,4 @@
-const { Lesson, Topic, Progress, Comment, User, UserCourse, Like } = require('../../models');
+import { Lesson, Topic, Progress, Comment, User, UserCourse, Like  } from '../../models/index.js';
 
 const lessonController = {
   /** GET /lessons/:id - Player da lição */
@@ -180,4 +180,4 @@ const lessonController = {
   },
 };
 
-module.exports = lessonController;
+export default lessonController;;

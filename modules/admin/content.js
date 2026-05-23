@@ -1,9 +1,14 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const contentController = require('./contentController');
-const { isAuthenticated, isAdmin } = require('../../middlewares/auth');
-const multer = require('multer');
-const { uploadVideo, uploadThumbnail } = require('../../middlewares/upload');
+import contentController from './contentController.js';
+import { isAuthenticated, isAdmin  } from '../../middlewares/auth.js';
+import multer from 'multer';
+import { uploadVideo, uploadThumbnail } from '../../middlewares/upload.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 router.use(isAuthenticated, isAdmin);
 
@@ -11,13 +16,12 @@ router.use(isAuthenticated, isAdmin);
 const lessonUpload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      const path = require('path');
       const folder = file.fieldname === 'video' ? 'videos' : 'thumbnails';
-      cb(null, require('path').join(__dirname, '..', '..', 'public', 'uploads', folder));
+      cb(null, path.join(__dirname, '..', '..', 'public', 'uploads', folder));
     },
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, `${file.fieldname}-${uniqueSuffix}${require('path').extname(file.originalname)}`);
+      cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
     },
   }),
 }).fields([
@@ -32,5 +36,5 @@ router.get('/:id/editar', contentController.edit);
 router.post('/:id/editar', lessonUpload, contentController.update);
 router.post('/:id/excluir', contentController.destroy);
 
-module.exports = router;
+export default router;;
 

@@ -1,17 +1,17 @@
-const sequelize = require('../config/database');
-const User = require('../modules/user/User');
-const Topic = require('../modules/topic/Topic');
-const Course = require('../modules/course/Course');
-const Lesson = require('../modules/lesson/Lesson');
-const Progress = require('../modules/exam/Progress');
-const Certificate = require('../modules/gamification/Certificate');
-const Comment = require('../modules/interaction/Comment');
-const UserCourse = require('../modules/course/UserCourse');
-const Like = require('../modules/interaction/Like');
+import sequelize from '../config/database.js';
+import User from '../modules/user/User.js';
+import Topic from '../modules/topic/Topic.js';
+import Course from '../modules/course/Course.js';
+import Lesson from '../modules/lesson/Lesson.js';
+import Progress from '../modules/exam/Progress.js';
+import Certificate from '../modules/gamification/Certificate.js';
+import Comment from '../modules/interaction/Comment.js';
+import UserCourse from '../modules/course/UserCourse.js';
+import Like from '../modules/interaction/Like.js';
 
-const Exam = require('../modules/exam/Exam');
-const ExamQuestion = require('../modules/exam/ExamQuestion');
-const ExamAttempt = require('../modules/exam/ExamAttempt');
+import Exam from '../modules/exam/Exam.js';
+import ExamQuestion from '../modules/exam/ExamQuestion.js';
+import ExamAttempt from '../modules/exam/ExamAttempt.js';
 
 // =============================================
 // Associacoes
@@ -85,7 +85,23 @@ ExamAttempt.belongsTo(Exam, { foreignKey: 'examId', as: 'exam' });
 Course.hasMany(Certificate, { foreignKey: 'courseId', as: 'courseCertificates' });
 Certificate.belongsTo(Course, { foreignKey: 'courseId', as: 'course' });
 
-module.exports = {
+export {
+  sequelize,
+  User,
+  Topic,
+  Course,
+  Lesson,
+  Progress,
+  Certificate,
+  Comment,
+  UserCourse,
+  Like,
+  Exam,
+  ExamQuestion,
+  ExamAttempt,
+};
+
+export default {
   sequelize,
   User,
   Topic,

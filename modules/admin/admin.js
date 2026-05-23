@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const adminController = require('./adminController');
-const { isAuthenticated, isAdmin } = require('../../middlewares/auth');
+import adminController from './adminController.js';
+import { isAuthenticated, isAdmin  } from '../../middlewares/auth.js';
 
 router.use(isAuthenticated, isAdmin);
 
 router.get('/', adminController.dashboard);
 router.get('/analytics', adminController.analytics);
 
-module.exports = router;
+export default router;;
 

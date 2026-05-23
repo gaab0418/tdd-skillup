@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+import { DataTypes  } from 'sequelize';
+import sequelize from '../../config/database.js';
 
 const Lesson = sequelize.define('Lesson', {
   id: {
@@ -52,5 +52,5 @@ const Lesson = sequelize.define('Lesson', {
   // courseId FK sera definida em models/index.js via associacao
 });
 
-module.exports = Lesson;
+export default Lesson;;
 

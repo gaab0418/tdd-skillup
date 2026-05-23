@@ -1,9 +1,9 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const profileController = require('./profileController');
-const certificateController = require('../gamification/certificateController');
-const { isAuthenticated } = require('../../middlewares/auth');
-const { uploadAvatar } = require('../../middlewares/upload');
+import profileController from './profileController.js';
+import certificateController from '../gamification/certificateController.js';
+import { isAuthenticated  } from '../../middlewares/auth.js';
+import { uploadAvatar  } from '../../middlewares/upload.js';
 
 router.use(isAuthenticated);
 
@@ -21,4 +21,4 @@ router.post('/settings', (req, res, next) => {
   });
 }, profileController.updateSettings);
 
-module.exports = router;
+export default router;;

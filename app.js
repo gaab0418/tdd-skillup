@@ -1,27 +1,32 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const express = require('express');
-const path = require('path');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
-const expressLayouts = require('express-ejs-layouts');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import flash from 'connect-flash';
+import expressLayouts from 'express-ejs-layouts';
 
-const sessionConfig = require('./config/session');
-const flashMiddleware = require('./middlewares/flash');
-const { attachUser } = require('./middlewares/auth');
+import sessionConfig from './config/session.js';
+import flashMiddleware from './middlewares/flash.js';
+import { attachUser } from './middlewares/auth.js';
 
 // Rotas
-const indexRoutes = require('./modules/core/index');
-const healthRoutes = require('./modules/core/health');
-const authRoutes = require('./modules/auth/auth');
-const lessonRoutes = require('./modules/lesson/lessons');
-const profileRoutes = require('./modules/user/profile');
-const userRoutes = require('./modules/user/users');
-const adminRoutes = require('./modules/admin/admin');
-const contentRoutes = require('./modules/admin/content');
-const topicRoutes = require('./modules/topic/topics');
-const courseRoutes = require('./modules/course/courses');
+import indexRoutes from './modules/core/index.js';
+import healthRoutes from './modules/core/health.js';
+import authRoutes from './modules/auth/auth.js';
+import lessonRoutes from './modules/lesson/lessons.js';
+import profileRoutes from './modules/user/profile.js';
+import userRoutes from './modules/user/users.js';
+import adminRoutes from './modules/admin/admin.js';
+import contentRoutes from './modules/admin/content.js';
+import topicRoutes from './modules/topic/topics.js';
+import courseRoutes from './modules/course/courses.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
@@ -89,4 +94,4 @@ app.use((err, req, res, next) => {
   res.status(500).send('Erro interno do servidor');
 });
 
-module.exports = app;
+export default app;

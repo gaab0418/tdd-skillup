@@ -2,6 +2,7 @@
   "name": "skillup",
   "version": "1.0.0",
   "description": "SkillUp - Plataforma de Microaprendizado",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",

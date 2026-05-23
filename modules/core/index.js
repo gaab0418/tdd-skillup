@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const homeController = require('./homeController');
-const examController = require('../exam/examController');
-const { isAuthenticated } = require('../../middlewares/auth');
+import homeController from './homeController.js';
+import examController from '../exam/examController.js';
+import { isAuthenticated  } from '../../middlewares/auth.js';
 
 router.get('/', homeController.landing);
 router.get('/browse', homeController.browse);
@@ -14,4 +14,4 @@ router.post('/browse/:id/unenroll', isAuthenticated, homeController.unenroll);
 router.get('/browse/:id/prova', isAuthenticated, examController.renderExam);
 router.post('/browse/:id/prova', isAuthenticated, examController.submitExam);
 
-module.exports = router;
+export default router;;

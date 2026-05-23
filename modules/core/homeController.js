@@ -1,5 +1,5 @@
-const { Course, Topic, Lesson, User, UserCourse, Progress } = require('../../models');
-const { Op } = require('sequelize');
+import { Course, Topic, Lesson, User, UserCourse, Progress, Exam } from '../../models/index.js';
+import { Op  } from 'sequelize';
 
 const homeController = {
   /** GET / - Landing page */
@@ -84,7 +84,7 @@ const homeController = {
         include: [
           { model: Topic, as: 'topic' },
           { model: Lesson, as: 'lessons', where: { status: 'published' }, required: false },
-          { model: require('../../models').Exam, as: 'exam' }
+          { model: Exam, as: 'exam' }
         ],
       });
 
@@ -176,4 +176,4 @@ const homeController = {
   },
 };
 
-module.exports = homeController;
+export default homeController;;

@@ -9,4 +9,4 @@ const flashMiddleware = (req, res, next) => {
   next();
 };
 
-module.exports = flashMiddleware;
+export default flashMiddleware;;

@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const userController = require('./userController');
-const { isAuthenticated, isAdmin } = require('../../middlewares/auth');
+import userController from './userController.js';
+import { isAuthenticated, isAdmin  } from '../../middlewares/auth.js';
 
 router.use(isAuthenticated, isAdmin);
 
@@ -12,5 +12,5 @@ router.get('/:id/editar', userController.edit);
 router.post('/:id', userController.update);
 router.post('/:id/excluir', userController.destroy);
 
-module.exports = router;
+export default router;;
 

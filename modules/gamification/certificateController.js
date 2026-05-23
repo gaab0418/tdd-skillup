@@ -1,6 +1,6 @@
-const PDFDocument = require('pdfkit');
-const { Certificate, User, Course } = require('../../models');
-const path = require('path');
+import PDFDocument from 'pdfkit';
+import { Certificate, User, Course  } from '../../models/index.js';
+import path from 'path';
 
 const certificateController = {
   downloadCertificate: async (req, res) => {
@@ -103,4 +103,4 @@ const certificateController = {
   }
 };
 
-module.exports = certificateController;
+export default certificateController;;

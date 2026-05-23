@@ -1,5 +1,5 @@
-const { Topic, Course, Lesson } = require('../../models');
-const { Op } = require('sequelize');
+import { Topic, Course, Lesson  } from '../../models/index.js';
+import { Op  } from 'sequelize';
 
 const topicController = {
   /** GET /admin/topics */
@@ -100,5 +100,5 @@ const topicController = {
   },
 };
 
-module.exports = topicController;
+export default topicController;;
 

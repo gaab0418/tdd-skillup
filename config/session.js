@@ -1,4 +1,4 @@
-const session = require('express-session');
+import session from 'express-session';
 
 const sessionConfig = session({
   secret: process.env.SESSION_SECRET || 'fallback-secret-key',
@@ -12,4 +12,4 @@ const sessionConfig = session({
   },
 });
 
-module.exports = sessionConfig;
+export default sessionConfig;;
