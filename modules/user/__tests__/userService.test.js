@@ -71,11 +71,15 @@ describe('UserService', () => {
     });
 
     it('deve retornar o usuário corretamente se ele existir', async () => {
-      User.findByPk.mockResolvedValue({ id: 1, name: 'Admin' });
+      User.findByPk.mockResolvedValue({ id: 1, name: 'Admin', password: 'hash' });
 
       const user = await userService.getUserById(1);
 
       expect(user.name).toBe('Admin');
+      expect(user.password).toBeDefined(); // Na prática a model não traria o password pelas exclusões de atributos, mas o mock retorna
+      expect(User.findByPk).toHaveBeenCalledWith(1, expect.objectContaining({
+        attributes: { exclude: ['password'] }
+      }));
     });
   });
 
@@ -161,6 +165,34 @@ describe('UserService', () => {
         where: expect.any(Object),
         limit: 10,
         offset: 0
+      }));
+    });
+
+    it('deve calcular as páginas totais (totalPages) corretamente para muitos registros', async () => {
+      User.findAndCountAll.mockResolvedValue({
+        rows: Array(15).fill({ id: 1 }), // mocks a page full of 15 records
+        count: 35 // total of 35 records
+      });
+
+      const result = await userService.listUsers(null, 2, 15);
+
+      // 35 items divided by 15 per page = 3 pages (Math.ceil)
+      expect(result.totalPages).toBe(3);
+      expect(result.count).toBe(35);
+      expect(User.findAndCountAll).toHaveBeenCalledWith(expect.objectContaining({
+        limit: 15,
+        offset: 15 // page 2, offset 15
+      }));
+    });
+
+    it('deve utilizar a paginação padrão (page 1, limit 15) se não for especificada', async () => {
+      User.findAndCountAll.mockResolvedValue({ rows: [], count: 0 });
+
+      await userService.listUsers(null);
+
+      expect(User.findAndCountAll).toHaveBeenCalledWith(expect.objectContaining({
+        limit: 15,
+        offset: 0 // (1 - 1) * 15
       }));
     });
   });
