@@ -1,9 +1,9 @@
 <% const navItems = [
   { href: '/admin', icon: 'dashboard', label: 'Dashboard', page: 'dashboard' },
-  { href: '/admin/courses', icon: 'school', label: 'Cursos', page: 'courses' },
-  { href: '/admin/content', icon: 'menu_book', label: 'Aulas', page: 'content' },
-  { href: '/admin/topics', icon: 'category', label: 'Tópicos', page: 'topics' },
-  { href: '/admin/users', icon: 'group', label: 'Usuários', page: 'users' },
+  { href: '/admin/cursos', icon: 'school', label: 'Cursos', page: 'courses' },
+  { href: '/admin/conteudo', icon: 'menu_book', label: 'Aulas', page: 'content' },
+  { href: '/admin/topicos', icon: 'category', label: 'Tópicos', page: 'topics' },
+  { href: '/admin/usuarios', icon: 'group', label: 'Usuários', page: 'users' },
   { href: '/admin/analytics', icon: 'insights', label: 'Estatísticas', page: 'analytics' },
 ]; %>
 
@@ -30,7 +30,7 @@
     <a href="/profile/settings" class="text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 rounded-lg flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md hover:pl-4 transition-all duration-300">
       <span class="material-symbols-outlined">settings</span> Configurações
     </a>
-    <a href="/admin/content/create" class="mt-4 w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg shadow-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+    <a href="/admin/conteudo/criar" class="mt-4 w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg shadow-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
       <span class="material-symbols-outlined text-sm">add</span> Nova Aula
     </a>
     <% if (user) { %>

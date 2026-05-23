@@ -37,10 +37,10 @@
             </span>
           </div>
           <div class="col-span-1 sm:col-span-2 flex items-center justify-end gap-2">
-            <a href="/admin/content/<%= lesson.id %>/edit" class="p-2 text-outline hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+            <a href="/admin/conteudo/<%= lesson.id %>/editar" class="p-2 text-outline hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
               <span class="material-symbols-outlined text-[20px]">edit</span>
             </a>
-            <form action="/admin/content/<%= lesson.id %>/delete" method="POST" class="inline" onsubmit="return confirm('Tem certeza?')">
+            <form action="/admin/conteudo/<%= lesson.id %>/excluir" method="POST" class="inline" onsubmit="return confirm('Tem certeza?')">
               <button type="submit" class="p-2 text-outline hover:text-error hover:bg-error/5 rounded-lg transition-colors">
                 <span class="material-symbols-outlined text-[20px]">delete</span>
               </button>

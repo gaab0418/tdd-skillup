@@ -1,5 +1,5 @@
 <% const isEdit = lesson && lesson.id; %>
-<form action="/admin/content/<%= isEdit ? lesson.id + '/edit' : 'create' %>" method="POST" enctype="multipart/form-data" class="space-y-6">
+<form action="/admin/conteudo/<%= isEdit ? lesson.id + '/editar' : 'criar' %>" method="POST" enctype="multipart/form-data" class="space-y-6">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div class="md:col-span-2">
       <label class="font-label-md text-label-md text-on-surface mb-1 block">Title</label>
@@ -65,6 +65,6 @@
     <button type="submit" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm">
       <i class="fas fa-save mr-2"></i><%= isEdit ? 'Update Lesson' : 'Create Lesson' %>
     </button>
-    <a href="/admin/content" class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors">Cancel</a>
+    <a href="/admin/conteudo" class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors">Cancel</a>
   </div>
 </form>

@@ -6,10 +6,10 @@ const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 router.use(isAuthenticated, isAdmin);
 
 router.get('/', topicController.index);
-router.get('/create', topicController.create);
+router.get('/criar', topicController.create);
 router.post('/', topicController.store);
-router.get('/:id/edit', topicController.edit);
+router.get('/:id/editar', topicController.edit);
 router.post('/:id', topicController.update);
-router.post('/:id/delete', topicController.destroy);
+router.post('/:id/excluir', topicController.destroy);
 
 module.exports = router;

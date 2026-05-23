@@ -1,7 +1,7 @@
 <%# User Edit Form %>
 <div class="max-w-2xl mx-auto space-y-stack-lg">
   <h1 class="font-headline-md text-headline-md text-on-surface">Editar Usuário</h1>
-  <form action="/admin/users/<%= editUser.id %>" method="POST" class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1 space-y-6">
+  <form action="/admin/usuarios/<%= editUser.id %>" method="POST" class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1 space-y-6">
     <div class="flex items-center gap-6 pb-6 border-b border-outline-variant/30">
       <% if (editUser.avatar) { %>
         <img src="<%= editUser.avatar %>" alt="" class="w-16 h-16 rounded-full object-cover border-4 border-surface">
@@ -54,7 +54,7 @@
       <button type="submit" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm">
         Salvar Alterações
       </button>
-      <a href="/admin/users" class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors">
+      <a href="/admin/usuarios" class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors">
         Cancelar
       </a>
     </div>

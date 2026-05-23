@@ -4,12 +4,12 @@
     <div class="flex-1 flex flex-col sm:flex-row gap-4 w-full">
       <div class="relative flex-1 max-w-md">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-        <form action="/admin/content" method="GET">
+        <form action="/admin/conteudo" method="GET">
           <input name="search" value="<%= search %>" class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md bg-surface placeholder:text-outline transition-all" placeholder="Buscar aulas..." type="text">
         </form>
       </div>
     </div>
-    <a href="/admin/content/create" class="flex items-center gap-2 bg-primary text-on-primary rounded-lg py-2 px-4 font-label-md text-label-md shadow-level-1 whitespace-nowrap">
+    <a href="/admin/conteudo/criar" class="flex items-center gap-2 bg-primary text-on-primary rounded-lg py-2 px-4 font-label-md text-label-md shadow-level-1 whitespace-nowrap">
       <span class="material-symbols-outlined text-sm">add</span> Nova Aula
     </a>
   </div>
@@ -33,7 +33,7 @@
     </div>
     <div class="xl:col-span-3">
       <%- include('../../components/admin/content-table', { lessons }) %>
-      <%- include('../../components/ui/pagination', { currentPage, totalPages, baseUrl: '/admin/content' }) %>
+      <%- include('../../components/ui/pagination', { currentPage, totalPages, baseUrl: '/admin/conteudo' }) %>
     </div>
   </div>
 </div>

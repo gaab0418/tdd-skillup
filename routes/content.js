@@ -26,10 +26,10 @@ const lessonUpload = multer({
 ]);
 
 router.get('/', contentController.index);
-router.get('/create', contentController.create);
-router.post('/create', lessonUpload, contentController.store);
-router.get('/:id/edit', contentController.edit);
-router.post('/:id/edit', lessonUpload, contentController.update);
-router.post('/:id/delete', contentController.destroy);
+router.get('/criar', contentController.create);
+router.post('/criar', lessonUpload, contentController.store);
+router.get('/:id/editar', contentController.edit);
+router.post('/:id/editar', lessonUpload, contentController.update);
+router.post('/:id/excluir', contentController.destroy);
 
 module.exports = router;

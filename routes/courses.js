@@ -21,10 +21,10 @@ const courseUpload = multer({
 ]);
 
 router.get('/', courseController.index);
-router.get('/create', courseController.create);
-router.post('/create', courseUpload, courseController.store);
-router.get('/:id/edit', courseController.edit);
-router.post('/:id/edit', courseUpload, courseController.update);
-router.post('/:id/delete', courseController.destroy);
+router.get('/criar', courseController.create);
+router.post('/criar', courseUpload, courseController.store);
+router.get('/:id/editar', courseController.edit);
+router.post('/:id/editar', courseUpload, courseController.update);
+router.post('/:id/excluir', courseController.destroy);
 
 module.exports = router;

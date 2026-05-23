@@ -68,10 +68,10 @@ app.use('/auth', authRoutes);
 app.use('/lessons', lessonRoutes);
 app.use('/profile', profileRoutes);
 app.use('/admin', adminRoutes);
-app.use('/admin/courses', courseRoutes);
-app.use('/admin/content', contentRoutes);
-app.use('/admin/topics', topicRoutes);
-app.use('/admin/users', userRoutes);
+app.use('/admin/cursos', courseRoutes);
+app.use('/admin/conteudo', contentRoutes);
+app.use('/admin/topicos', topicRoutes);
+app.use('/admin/usuarios', userRoutes);
 app.use('/health', healthRoutes);
 
 // ======================

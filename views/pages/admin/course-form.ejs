@@ -1,7 +1,7 @@
 <%# Admin - Course Form %>
 <div class="flex flex-col gap-stack-lg">
   <div class="flex items-center gap-4 bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1">
-    <a href="/admin/courses" class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant">
+    <a href="/admin/cursos" class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant">
       <span class="material-symbols-outlined">arrow_back</span>
     </a>
     <div>
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <form action="<%= course ? `/admin/courses/${course.id}/edit` : '/admin/courses/create' %>" method="POST" enctype="multipart/form-data" class="bg-surface-container-lowest rounded-xl shadow-level-1 p-stack-lg max-w-3xl">
+  <form action="<%= course ? `/admin/cursos/${course.id}/editar` : '/admin/cursos/criar' %>" method="POST" enctype="multipart/form-data" class="bg-surface-container-lowest rounded-xl shadow-level-1 p-stack-lg max-w-3xl">
     <div class="space-y-6">
       <div>
         <label class="block font-label-md text-label-md text-on-surface mb-2">Título do Curso</label>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="mt-8 flex justify-end gap-4 pt-6 border-t border-outline-variant/20">
-      <a href="/admin/courses" class="px-6 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">
+      <a href="/admin/cursos" class="px-6 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">
         Cancelar
       </a>
       <button type="submit" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-level-1">

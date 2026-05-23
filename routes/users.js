@@ -6,8 +6,8 @@ const { isAuthenticated, isAdmin } = require('../middlewares/auth');
 router.use(isAuthenticated, isAdmin);
 
 router.get('/', userController.index);
-router.get('/:id/edit', userController.edit);
+router.get('/:id/editar', userController.edit);
 router.post('/:id', userController.update);
-router.post('/:id/delete', userController.destroy);
+router.post('/:id/excluir', userController.destroy);
 
 module.exports = router;
