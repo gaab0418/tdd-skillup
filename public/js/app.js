@@ -45,4 +45,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Mobile Topnav Toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  // Mobile Sidenav Toggle (Admin)
+  const sidenavBtn = document.getElementById('mobile-sidenav-btn');
+  const sidenav = document.getElementById('admin-sidenav');
+  const sidenavBackdrop = document.getElementById('sidenav-backdrop');
+
+  function toggleSidenav() {
+    if (sidenav) {
+      sidenav.classList.toggle('-translate-x-full');
+      if (sidenavBackdrop) {
+        sidenavBackdrop.classList.toggle('hidden');
+      }
+    }
+  }
+
+  if (sidenavBtn) sidenavBtn.addEventListener('click', toggleSidenav);
+  if (sidenavBackdrop) sidenavBackdrop.addEventListener('click', toggleSidenav);
 });

@@ -7,7 +7,10 @@
   { href: '/admin/analytics', icon: 'insights', label: 'Estatísticas', page: 'analytics' },
 ]; %>
 
-<nav class="h-screen w-64 fixed left-0 top-0 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 flex flex-col p-4 gap-2 z-40 hidden md:flex">
+<!-- Mobile Backdrop -->
+<div id="sidenav-backdrop" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+<nav id="admin-sidenav" class="h-screen w-64 fixed left-0 top-0 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 flex flex-col p-4 gap-2 z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
   <div class="mb-8 px-2 flex items-center gap-3">
     <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-headline-sm text-headline-sm">S</div>
     <div>

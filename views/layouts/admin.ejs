@@ -8,7 +8,12 @@
   <%- include('../partials/flash') %>
   <main class="flex-1 md:ml-64 min-h-screen pb-stack-lg">
     <header class="h-16 px-gutter flex items-center justify-between border-b border-surface-variant bg-surface-container-lowest/80 backdrop-blur-md sticky top-0 z-30">
-      <h2 class="font-headline-sm text-headline-sm text-on-surface"><%= typeof title !== 'undefined' ? title.split(' - ')[0] : 'Dashboard' %></h2>
+      <div class="flex items-center gap-2">
+        <button id="mobile-sidenav-btn" class="md:hidden text-on-surface-variant hover:bg-surface-variant p-2 -ml-2 rounded-full transition-colors flex items-center justify-center">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface"><%= typeof title !== 'undefined' ? title.split(' - ')[0] : 'Dashboard' %></h2>
+      </div>
       <div class="flex items-center gap-4">
         <button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-full transition-colors">
           <span class="material-symbols-outlined">notifications</span>

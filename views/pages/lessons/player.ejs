@@ -1,6 +1,6 @@
 <%# Lesson Player - usa layout main mas com sidebar %>
-<div class="flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden">
-  <div class="flex-1 overflow-y-auto bg-surface p-gutter space-y-stack-lg">
+<div class="flex flex-col lg:flex-row lg:h-[calc(100vh-64px)] lg:overflow-hidden">
+  <div class="flex-1 lg:overflow-y-auto bg-surface p-gutter space-y-stack-lg">
     <%- include('../../components/lesson/video-player', { lesson, userProgress: typeof userProgress !== 'undefined' ? userProgress : null }) %>
     <%- include('../../components/lesson/lesson-details', { lesson, userProgress: typeof userProgress !== 'undefined' ? userProgress : null }) %>
     <%- include('../../components/lesson/comments-section', { lesson, user, userLikes: typeof userLikes !== 'undefined' ? userLikes : [] }) %>

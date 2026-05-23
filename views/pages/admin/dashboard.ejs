@@ -1,7 +1,7 @@
 <%# Admin Dashboard %>
 <div class="space-y-stack-lg">
   <!-- Metric Cards -->
-  <section class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-gutter">
     <%- include('../../components/cards/metric-card', { icon: 'group', iconBg: 'bg-primary-container/10', iconColor: 'text-primary', title: 'Total de Usuários', value: totalUsers.toLocaleString(), trendValue: '', trendColor: '' }) %>
     <%- include('../../components/cards/metric-card', { icon: 'folder', iconBg: 'bg-secondary-container/20', iconColor: 'text-on-secondary-container', title: 'Cursos', value: totalCourses, trendValue: '', trendColor: '' }) %>
     <%- include('../../components/cards/metric-card', { icon: 'menu_book', iconBg: 'bg-tertiary-container/10', iconColor: 'text-tertiary', title: 'Aulas Publicadas', value: publishedLessons, trendValue: '', trendColor: '' }) %>
