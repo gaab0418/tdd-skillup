@@ -9,7 +9,7 @@ router.use(isAuthenticated, isAdmin);
 const courseUpload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, require('path').join(__dirname, '..', 'public', 'uploads', 'thumbnails'));
+      cb(null, require('path').join(__dirname, '..', '..', 'public', 'uploads', 'thumbnails'));
     },
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);

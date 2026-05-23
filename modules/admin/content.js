@@ -13,7 +13,7 @@ const lessonUpload = multer({
     destination: (req, file, cb) => {
       const path = require('path');
       const folder = file.fieldname === 'video' ? 'videos' : 'thumbnails';
-      cb(null, require('path').join(__dirname, '..', 'public', 'uploads', folder));
+      cb(null, require('path').join(__dirname, '..', '..', 'public', 'uploads', folder));
     },
     filename: (req, file, cb) => {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
