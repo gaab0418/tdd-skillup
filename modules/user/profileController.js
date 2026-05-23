@@ -1,8 +1,8 @@
-const { User, Progress, Certificate, Lesson, Topic } = require('../../models');
+const { User, Progress, Certificate, Lesson, Topic, Course, UserCourse } = require('../../models');
 const { uploadAvatar } = require('../../middlewares/upload');
 
 const profileController = {
-  /** GET /profile - Perfil + Certificados */
+  /** GET /profile - Perfil + Cursos Inscritos + Certificados */
   index: async (req, res) => {
     try {
       const user = await User.findByPk(req.session.userId, {
@@ -23,7 +23,43 @@ const profileController = {
         order: [['issuedAt', 'DESC']],
       });
 
-      // Calcular streak (simplificado: dias consecutivos com progresso)
+      // Buscar cursos inscritos
+      const enrolledCourses = await Course.findAll({
+        include: [
+          { model: Topic, as: 'topic' },
+          { model: Lesson, as: 'lessons', where: { status: 'published' }, required: false },
+          {
+            model: User,
+            as: 'enrolledUsers',
+            where: { id: req.session.userId },
+            attributes: [],
+            through: { attributes: [] },
+          },
+        ],
+      });
+
+      // Buscar progresso do usuário para calcular por curso
+      const allProgress = await Progress.findAll({
+        where: { userId: req.session.userId, completed: true },
+        attributes: ['lessonId'],
+      });
+      const completedLessonIds = new Set(allProgress.map(p => p.lessonId));
+
+      // Adicionar progresso a cada curso
+      const coursesWithProgress = enrolledCourses.map(course => {
+        const totalLessons = course.lessons ? course.lessons.length : 0;
+        const completedInCourse = course.lessons
+          ? course.lessons.filter(l => completedLessonIds.has(l.id)).length
+          : 0;
+        return {
+          ...course.toJSON(),
+          totalLessons,
+          completedInCourse,
+          progressPercent: totalLessons > 0 ? Math.round((completedInCourse / totalLessons) * 100) : 0,
+        };
+      });
+
+      // Calcular streak
       const recentProgress = await Progress.findAll({
         where: { userId: req.session.userId, completed: true },
         order: [['completedAt', 'DESC']],
@@ -58,12 +94,69 @@ const profileController = {
         totalWatched,
         certificates,
         streak,
+        enrolledCourses: coursesWithProgress,
         activePage: 'certificates',
       });
     } catch (error) {
       console.error('Erro no perfil:', error);
       req.flash('error', 'Erro ao carregar perfil.');
       res.redirect('/');
+    }
+  },
+
+  /** GET /profile/course/:id - Trilha de Aprendizado do curso */
+  myCourse: async (req, res) => {
+    try {
+      // Verificar inscrição
+      const enrollment = await UserCourse.findOne({
+        where: { userId: req.session.userId, courseId: req.params.id },
+      });
+
+      if (!enrollment) {
+        req.flash('error', 'Você não está inscrito neste curso.');
+        return res.redirect('/browse');
+      }
+
+      const course = await Course.findByPk(req.params.id, {
+        include: [
+          { model: Topic, as: 'topic' },
+          {
+            model: Lesson,
+            as: 'lessons',
+            where: { status: 'published' },
+            required: false,
+          },
+        ],
+      });
+
+      if (!course) {
+        req.flash('error', 'Curso não encontrado.');
+        return res.redirect('/profile');
+      }
+
+      // Ordenar lições
+      const lessons = course.lessons ? course.lessons.sort((a, b) => a.order - b.order) : [];
+
+      // Progresso do usuário
+      const progressList = await Progress.findAll({
+        where: { userId: req.session.userId },
+      });
+      const progressMap = {};
+      progressList.forEach(p => {
+        progressMap[p.lessonId] = p;
+      });
+
+      res.render('pages/profile/my-course', {
+        title: `${course.title} - Trilha - SkillUp`,
+        layout: 'layouts/main',
+        course,
+        lessons,
+        progressMap,
+      });
+    } catch (error) {
+      console.error('Erro na trilha do curso:', error);
+      req.flash('error', 'Erro ao carregar trilha.');
+      res.redirect('/profile');
     }
   },
 
@@ -124,4 +217,3 @@ const profileController = {
 };
 
 module.exports = profileController;
-

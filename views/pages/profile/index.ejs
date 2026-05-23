@@ -7,6 +7,59 @@
     <h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Sobre mim</h3>
     <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-wrap break-words break-all"><%= profileUser.bio ? profileUser.bio : 'Nenhuma biografia informada.' %></p>
   </section>
+
+  <!-- Meus Cursos Section -->
+  <section id="meus-cursos" class="mb-stack-lg">
+    <div class="flex justify-between items-end mb-stack-md">
+      <h3 class="font-headline-sm text-headline-sm text-on-surface">Meus Cursos</h3>
+      <a href="/browse" class="text-primary hover:underline text-sm font-medium">Procurar mais</a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-stack-md">
+      <% if (enrolledCourses && enrolledCourses.length > 0) { %>
+        <% enrolledCourses.forEach(course => { %>
+          <article class="bg-surface-container-lowest rounded-xl shadow-level-1 overflow-hidden flex flex-col border border-outline-variant/10">
+            <div class="h-32 w-full bg-surface-container-high relative">
+              <% if (course.thumbnail) { %>
+                <img src="<%= course.thumbnail %>" alt="" class="w-full h-full object-cover">
+              <% } else { %>
+                <div class="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-4xl text-primary/40">school</span>
+                </div>
+              <% } %>
+              <% if (course.topic) { %>
+                <div class="absolute top-3 left-3 bg-surface-container-lowest/90 text-on-surface px-2 py-0.5 rounded text-[11px] font-bold shadow-sm" style="color:<%= course.topic.color %>">
+                  <%= course.topic.name %>
+                </div>
+              <% } %>
+            </div>
+            
+            <div class="p-4 flex flex-col flex-grow">
+              <h4 class="font-label-md text-base text-on-surface line-clamp-1 mb-1"><%= course.title %></h4>
+              <p class="text-xs text-outline mb-4"><%= course.completedInCourse %> de <%= course.totalLessons %> aulas concluídas</p>
+              
+              <div class="mt-auto">
+                <div class="w-full bg-surface-container-highest rounded-full h-1.5 mb-3">
+                  <div class="bg-secondary h-1.5 rounded-full" style="width: <%= course.progressPercent %>%"></div>
+                </div>
+                
+                <a href="/profile/course/<%= course.id %>" class="block w-full text-center bg-primary/10 text-primary hover:bg-primary hover:text-on-primary py-2 rounded font-label-md text-sm transition-colors">
+                  Continuar Trilha
+                </a>
+              </div>
+            </div>
+          </article>
+        <% }); %>
+      <% } else { %>
+        <div class="col-span-full bg-surface-container-lowest rounded-xl p-8 text-center border border-outline-variant/10 shadow-sm">
+          <span class="material-symbols-outlined text-4xl text-outline-variant mb-3">auto_stories</span>
+          <p class="text-on-surface-variant mb-4">Você ainda não se inscreveu em nenhum curso.</p>
+          <a href="/browse" class="inline-block bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md hover:bg-primary-container transition-colors">Explorar Cursos</a>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
   <section id="certificados" class="mb-stack-lg">
     <div class="flex justify-between items-end mb-stack-md">
       <h3 class="font-headline-sm text-headline-sm text-on-surface">Certificados Conquistados</h3>

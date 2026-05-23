@@ -1,14 +1,28 @@
-<%# lesson-details.ejs - Recebe: lesson %>
+<%# lesson-details.ejs - Recebe: lesson, userProgress %>
 <div class="space-y-stack-md">
-  <div class="flex items-center gap-2">
-    <span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
-      <span class="material-symbols-outlined text-[14px]">timer</span> <%= lesson.duration %> min
-    </span>
-    <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
-      <span class="material-symbols-outlined text-[14px]">school</span> <%= lesson.level %>
-    </span>
+  <div class="flex items-center justify-between flex-wrap gap-4">
+    <div class="flex items-center gap-2">
+      <span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px]">timer</span> <%= lesson.duration %> min
+      </span>
+      <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-caption text-caption flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px]">school</span> <%= lesson.level === 'beginner' ? 'Iniciante' : lesson.level === 'intermediate' ? 'Intermediário' : 'Avançado' %>
+      </span>
+    </div>
+    
+    <% if (typeof userProgress !== 'undefined' && userProgress && userProgress.completed) { %>
+      <button class="bg-secondary/10 text-secondary px-4 py-2 rounded-lg font-label-md text-sm flex items-center gap-2" disabled>
+        <span class="material-symbols-outlined text-[18px]">check_circle</span> Assistida
+      </button>
+    <% } else { %>
+      <button id="mark-completed-btn" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm flex items-center gap-2 cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">check</span> Marcar como Assistida
+      </button>
+    <% } %>
   </div>
+  
   <h1 class="font-headline-md text-headline-md text-on-surface"><%= lesson.title %></h1>
+  
   <% if (lesson.author) { %>
     <div class="flex items-center justify-between py-4 border-y border-outline-variant/30">
       <div class="flex items-center gap-4">
@@ -24,9 +38,33 @@
       </div>
     </div>
   <% } %>
+  
   <% if (lesson.description) { %>
     <div class="prose prose-sm max-w-none text-on-surface-variant font-body-md text-body-md">
       <p><%- lesson.description %></p>
     </div>
   <% } %>
 </div>
+
+<script>
+  const markCompletedBtn = document.getElementById('mark-completed-btn');
+  if (markCompletedBtn) {
+    markCompletedBtn.addEventListener('click', async () => {
+      try {
+        const res = await fetch('/lessons/<%= lesson.id %>/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            completed: true, 
+            watchedMinutes: <%= lesson.duration %> 
+          })
+        });
+        if (res.ok) {
+          window.location.reload();
+        }
+      } catch (err) {
+        console.error('Erro ao marcar como assistida:', err);
+      }
+    });
+  }
+</script>

@@ -7,6 +7,7 @@ const Progress = require('../modules/exam/Progress');
 const Certificate = require('../modules/gamification/Certificate');
 const Comment = require('../modules/interaction/Comment');
 const UserCourse = require('../modules/course/UserCourse');
+const Like = require('../modules/interaction/Like');
 
 // =============================================
 // Associacoes
@@ -52,6 +53,10 @@ Comment.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 Lesson.hasMany(Comment, { foreignKey: 'lessonId', as: 'comments' });
 Comment.belongsTo(Lesson, { foreignKey: 'lessonId', as: 'lesson' });
 
+// User 1:N Like
+User.hasMany(Like, { foreignKey: 'userId', as: 'likes' });
+Like.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
 // User N:M Course (via UserCourse)
 User.belongsToMany(Course, { through: UserCourse, foreignKey: 'userId', as: 'enrolledCourses' });
 Course.belongsToMany(User, { through: UserCourse, foreignKey: 'courseId', as: 'enrolledUsers' });
@@ -66,4 +71,5 @@ module.exports = {
   Certificate,
   Comment,
   UserCourse,
+  Like,
 };

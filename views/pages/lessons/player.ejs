@@ -1,9 +1,9 @@
 <%# Lesson Player - usa layout main mas com sidebar %>
 <div class="flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden">
   <div class="flex-1 overflow-y-auto bg-surface p-gutter space-y-stack-lg">
-    <%- include('../../components/lesson/video-player', { lesson }) %>
-    <%- include('../../components/lesson/lesson-details', { lesson }) %>
-    <%- include('../../components/lesson/comments-section', { lesson, user }) %>
+    <%- include('../../components/lesson/video-player', { lesson, userProgress: typeof userProgress !== 'undefined' ? userProgress : null }) %>
+    <%- include('../../components/lesson/lesson-details', { lesson, userProgress: typeof userProgress !== 'undefined' ? userProgress : null }) %>
+    <%- include('../../components/lesson/comments-section', { lesson, user, userLikes: typeof userLikes !== 'undefined' ? userLikes : [] }) %>
   </div>
   <%- include('../../components/lesson/lesson-sidebar', { lesson, curriculum, curriculumProgress, completedCount }) %>
 </div>

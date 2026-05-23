@@ -1,4 +1,4 @@
-const { Lesson, Topic, Progress, Comment, User } = require('../../models');
+const { Lesson, Topic, Progress, Comment, User, UserCourse, Like } = require('../../models');
 
 const lessonController = {
   /** GET /lessons/:id - Player da lição */
@@ -20,6 +20,17 @@ const lessonController = {
       if (!lesson || lesson.status !== 'published') {
         req.flash('error', 'Lição não encontrada.');
         return res.redirect('/browse');
+      }
+
+      // Verificar inscrição no curso
+      if (lesson.courseId && req.session.userId) {
+        const enrollment = await UserCourse.findOne({
+          where: { userId: req.session.userId, courseId: lesson.courseId },
+        });
+        if (!enrollment) {
+          req.flash('error', 'Você precisa se inscrever no curso para assistir esta aula.');
+          return res.redirect(`/browse/${lesson.courseId}`);
+        }
       }
 
       // Buscar todas as lições do mesmo tópico (currículo/sidebar)
@@ -45,6 +56,22 @@ const lessonController = {
         });
       }
 
+      // Buscar likes do usuário nos comentários desta lição
+      let userLikes = [];
+      if (req.session.userId && lesson.comments) {
+        const commentIds = lesson.comments.map(c => c.id);
+        if (commentIds.length > 0) {
+          const likes = await Like.findAll({
+            where: {
+              userId: req.session.userId,
+              targetType: 'comment',
+              targetId: commentIds,
+            },
+          });
+          userLikes = likes.map(l => l.targetId);
+        }
+      }
+
       const completedCount = Object.values(curriculumProgress).filter((p) => p.completed).length;
 
       res.render('pages/lessons/player', {
@@ -55,6 +82,7 @@ const lessonController = {
         userProgress,
         curriculumProgress,
         completedCount,
+        userLikes,
       });
     } catch (error) {
       console.error('Erro no player:', error);
@@ -112,7 +140,41 @@ const lessonController = {
       return res.redirect(`/lessons/${req.params.id}`);
     }
   },
+
+  /** POST /lessons/:id/comments/:commentId/like - Toggle like */
+  toggleLike: async (req, res) => {
+    try {
+      const { commentId } = req.params;
+      const userId = req.session.userId;
+
+      const comment = await Comment.findByPk(commentId);
+      if (!comment) {
+        return res.status(404).json({ success: false, error: 'Comentário não encontrado' });
+      }
+
+      const existingLike = await Like.findOne({
+        where: { userId, targetType: 'comment', targetId: commentId },
+      });
+
+      let liked;
+      if (existingLike) {
+        await existingLike.destroy();
+        comment.likes = Math.max(0, comment.likes - 1);
+        liked = false;
+      } else {
+        await Like.create({ userId, targetType: 'comment', targetId: commentId });
+        comment.likes = comment.likes + 1;
+        liked = true;
+      }
+
+      await comment.save();
+
+      return res.json({ success: true, liked, likeCount: comment.likes });
+    } catch (error) {
+      console.error('Erro ao curtir:', error);
+      return res.status(500).json({ success: false, error: 'Erro ao curtir comentário' });
+    }
+  },
 };
 
 module.exports = lessonController;
-

@@ -1,5 +1,15 @@
 const { Lesson, Topic, Course, User } = require('../../models');
 const { Op } = require('sequelize');
+const path = require('path');
+
+let getVideoDurationInSeconds;
+let ffprobe;
+try {
+  getVideoDurationInSeconds = require('get-video-duration').getVideoDurationInSeconds;
+  ffprobe = require('ffprobe-static');
+} catch (err) {
+  console.warn('Dependências de duração de vídeo não instaladas. A duração será fixa.');
+}
 
 const contentController = {
   /** GET /admin/content */
@@ -59,10 +69,26 @@ const contentController = {
         topicId, courseId: courseId || null,
         authorId: req.session.userId, order: parseInt(order) || 0,
       };
+
       if (req.files) {
-        if (req.files.video) lessonData.videoUrl = `/uploads/videos/${req.files.video[0].filename}`;
-        if (req.files.thumbnail) lessonData.thumbnail = `/uploads/thumbnails/${req.files.thumbnail[0].filename}`;
+        if (req.files.video) {
+          lessonData.videoUrl = `/uploads/videos/${req.files.video[0].filename}`;
+          // Calcular a duração automaticamente se houver upload
+          if (getVideoDurationInSeconds && ffprobe) {
+            try {
+              const videoPath = path.join(__dirname, '..', '..', 'public', 'uploads', 'videos', req.files.video[0].filename);
+              const durationInSeconds = await getVideoDurationInSeconds(videoPath, ffprobe.path);
+              lessonData.duration = Math.max(1, Math.ceil(durationInSeconds / 60)); // Salvar em minutos
+            } catch (err) {
+              console.error('Erro ao extrair duração do vídeo:', err);
+            }
+          }
+        }
+        if (req.files.thumbnail) {
+          lessonData.thumbnail = `/uploads/thumbnails/${req.files.thumbnail[0].filename}`;
+        }
       }
+
       await Lesson.create(lessonData);
       req.flash('success', 'Licao criada com sucesso!');
       return res.redirect('/admin/conteudo');
@@ -100,14 +126,37 @@ const contentController = {
       if (!lesson) { req.flash('error', 'Licao nao encontrada.'); return res.redirect('/admin/conteudo'); }
       const { title, description, duration, level, status, topicId, courseId, order } = req.body;
       lesson.title = title; lesson.description = description;
-      lesson.duration = parseInt(duration) || 5; lesson.level = level || 'beginner';
+      lesson.level = level || 'beginner';
       lesson.status = status || 'draft'; lesson.topicId = topicId;
       lesson.courseId = courseId || null;
       lesson.order = parseInt(order) || 0;
-      if (req.files) {
-        if (req.files.video) lesson.videoUrl = `/uploads/videos/${req.files.video[0].filename}`;
-        if (req.files.thumbnail) lesson.thumbnail = `/uploads/thumbnails/${req.files.thumbnail[0].filename}`;
+      
+      // Apenas atualizar a duração via input manual se for informada E não for feito um novo upload de vídeo
+      if (duration) {
+        lesson.duration = parseInt(duration);
+      } else if (!lesson.duration) {
+        lesson.duration = 5;
       }
+
+      if (req.files) {
+        if (req.files.video) {
+          lesson.videoUrl = `/uploads/videos/${req.files.video[0].filename}`;
+          // Atualizar duração automaticamente no novo upload
+          if (getVideoDurationInSeconds && ffprobe) {
+            try {
+              const videoPath = path.join(__dirname, '..', '..', 'public', 'uploads', 'videos', req.files.video[0].filename);
+              const durationInSeconds = await getVideoDurationInSeconds(videoPath, ffprobe.path);
+              lesson.duration = Math.max(1, Math.ceil(durationInSeconds / 60)); // Salvar em minutos
+            } catch (err) {
+              console.error('Erro ao extrair duração do vídeo:', err);
+            }
+          }
+        }
+        if (req.files.thumbnail) {
+          lesson.thumbnail = `/uploads/thumbnails/${req.files.thumbnail[0].filename}`;
+        }
+      }
+
       await lesson.save();
       req.flash('success', 'Licao atualizada!');
       return res.redirect('/admin/conteudo');
@@ -135,4 +184,3 @@ const contentController = {
 };
 
 module.exports = contentController;
-

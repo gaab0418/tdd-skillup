@@ -1,10 +1,15 @@
 <%# video-player.ejs - Recebe: lesson %>
 <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-level-1">
-  <div class="aspect-video bg-inverse-surface relative group">
+  <div class="aspect-video bg-inverse-surface relative">
     <% if (lesson.videoUrl) { %>
-      <video id="lesson-video" class="w-full h-full object-cover" poster="<%= lesson.thumbnail || '' %>">
+      <video id="lesson-video" class="w-full h-full object-cover" poster="<%= lesson.thumbnail || '' %>" controls>
         <source src="<%= lesson.videoUrl %>" type="video/mp4">
       </video>
+      <div id="play-overlay" class="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none transition-opacity duration-300">
+        <button id="play-overlay-btn" class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform pointer-events-auto">
+          <span class="material-symbols-outlined text-[32px]">play_arrow</span>
+        </button>
+      </div>
     <% } else if (lesson.thumbnail) { %>
       <img alt="<%= lesson.title %>" class="w-full h-full object-cover opacity-80" src="<%= lesson.thumbnail %>">
     <% } else { %>
@@ -12,10 +17,69 @@
         <span class="material-symbols-outlined text-6xl text-white/30">play_circle</span>
       </div>
     <% } %>
-    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
-      <button onclick="document.getElementById('lesson-video')?.play()" class="w-16 h-16 bg-primary text-on-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-        <span class="material-symbols-outlined text-[32px]">play_arrow</span>
-      </button>
-    </div>
   </div>
 </div>
+
+<script>
+  const video = document.getElementById('lesson-video');
+  const overlay = document.getElementById('play-overlay');
+  const overlayBtn = document.getElementById('play-overlay-btn');
+
+  if (video && overlay && overlayBtn) {
+    overlayBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    video.addEventListener('play', () => {
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+    });
+
+    video.addEventListener('pause', () => {
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto'; // allow click again
+    });
+    
+    video.addEventListener('ended', async () => {
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+
+      <% if (!userProgress || !userProgress.completed) { %>
+      try {
+        const response = await fetch('/lessons/<%= lesson.id %>/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ completed: true })
+        });
+        if (response.ok) {
+          window.location.reload();
+        }
+      } catch (err) {
+        console.error('Error updating progress:', err);
+      }
+      <% } %>
+    });
+
+    <% if (!userProgress || !userProgress.completed) { %>
+    let lastUpdate = 0;
+    video.addEventListener('timeupdate', async () => {
+      const currentTime = video.currentTime;
+      // Atualizar no banco a cada 60 segundos
+      if (currentTime - lastUpdate > 60) {
+        lastUpdate = currentTime;
+        try {
+          await fetch('/lessons/<%= lesson.id %>/progress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ watchedMinutes: Math.floor(currentTime / 60) })
+          });
+        } catch (err) {}
+      }
+    });
+    <% } %>
+  }
+</script>

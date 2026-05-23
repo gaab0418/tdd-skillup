@@ -1,4 +1,4 @@
-<%# comments-section.ejs - Recebe: lesson, user %>
+<%# comments-section.ejs - Recebe: lesson, user, userLikes %>
 <div class="bg-surface-container-lowest p-stack-md rounded-xl shadow-level-1 mt-stack-lg">
   <h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md">Discussão (<%= lesson.comments ? lesson.comments.length : 0 %>)</h3>
   <% if (user) { %>
@@ -30,9 +30,18 @@
             </div>
             <p class="font-body-md text-body-md text-on-surface-variant mt-1"><%= comment.content %></p>
             <div class="flex items-center gap-4 mt-2">
-              <button class="flex items-center gap-1 text-outline hover:text-primary font-caption text-caption transition-colors">
-                <span class="material-symbols-outlined text-[16px]">thumb_up</span> <%= comment.likes %>
-              </button>
+              <% if (user) { %>
+                <% const isLiked = userLikes && userLikes.includes(comment.id); %>
+                <button type="button" class="like-btn flex items-center gap-1 <%= isLiked ? 'text-primary' : 'text-outline' %> hover:text-primary font-caption text-caption transition-colors" data-comment-id="<%= comment.id %>" data-lesson-id="<%= lesson.id %>">
+                  <span class="material-symbols-outlined text-[16px] <%= isLiked ? 'icon-filled' : '' %>">thumb_up</span> 
+                  <span class="like-count"><%= comment.likes %></span>
+                </button>
+              <% } else { %>
+                <div class="flex items-center gap-1 text-outline font-caption text-caption">
+                  <span class="material-symbols-outlined text-[16px]">thumb_up</span> 
+                  <span><%= comment.likes %></span>
+                </div>
+              <% } %>
             </div>
           </div>
         </div>

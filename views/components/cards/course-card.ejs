@@ -1,0 +1,64 @@
+<article class="bg-surface-container-lowest rounded-xl shadow-level-1 hover:shadow-level-2 transition-all duration-300 overflow-hidden flex flex-col group cursor-pointer relative">
+  <a href="/browse/<%= course.id %>" class="block h-full flex flex-col">
+    <div class="h-40 w-full bg-surface-container-high relative overflow-hidden">
+      <% if (course.thumbnail) { %>
+        <img alt="<%= course.title %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="<%= course.thumbnail %>">
+      <% } else { %>
+        <div class="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+          <span class="material-symbols-outlined text-4xl text-primary/40">school</span>
+        </div>
+      <% } %>
+      
+      <% if (course.topic) { %>
+        <div class="absolute top-4 left-4 bg-surface-container-lowest/90 text-on-surface px-3 py-1 rounded-full font-caption text-caption backdrop-blur-sm" style="color:<%= course.topic.color %>; border: 1px solid <%= course.topic.color %>40">
+          <%= course.topic.name %>
+        </div>
+      <% } %>
+
+      <% if (enrolledCourseIds && enrolledCourseIds.includes(course.id)) { %>
+        <div class="absolute top-4 right-4 bg-secondary/90 text-on-secondary px-3 py-1 rounded-full font-caption text-caption backdrop-blur-sm shadow-sm font-bold flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">check_circle</span> Inscrito
+        </div>
+      <% } %>
+    </div>
+    
+    <div class="p-stack-md flex flex-col flex-grow">
+      <h3 class="font-headline-sm text-[20px] leading-tight text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-2"><%= course.title %></h3>
+      
+      <% if (course.description) { %>
+        <p class="font-body-md text-sm text-on-surface-variant line-clamp-2 mb-4"><%= course.description %></p>
+      <% } %>
+      
+      <div class="mt-auto pt-4 flex items-center justify-between border-t border-outline-variant/30">
+        <div class="flex items-center gap-2">
+          <% 
+            let levelColor = 'text-primary bg-primary/10';
+            if (course.level === 'intermediate') levelColor = 'text-tertiary bg-tertiary/10';
+            if (course.level === 'advanced') levelColor = 'text-error bg-error/10';
+          %>
+          <span class="font-caption text-caption px-2 py-1 rounded <%= levelColor %> capitalize"><%= course.level === 'beginner' ? 'Iniciante' : course.level === 'intermediate' ? 'Intermediário' : 'Avançado' %></span>
+        </div>
+        
+        <div class="flex items-center gap-3 text-outline font-caption text-caption">
+          <% 
+            let totalDuration = 0;
+            if (course.lessons && course.lessons.length > 0) {
+              totalDuration = course.lessons.reduce((acc, curr) => acc + (curr.duration || 0), 0);
+            }
+            const hours = Math.floor(totalDuration / 60);
+            const minutes = totalDuration % 60;
+            const durationText = hours > 0 ? `${hours}h ${minutes}m` : `${totalDuration}m`;
+          %>
+          <span class="flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">play_lesson</span>
+            <%= course.lessons ? course.lessons.length : 0 %> aulas
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">schedule</span>
+            <%= durationText %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+</article>

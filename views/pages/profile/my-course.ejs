@@ -1,0 +1,138 @@
+<%# My Course - Trilha de Aprendizado %>
+<div class="w-full max-w-container-max-width mx-auto px-gutter py-stack-lg">
+  <!-- Breadcrumb & Header -->
+  <div class="mb-8">
+    <nav class="flex text-sm text-outline mb-4" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a href="/profile" class="hover:text-primary transition-colors">Trilha de Aprendizado</a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+            <span class="text-on-surface font-medium truncate max-w-[200px] md:max-w-md"><%= course.title %></span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h1 class="font-display-lg text-[32px] text-on-surface leading-tight"><%= course.title %></h1>
+        <% if (course.topic) { %>
+          <div class="mt-2 text-sm font-medium" style="color: <%= course.topic.color %>"><%= course.topic.name %></div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col lg:flex-row gap-8">
+    <!-- Main Content: Timeline -->
+    <div class="flex-grow">
+      <div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 border border-outline-variant/10">
+        <h2 class="font-headline-sm text-lg mb-6 flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">route</span> Aulas do Curso
+        </h2>
+        
+        <% if (lessons && lessons.length > 0) { %>
+          <div class="relative border-l-2 border-outline-variant/30 ml-4 space-y-8 pb-4">
+            <% lessons.forEach((lesson, index) => { %>
+              <% 
+                const progress = progressMap[lesson.id];
+                const isCompleted = progress && progress.completed;
+                const inProgress = progress && progress.watchedMinutes > 0 && !progress.completed;
+                
+                let dotColor = 'bg-surface-variant border-outline-variant';
+                let dotIcon = '';
+                
+                if (isCompleted) {
+                  dotColor = 'bg-secondary border-secondary text-on-secondary';
+                  dotIcon = 'check';
+                } else if (inProgress) {
+                  dotColor = 'bg-tertiary border-tertiary text-on-tertiary';
+                  dotIcon = 'play_arrow';
+                }
+              %>
+              
+              <div class="relative pl-8">
+                <!-- Timeline Dot -->
+                <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full border-2 flex items-center justify-center shadow-sm <%= dotColor %>">
+                  <% if (dotIcon) { %>
+                    <span class="material-symbols-outlined text-[16px]"><%= dotIcon %></span>
+                  <% } else { %>
+                    <span class="text-xs font-bold text-outline"><%= index + 1 %></span>
+                  <% } %>
+                </div>
+                
+                <!-- Lesson Card -->
+                <a href="/lessons/<%= lesson.id %>" class="block group">
+                  <div class="bg-surface border border-outline-variant/20 rounded-lg p-4 shadow-sm hover:shadow-md transition-all group-hover:border-primary/40 relative overflow-hidden">
+                    <% if (isCompleted) { %>
+                      <div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+                    <% } else if (inProgress) { %>
+                      <div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+                    <% } %>
+                    
+                    <div class="flex justify-between items-start gap-4">
+                      <div>
+                        <h3 class="font-label-md text-base text-on-surface group-hover:text-primary transition-colors"><%= lesson.title %></h3>
+                        <div class="text-xs text-outline mt-1 flex items-center gap-2">
+                          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> <%= lesson.duration %> min</span>
+                          <% if (inProgress) { %>
+                            <span class="text-tertiary font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">motion_photos_on</span> Em andamento</span>
+                          <% } %>
+                        </div>
+                      </div>
+                      
+                      <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                      </div>
+                    </div>
+                    
+                    <% if (inProgress && progress.watchedMinutes && lesson.duration) { %>
+                      <div class="w-full bg-surface-container-highest rounded-full h-1 mt-3">
+                        <div class="bg-tertiary h-1 rounded-full" style="width: <%= Math.min((progress.watchedMinutes / lesson.duration) * 100, 95) %>%"></div>
+                      </div>
+                    <% } %>
+                  </div>
+                </a>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <div class="text-center py-8">
+            <span class="material-symbols-outlined text-4xl text-outline-variant mb-2">hourglass_empty</span>
+            <p class="text-on-surface-variant">As aulas deste curso ainda estão sendo preparadas.</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    
+    <!-- Sidebar: Stats -->
+    <div class="w-full lg:w-80 shrink-0">
+      <div class="bg-surface-container-lowest rounded-xl shadow-level-1 p-6 border border-outline-variant/10 sticky top-24">
+        <h3 class="font-label-md text-on-surface mb-4">Seu Progresso</h3>
+        
+        <% 
+          const totalLessons = lessons ? lessons.length : 0;
+          const completedCount = lessons ? lessons.filter(l => progressMap[l.id] && progressMap[l.id].completed).length : 0;
+          const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
+        %>
+        
+        <div class="text-4xl font-display-lg text-primary mb-2"><%= progressPercent %>%</div>
+        <p class="text-sm text-on-surface-variant mb-4"><%= completedCount %> de <%= totalLessons %> aulas concluídas</p>
+        
+        <div class="w-full bg-surface-container-highest rounded-full h-2 mb-6">
+          <div class="bg-secondary h-2 rounded-full" style="width: <%= progressPercent %>%"></div>
+        </div>
+        
+        <% if (progressPercent === 100) { %>
+          <div class="bg-secondary/10 border border-secondary/20 rounded-lg p-3 text-center">
+            <span class="material-symbols-outlined text-secondary mb-1">emoji_events</span>
+            <p class="text-xs font-bold text-secondary">Curso Concluído!</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
