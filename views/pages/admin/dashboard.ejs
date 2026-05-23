@@ -34,9 +34,16 @@
   </section>
 
   <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-    <%- include('../../components/admin/chart-area') %>
-    <%- include('../../components/admin/trending-lessons', { trendingLessons }) %>
+    <%- include('../../components/admin/chart-area', { growthLabels, growthData, currentFilter }) %>
+    <%- include('../../components/admin/chart-distribution', { topicStats }) %>
   </section>
 
-  <%- include('../../components/admin/activity-list', { recentActivity }) %>
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+    <div class="lg:col-span-2">
+      <%- include('../../components/admin/activity-list', { recentActivity }) %>
+    </div>
+    <div class="lg:col-span-1">
+      <%- include('../../components/admin/trending-lessons', { trendingLessons }) %>
+    </div>
+  </section>
 </div>

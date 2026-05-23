@@ -20,7 +20,18 @@
       </div>
       <div>
         <label class="font-label-md text-label-md text-on-surface mb-1 block">Ícone (Material Symbols)</label>
-        <input type="text" name="icon" value="<%= topic ? topic.icon : 'school' %>" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface" placeholder="e.g. code, design_services">
+        <div class="flex items-center gap-3">
+          <select name="icon" id="iconSelect" class="flex-1 px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface appearance-none cursor-pointer">
+            <% const icons = ['school', 'code', 'design_services', 'science', 'language', 'business', 'psychology', 'terminal', 'brush', 'build', 'monitoring', 'menu_book', 'campaign', 'fitness_center', 'health_and_safety', 'public', 'history_edu', 'calculate']; %>
+            <% const currentIcon = topic ? topic.icon : 'school'; %>
+            <% icons.forEach(icon => { %>
+              <option value="<%= icon %>" <%= currentIcon === icon ? 'selected' : '' %>><%= icon %></option>
+            <% }); %>
+          </select>
+          <div class="w-12 h-12 flex items-center justify-center border border-outline-variant rounded-lg bg-surface-container">
+            <span class="material-symbols-outlined text-2xl text-on-surface" id="iconPreview"><%= currentIcon %></span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="flex gap-4 pt-4">
@@ -36,5 +47,9 @@
 <script>
   document.querySelector('input[name="color"]').addEventListener('input', function(e) {
     document.getElementById('colorText').value = e.target.value;
+  });
+  
+  document.getElementById('iconSelect').addEventListener('change', function(e) {
+    document.getElementById('iconPreview').textContent = e.target.value;
   });
 </script>

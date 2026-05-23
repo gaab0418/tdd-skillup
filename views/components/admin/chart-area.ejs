@@ -1,20 +1,86 @@
 <%# chart-area.ejs %>
 <div class="lg:col-span-2 bg-surface-container-lowest rounded-lg p-stack-md shadow-level-1 border border-surface-variant flex flex-col">
-  <div class="flex justify-between items-center mb-6">
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
     <h3 class="font-headline-sm text-xl text-on-surface">Crescimento da Plataforma</h3>
-    <div class="flex gap-2">
-      <button class="font-label-md text-label-md px-3 py-1 bg-surface-variant text-on-surface rounded-full">1M</button>
-      <button class="font-label-md text-label-md px-3 py-1 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors">3M</button>
-      <button class="font-label-md text-label-md px-3 py-1 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors">1A</button>
+    <div class="flex gap-2 flex-wrap">
+      <% const filters = [{val:'12h', lbl:'12h'}, {val:'1d', lbl:'1d'}, {val:'7d', lbl:'7d'}, {val:'1m', lbl:'1m'}, {val:'6m', lbl:'6m'}, {val:'1a', lbl:'1a'}]; %>
+      <% filters.forEach(f => { %>
+        <a href="?filter=<%= f.val %>" class="font-label-md text-label-md px-3 py-1 rounded-full transition-colors <%= currentFilter === f.val ? 'bg-primary text-on-primary' : 'bg-surface-variant text-on-surface hover:bg-surface-container-high' %>"><%= f.lbl %></a>
+      <% }); %>
     </div>
   </div>
-  <div class="flex-1 relative min-h-[250px] w-full rounded overflow-hidden bg-surface-container flex items-end pt-8">
-    <div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none p-4">
-      <div class="border-b border-on-surface w-full"></div>
-      <div class="border-b border-on-surface w-full"></div>
-      <div class="border-b border-on-surface w-full"></div>
-      <div class="border-b border-on-surface w-full"></div>
-    </div>
-    <div class="w-full h-[60%] bg-gradient-to-t from-primary/20 to-transparent relative border-t-2 border-primary" style="clip-path: polygon(0 100%, 0 50%, 20% 40%, 40% 60%, 60% 20%, 80% 30%, 100% 0, 100% 100%);"></div>
+  <div class="flex-1 relative min-h-[250px] w-full rounded bg-surface-container flex items-end pt-4 px-2 pb-2">
+    <canvas id="growthChart" class="w-full h-full"></canvas>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('growthChart').getContext('2d');
+    
+    // Gradiente para preenchimento
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(0, 80, 203, 0.5)'); // primary com opacidade
+    gradient.addColorStop(1, 'rgba(0, 80, 203, 0)');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: <%- JSON.stringify(growthLabels) %>,
+        datasets: [{
+          label: 'Novos Usuários',
+          data: <%- JSON.stringify(growthData) %>,
+          borderColor: '#0050cb', // primary
+          backgroundColor: gradient,
+          borderWidth: 2,
+          pointBackgroundColor: '#0050cb',
+          pointBorderColor: '#fff',
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            backgroundColor: 'rgba(25, 28, 32, 0.9)', // surface-container
+            titleColor: '#e1e2e8', // on-surface
+            bodyColor: '#e1e2e8',
+            borderColor: '#44474e', // outline
+            borderWidth: 1,
+            padding: 10,
+            displayColors: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(68, 71, 78, 0.1)', // outline com opacidade baixa
+              drawBorder: false,
+            },
+            ticks: {
+              color: '#8e9099' // on-surface-variant
+            }
+          },
+          x: {
+            grid: {
+              display: false,
+              drawBorder: false,
+            },
+            ticks: {
+              color: '#8e9099'
+            }
+          }
+        }
+      }
+    });
+  });
+</script>

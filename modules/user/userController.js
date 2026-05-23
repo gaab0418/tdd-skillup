@@ -32,6 +32,50 @@ const userController = {
     }
   },
 
+  /** GET /admin/users/new */
+  create: async (req, res) => {
+    try {
+      const allCourses = await Course.findAll({ where: { status: 'published' }, order: [['title', 'ASC']] });
+      res.render('pages/admin/user-new', {
+        title: 'Novo Usuario - SkillUp', layout: 'layouts/admin',
+        allCourses, activePage: 'users',
+      });
+    } catch (error) {
+      console.error('Erro ao abrir form de novo usuario:', error);
+      req.flash('error', 'Erro ao carregar formulario.');
+      res.redirect('/admin/usuarios');
+    }
+  },
+
+  /** POST /admin/users */
+  store: async (req, res) => {
+    try {
+      const { name, email, password, role, bio } = req.body;
+      
+      const existingUser = await User.findOne({ where: { email } });
+      if (existingUser) {
+        req.flash('error', 'Este email ja esta cadastrado.');
+        return res.redirect('/admin/usuarios/novo');
+      }
+
+      const newUser = await User.create({ name, email, password, role, bio });
+
+      // Atualizar cursos atribuidos
+      const courseIds = req.body.courses ? (Array.isArray(req.body.courses) ? req.body.courses : [req.body.courses]) : [];
+      if (courseIds.length > 0) {
+        const records = courseIds.map(courseId => ({ userId: newUser.id, courseId: parseInt(courseId) }));
+        await UserCourse.bulkCreate(records);
+      }
+
+      req.flash('success', 'Usuario criado com sucesso!');
+      return res.redirect('/admin/usuarios');
+    } catch (error) {
+      console.error('Erro ao criar usuario:', error);
+      req.flash('error', 'Erro ao criar usuario.');
+      return res.redirect('/admin/usuarios/novo');
+    }
+  },
+
   /** GET /admin/users/:id/edit */
   edit: async (req, res) => {
     try {

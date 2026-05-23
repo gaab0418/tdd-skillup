@@ -5,10 +5,16 @@
       <h1 class="font-headline-md text-headline-md text-on-surface">Usuários</h1>
       <p class="font-body-md text-body-md text-on-surface-variant mt-1"><%= totalUsers %> usuários registrados</p>
     </div>
-    <form action="/admin/usuarios" method="GET" class="relative w-full sm:w-auto">
-      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-      <input name="search" value="<%= search %>" class="w-full sm:w-64 pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md bg-surface placeholder:text-outline transition-all" placeholder="Buscar usuários..." type="text">
-    </form>
+    <div class="flex items-center gap-4 w-full sm:w-auto">
+      <form action="/admin/usuarios" method="GET" class="relative flex-1 sm:flex-none">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+        <input name="search" value="<%= search %>" class="w-full sm:w-64 pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md bg-surface placeholder:text-outline transition-all" placeholder="Buscar usuários..." type="text">
+      </form>
+      <a href="/admin/usuarios/novo" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm whitespace-nowrap flex items-center gap-2">
+        <span class="material-symbols-outlined text-lg">add</span>
+        Adicionar
+      </a>
+    </div>
   </div>
 
   <div class="bg-surface-container-lowest rounded-xl shadow-level-1 overflow-hidden">

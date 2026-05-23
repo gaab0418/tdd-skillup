@@ -1,0 +1,74 @@
+<%# chart-distribution.ejs %>
+<div class="lg:col-span-1 bg-surface-container-lowest rounded-lg p-stack-md shadow-level-1 border border-surface-variant flex flex-col">
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="font-headline-sm text-xl text-on-surface">Distribuição de Conteúdo</h3>
+  </div>
+  <div class="flex-1 relative min-h-[250px] w-full flex items-center justify-center pt-2 pb-2">
+    <% if (topicStats && topicStats.length > 0) { %>
+      <canvas id="distributionChart" class="w-full h-full max-h-[250px]"></canvas>
+    <% } else { %>
+      <p class="text-on-surface-variant font-body-md text-center">Nenhum dado disponível.</p>
+    <% } %>
+  </div>
+</div>
+
+<% if (topicStats && topicStats.length > 0) { %>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('distributionChart').getContext('2d');
+    
+    const topicStats = <%- JSON.stringify(topicStats) %>;
+    const labels = topicStats.map(t => t.name);
+    const data = topicStats.map(t => t.lessonCount);
+    const colors = topicStats.map(t => t.color || '#0050cb');
+
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: colors,
+          borderWidth: 0,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#8e9099', // on-surface-variant
+              usePointStyle: true,
+              padding: 20
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(25, 28, 32, 0.9)', // surface-container
+            titleColor: '#e1e2e8', // on-surface
+            bodyColor: '#e1e2e8',
+            borderColor: '#44474e', // outline
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+              label: function(context) {
+                let label = context.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed !== null) {
+                  label += context.parsed + ' aulas';
+                }
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+<% } %>

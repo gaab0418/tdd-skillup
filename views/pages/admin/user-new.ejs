@@ -1,0 +1,58 @@
+<%# User Create Form %>
+<div class="max-w-2xl mx-auto space-y-stack-lg">
+  <h1 class="font-headline-md text-headline-md text-on-surface">Novo Usuário</h1>
+  <form action="/admin/usuarios" method="POST" class="bg-surface-container-lowest rounded-xl p-stack-md shadow-level-1 space-y-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface mb-1 block">Nome</label>
+        <input type="text" name="name" required class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface mb-1 block">Email</label>
+        <input type="email" name="email" required class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="font-label-md text-label-md text-on-surface mb-1 block">Senha</label>
+        <input type="password" name="password" required class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+      </div>
+      <div>
+        <label class="font-label-md text-label-md text-on-surface mb-1 block">Função</label>
+        <select name="role" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface">
+          <option value="user">Usuário</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+    </div>
+    
+    <div>
+      <label class="font-label-md text-label-md text-on-surface mb-1 block">Biografia</label>
+      <textarea name="bio" rows="3" maxlength="500" class="w-full px-4 py-3 border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-surface"></textarea>
+    </div>
+
+    <% if (allCourses && allCourses.length > 0) { %>
+      <div class="pt-6 border-t border-outline-variant/30">
+        <h3 class="font-headline-sm text-lg text-on-surface mb-4">Cursos Atribuídos</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <% allCourses.forEach(course => { %>
+            <label class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/30 hover:bg-surface-container-low cursor-pointer transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+              <input type="checkbox" name="courses" value="<%= course.id %>" class="rounded border-outline-variant text-primary focus:ring-primary">
+              <span class="font-label-md text-label-md text-on-surface"><%= course.title %></span>
+            </label>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="flex gap-4 pt-4">
+      <button type="submit" class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-blue-700 transition-colors shadow-sm">
+        Criar Usuário
+      </button>
+      <a href="/admin/usuarios" class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-variant transition-colors">
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
