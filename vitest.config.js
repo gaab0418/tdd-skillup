@@ -4,6 +4,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    resetMocks: true,
+    setupFiles: ['./tests/setup.js'],
     include: ['tests/**/*.test.js'],
     coverage: {
       provider: 'v8',

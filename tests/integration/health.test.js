@@ -1,6 +1,5 @@
-import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import app from '../../app.js';
+const app = require('../../app.js');
 
 describe('GET /health', () => {
   it('retorna 200 com status true, message ok e timestamp válido', async () => {
