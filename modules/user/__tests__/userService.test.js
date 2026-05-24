@@ -28,7 +28,7 @@ describe('UserService', () => {
   });
 
   describe('createUser', () => {
-    it('deve lançar erro se o email já estiver cadastrado', async () => {
+    it('[RF-01] deve lançar erro se o email já estiver cadastrado', async () => {
       User.findOne.mockResolvedValue({ id: 1, email: 'teste@teste.com' });
 
       await expect(userService.createUser({ email: 'teste@teste.com' }))
@@ -38,7 +38,7 @@ describe('UserService', () => {
       expect(User.findOne).toHaveBeenCalledTimes(1);
     });
 
-    it('deve criar um usuário com sucesso sem cursos atrelados', async () => {
+    it('[RF-01] deve criar um usuário com sucesso sem cursos atrelados', async () => {
       User.findOne.mockResolvedValue(null);
       User.create.mockResolvedValue({ id: 1, name: 'João', email: 'joao@teste.com' });
 
@@ -49,7 +49,7 @@ describe('UserService', () => {
       expect(UserCourse.bulkCreate).not.toHaveBeenCalled();
     });
 
-    it('deve criar um usuário e atrelar cursos usando bulkCreate', async () => {
+    it('[RF-01] deve criar um usuário e atrelar cursos usando bulkCreate', async () => {
       User.findOne.mockResolvedValue(null);
       User.create.mockResolvedValue({ id: 2, name: 'Maria' });
 
@@ -63,14 +63,14 @@ describe('UserService', () => {
   });
 
   describe('getUserById', () => {
-    it('deve lançar erro quando usuário não for encontrado', async () => {
+    it('[RF-12] deve lançar erro quando usuário não for encontrado', async () => {
       User.findByPk.mockResolvedValue(null);
 
       await expect(userService.getUserById(99)).rejects.toThrow('Usuario nao encontrado.');
       expect(User.findByPk).toHaveBeenCalledWith(99, expect.any(Object));
     });
 
-    it('deve retornar o usuário corretamente se ele existir', async () => {
+    it('[RF-12] deve retornar o usuário corretamente se ele existir', async () => {
       User.findByPk.mockResolvedValue({ id: 1, name: 'Admin', password: 'hash' });
 
       const user = await userService.getUserById(1);
@@ -84,13 +84,13 @@ describe('UserService', () => {
   });
 
   describe('updateUser', () => {
-    it('deve lançar erro se o usuário não existir para atualização', async () => {
+    it('[RF-12] deve lançar erro se o usuário não existir para atualização', async () => {
       User.findByPk.mockResolvedValue(null);
 
       await expect(userService.updateUser(99, {})).rejects.toThrow('Usuario nao encontrado.');
     });
 
-    it('deve atualizar os dados do usuário com sucesso (sem cursos)', async () => {
+    it('[RF-12] deve atualizar os dados do usuário com sucesso (sem cursos)', async () => {
       const mockUser = {
         id: 1,
         name: 'Antigo',
@@ -106,7 +106,7 @@ describe('UserService', () => {
       expect(UserCourse.bulkCreate).not.toHaveBeenCalled();
     });
 
-    it('deve atualizar os cursos do usuário caso enviados', async () => {
+    it('[RF-12] deve atualizar os cursos do usuário caso enviados', async () => {
       const mockUser = {
         id: 1,
         save: vi.fn().mockResolvedValue(true)
@@ -124,20 +124,20 @@ describe('UserService', () => {
   });
 
   describe('deleteUser', () => {
-    it('deve lançar erro se o usuário tentar deletar a própria conta', async () => {
+    it('[RF-12] deve lançar erro se o usuário tentar deletar a própria conta', async () => {
       const mockUser = { id: 1 };
       User.findByPk.mockResolvedValue(mockUser);
 
       await expect(userService.deleteUser(1, 1)).rejects.toThrow('Voce nao pode excluir sua propria conta.');
     });
 
-    it('deve lançar erro ao tentar deletar um usuário inexistente', async () => {
+    it('[RF-12] deve lançar erro ao tentar deletar um usuário inexistente', async () => {
       User.findByPk.mockResolvedValue(null);
 
       await expect(userService.deleteUser(99, 1)).rejects.toThrow('Usuario nao encontrado.');
     });
 
-    it('deve excluir o usuário com sucesso', async () => {
+    it('[RF-12] deve excluir o usuário com sucesso', async () => {
       const mockUser = {
         id: 2,
         destroy: vi.fn().mockResolvedValue(true)
@@ -152,7 +152,7 @@ describe('UserService', () => {
   });
 
   describe('listUsers', () => {
-    it('deve listar usuários com paginação e filtros se houver search', async () => {
+    it('[RF-12] deve listar usuários com paginação e filtros se houver search', async () => {
       User.findAndCountAll.mockResolvedValue({
         rows: [{ id: 1 }],
         count: 1
@@ -168,7 +168,7 @@ describe('UserService', () => {
       }));
     });
 
-    it('deve calcular as páginas totais (totalPages) corretamente para muitos registros', async () => {
+    it('[RF-12] deve calcular as páginas totais (totalPages) corretamente para muitos registros', async () => {
       User.findAndCountAll.mockResolvedValue({
         rows: Array(15).fill({ id: 1 }), // mocks a page full of 15 records
         count: 35 // total of 35 records
@@ -185,7 +185,7 @@ describe('UserService', () => {
       }));
     });
 
-    it('deve utilizar a paginação padrão (page 1, limit 15) se não for especificada', async () => {
+    it('[RF-12] deve utilizar a paginação padrão (page 1, limit 15) se não for especificada', async () => {
       User.findAndCountAll.mockResolvedValue({ rows: [], count: 0 });
 
       await userService.listUsers(null);

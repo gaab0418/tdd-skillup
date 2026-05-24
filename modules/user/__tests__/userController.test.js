@@ -57,21 +57,21 @@ describe('UserController Integration Tests (Rotas /admin/usuarios)', () => {
     vi.clearAllMocks();
   });
 
-  it('GET /admin/usuarios deve retornar 200 e listar os usuários', async () => {
+  it('[RF-12] GET /admin/usuarios deve retornar 200 e listar os usuários', async () => {
     userService.listUsers.mockResolvedValue({ users: [], count: 0, totalPages: 1 });
     const res = await request(app).get('/admin/usuarios');
     expect(res.status).toBe(200);
     expect(userService.listUsers).toHaveBeenCalled();
   });
 
-  it('GET /admin/usuarios/novo deve retornar 200 e carregar formulário', async () => {
+  it('[RF-01] GET /admin/usuarios/novo deve retornar 200 e carregar formulário', async () => {
     userService.getCoursesForAssignment.mockResolvedValue([]);
     const res = await request(app).get('/admin/usuarios/novo');
     expect(res.status).toBe(200);
     expect(userService.getCoursesForAssignment).toHaveBeenCalled();
   });
 
-  it('POST /admin/usuarios deve redirecionar (302) para lista após sucesso na criação', async () => {
+  it('[RF-01] POST /admin/usuarios deve redirecionar (302) para lista após sucesso na criação', async () => {
     userService.createUser.mockResolvedValue({ id: 2, name: 'Teste' });
     const res = await request(app)
       .post('/admin/usuarios')
@@ -82,7 +82,7 @@ describe('UserController Integration Tests (Rotas /admin/usuarios)', () => {
     expect(userService.createUser).toHaveBeenCalled();
   });
 
-  it('POST /admin/usuarios deve voltar para o formulário (302) em caso de erro', async () => {
+  it('[RF-01] POST /admin/usuarios deve voltar para o formulário (302) em caso de erro', async () => {
     userService.createUser.mockRejectedValue(new UserServiceError('E-mail já existe'));
     const res = await request(app)
       .post('/admin/usuarios')
@@ -92,7 +92,7 @@ describe('UserController Integration Tests (Rotas /admin/usuarios)', () => {
     expect(res.headers.location).toBe('/admin/usuarios/novo');
   });
 
-  it('POST /admin/usuarios/:id/excluir deve chamar serviço de exclusão e redirecionar', async () => {
+  it('[RF-12] POST /admin/usuarios/:id/excluir deve chamar serviço de exclusão e redirecionar', async () => {
     userService.deleteUser.mockResolvedValue(true);
     const res = await request(app).post('/admin/usuarios/2/excluir');
 
