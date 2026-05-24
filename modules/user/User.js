@@ -50,6 +50,14 @@ const User = sequelize.define('User', {
       len: { args: [0, 500], msg: 'A biografia deve ter no máximo 500 caracteres' }
     }
   },
+  telefone: { type: DataTypes.STRING(20), allowNull: true },
+  genero: { type: DataTypes.STRING(50), allowNull: true },
+  cep: { type: DataTypes.STRING(20), allowNull: true },
+  rua: { type: DataTypes.STRING(255), allowNull: true },
+  bairro: { type: DataTypes.STRING(150), allowNull: true },
+  cidade: { type: DataTypes.STRING(150), allowNull: true },
+  estado: { type: DataTypes.STRING(50), allowNull: true },
+  complemento: { type: DataTypes.STRING(255), allowNull: true },
 }, {
   tableName: 'users',
   hooks: {

@@ -83,6 +83,53 @@ const userService = {
     }
     await editUser.destroy();
     return true;
+  },
+
+  async buscarDadosPorCep(cep) {
+    const cleanCep = cep.replace(/\D/g, '');
+    if (cleanCep.length !== 8) throw new UserServiceError('CEP inválido.');
+    
+    let response;
+    try {
+      response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+    } catch (e) {
+      throw new UserServiceError('Erro na comunicação com ViaCEP.');
+    }
+    
+    if (!response.ok) throw new UserServiceError('Erro na comunicação com ViaCEP.');
+    
+    const data = await response.json();
+    if (data.erro) throw new UserServiceError('CEP não encontrado.');
+    return data;
+  },
+
+  async buscarCepPorEndereco(uf, cidade, rua) {
+    if (!uf || !cidade || !rua) throw new UserServiceError('UF, Cidade e Rua são obrigatórios.');
+    
+    let response;
+    try {
+      response = await fetch(`https://viacep.com.br/ws/${uf}/${cidade}/${rua}/json/`);
+    } catch (e) {
+      throw new UserServiceError('Erro na comunicação com ViaCEP.');
+    }
+    
+    if (!response.ok) throw new UserServiceError('Erro na comunicação com ViaCEP.');
+    
+    const data = await response.json();
+    return data;
+  },
+
+  async salvarDadosComplementares(userId, dados) {
+    const user = await User.findByPk(userId);
+    if (!user) throw new UserServiceError('Usuário não encontrado.');
+    
+    const { telefone, genero, cep, rua, bairro, cidade, estado, complemento } = dados;
+    
+    await user.update({
+      telefone, genero, cep, rua, bairro, cidade, estado, complemento
+    });
+    
+    return user;
   }
 };
 

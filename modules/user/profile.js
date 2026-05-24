@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import profileController from './profileController.js';
+import userController from './userController.js';
 import certificateController from '../gamification/certificateController.js';
 import { isAuthenticated  } from '../../middlewares/auth.js';
 import { uploadAvatar  } from '../../middlewares/upload.js';
@@ -20,5 +21,10 @@ router.post('/settings', (req, res, next) => {
     next();
   });
 }, profileController.updateSettings);
+
+// API ViaCEP e Cadastro Complementar
+router.get('/api/cep', userController.getCep);
+router.get('/api/cep/buscar', userController.searchCep);
+router.post('/cadastro-complementar', userController.cadastroComplementar);
 
 export default router;;

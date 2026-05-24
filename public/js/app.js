@@ -10,6 +10,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, 5000);
 
+  // Global Toast Function
+  window.showToast = function(message, type = 'error') {
+    let container = document.getElementById('flash-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'flash-container';
+      container.className = 'fixed top-20 right-4 z-[100] flex flex-col gap-2 max-w-sm';
+      document.body.appendChild(container);
+    }
+
+    const ft = type === 'error' 
+      ? { icon: 'error', bg: 'bg-red-50 border-red-400 text-red-800' }
+      : { icon: 'check_circle', bg: 'bg-green-50 border-green-400 text-green-800' };
+
+    const toast = document.createElement('div');
+    toast.className = `flash-message flex items-center gap-3 px-4 py-3 rounded-lg border ${ft.bg} shadow-lg animate-slide-in transition-all duration-300`;
+    
+    toast.innerHTML = `
+      <span class="material-symbols-outlined text-lg">${ft.icon}</span>
+      <span class="flex-1 text-sm font-medium">${message}</span>
+      <button onclick="this.parentElement.remove()" class="hover:opacity-70">
+        <span class="material-symbols-outlined text-sm">close</span>
+      </button>
+    `;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(100%)';
+      setTimeout(() => toast.remove(), 300);
+    }, 5000);
+  };
+
   // Like button handler
   document.querySelectorAll('.like-btn').forEach(btn => {
     btn.addEventListener('click', async (e) => {

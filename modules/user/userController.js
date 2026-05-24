@@ -108,6 +108,39 @@ const userController = {
       return res.redirect('/admin/usuarios');
     }
   },
+
+  /** GET /api/cep?cep=... */
+  getCep: async (req, res) => {
+    try {
+      const data = await userService.buscarDadosPorCep(req.query.cep);
+      res.json(data);
+    } catch (error) {
+      res.status(400).json({ erro: true, mensagem: error.message });
+    }
+  },
+
+  /** GET /api/cep/buscar?uf=...&cidade=...&rua=... */
+  searchCep: async (req, res) => {
+    try {
+      const { uf, cidade, rua } = req.query;
+      const data = await userService.buscarCepPorEndereco(uf, cidade, rua);
+      res.json(data);
+    } catch (error) {
+      res.status(400).json({ erro: true, mensagem: error.message });
+    }
+  },
+
+  /** POST /usuario/cadastro-complementar */
+  cadastroComplementar: async (req, res) => {
+    try {
+      await userService.salvarDadosComplementares(req.session.userId, req.body);
+      req.flash('success', 'Dados complementares salvos com sucesso!');
+      res.redirect('/profile/settings');
+    } catch (error) {
+      req.flash('error', error.message || 'Erro ao salvar dados.');
+      res.redirect('/profile/settings');
+    }
+  },
 };
 
 export default userController;
