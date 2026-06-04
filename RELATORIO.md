@@ -179,30 +179,26 @@ async buscarDadosPorCep(cep) {
 
 ## 7. Diagrama de Arquitetura
 
-```
-┌──────────────────────────────────────────────────────┐
-│                    FRONTEND (EJS)                     │
-│  settings.ejs → fetch('/profile/api/cep')            │
-│  Modal "Não sei meu CEP" → fetch('/profile/api/cep/buscar') │
-│  Dropdown UF → fetch(API IBGE municipios)            │
-└──────────────┬───────────────────────────────────────┘
-               │ HTTP (Express Routes)
-┌──────────────▼───────────────────────────────────────┐
-│              CONTROLLER (userController.js)           │
-│  getCep() · searchCep() · cadastroComplementar()     │
-└──────────────┬───────────────────────────────────────┘
-               │ Chamada de função
-┌──────────────▼───────────────────────────────────────┐
-│              SERVICE (userService.js)                 │
-│  buscarDadosPorCep() → fetch(ViaCEP)                 │
-│  buscarCepPorEndereco() → fetch(ViaCEP)              │
-│  salvarDadosComplementares() → User.update()         │
-└──────────┬───────────────┬───────────────────────────┘
-           │               │
-    ┌──────▼──────┐  ┌─────▼──────────┐
-    │  Sequelize  │  │  API ViaCEP    │
-    │  (SQLite)   │  │  (Externa)     │
-    └─────────────┘  └────────────────┘
+```mermaid
+graph TD
+    A[Frontend - EJS Views] -->|HTTP Request| B[Routes - Express]
+    B --> C[Controller]
+    C --> D[Service]
+    D --> E[(Sequelize / MySQL)]
+    D --> F[API ViaCEP - Externa]
+
+    subgraph Testes
+        T1[Unitários - Service/Model] -.->|Mocks| D
+        T2[Integração - Supertest] -.->|HTTP| B
+        T3[API Externa - Mock fetch] -.->|vi.spyOn| F
+    end
+
+    style A fill:#e3f2fd
+    style E fill:#fff3e0
+    style F fill:#fce4ec
+    style T1 fill:#e8f5e9
+    style T2 fill:#e8f5e9
+    style T3 fill:#e8f5e9
 ```
 
 ---
