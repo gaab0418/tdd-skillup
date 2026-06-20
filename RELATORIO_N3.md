@@ -231,5 +231,59 @@ npm run test:coverage
 |------|---------|-----|
 | Unitário | `modules/lesson/__tests__/lessonService.test.js` | 15 |
 | Integração | `tests/integration/lesson.test.js` | 10 |
-| **Total (novo módulo)** | | **25** |
-| **Total (projeto)** | | **119** |
+| Unitário | `modules/course/__tests__/courseService.test.js` | 13 |
+| Integração | `modules/course/__tests__/courseController.test.js` | 11 |
+| **Total (novos módulos lesson + course)** | | **49** |
+| **Total (projeto)** | | **143** |
+
+---
+
+## 6. Cobertura de Código (Nota 7)
+
+### Configuração
+
+A cobertura foi configurada no `vitest.config.js` utilizando o provider `v8`, gerando relatórios em formato `text` (terminal) e `html` (pasta `coverage/`).
+
+**Exclusões aplicadas** (conforme enunciado):
+
+```javascript
+coverage: {
+  provider: 'v8',
+  reporter: ['text', 'html'],
+  include: ['modules/**'],
+  exclude: [
+    'config/**',
+    'middlewares/**',
+    'app.js',
+    'bin/**',
+    'modules/**/__tests__/**',
+    'modules/**/index.js',
+  ],
+}
+```
+
+### Resultados
+
+| Módulo | Stmts (%) | Branch (%) | Funcs (%) | Lines (%) | Status |
+|--------|-----------|------------|-----------|-----------|--------|
+| **user** | 84.27 | 82.29 | 80.64 | 84.27 | ✅ ≥80% |
+| **lesson** | 97.39 | 95.65 | 100 | 97.39 | ✅ ≥80% |
+| **course** | 95.43 | 90.90 | 85.71 | 95.43 | ✅ ≥80% |
+
+### Métricas Explicadas
+
+| Métrica | Significado |
+|---------|-------------|
+| **Stmts** (Statements) | Percentual de declarações/instruções do código que foram executadas durante os testes. |
+| **Branch** | Percentual de ramificações (if/else, ternários, switch) que foram exercitadas. |
+| **Funcs** (Functions) | Percentual de funções/métodos que foram chamados ao menos uma vez. |
+| **Lines** | Percentual de linhas de código-fonte efetivamente percorridas. |
+
+### Como gerar o relatório
+
+```bash
+npm run test:coverage
+```
+
+O relatório HTML fica disponível em `coverage/index.html`.
+

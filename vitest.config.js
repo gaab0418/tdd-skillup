@@ -10,7 +10,15 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
-      include: ['tests/**', 'models/**', 'controllers/**', 'middlewares/**', 'routes/**', 'modules/**'],
+      include: ['modules/**'],
+      exclude: [
+        'config/**',
+        'middlewares/**',
+        'app.js',
+        'bin/**',
+        'modules/**/__tests__/**',
+        'modules/**/index.js',
+      ],
     },
     testTimeout: 10000,
   },
