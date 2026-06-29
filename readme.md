@@ -6,7 +6,7 @@ SkillUp é uma plataforma de microaprendizado desenvolvida como projeto de facul
 
 ## Requisitos do Sistema
 
- --> [Clique Aqui](https://google.com.br) <--
+ --> [Clique Aqui](https://github.com/gaab0418/tdd-skillup/blob/main/requisitos.md) <--
 
 ## Stack
 
