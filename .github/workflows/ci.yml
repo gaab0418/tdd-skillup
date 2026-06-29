@@ -1,13 +1,14 @@
-name: CI
+name: SkillUp CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
-  ci-cd-skillup:
+  test:
+    name: CI - Testes Unitários + Integração + E2E
     runs-on: ubuntu-latest
 
     services:
@@ -39,20 +40,20 @@ jobs:
         echo "DB_USER=root" >> .env
         echo "DB_PASS=root" >> .env
         echo "DB_NAME=skillup" >> .env
-        echo "DB_DEBUG=false" >> .env
+        echo "DB_DEBUG=true" >> .env
         echo "APP_PORT=3000" >> .env
         echo "NODE_ENV=test" >> .env
-        echo "SESSION_SECRET=ci_test_secret_key" >> .env
+        echo "SESSION_SECRET=secret_teste" >> .env
         echo "UPLOAD_MAX_SIZE=52428800" >> .env
 
     - name: Run Unit and Integration Tests
       run: npm run test
 
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-
     - name: Seed Database for E2E
       run: npm run seed
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
 
     - name: Run E2E Tests
       run: npx playwright test
