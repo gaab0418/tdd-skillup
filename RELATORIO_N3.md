@@ -225,7 +225,60 @@ npm run test:coverage
 
 ---
 
-## 5. Resumo dos Testes
+## 5. Testes E2E com Playwright
+
+### Estratégia
+
+Os testes E2E foram implementados com **Playwright** para validar fluxos completos do ponto de vista do usuário, simulando interações reais no navegador (navegar, preencher formulários, clicar em botões e verificar resultados na interface).
+
+### Configuração
+
+- `playwright.config.js` com `baseURL: http://localhost:3000` e `webServer` apontando para `node ./bin/www-e2e.js` (servidor sem execução de vitest antes de iniciar).
+- Apenas o browser Chromium é utilizado para execução rápida.
+- Script `npm run test:e2e` adicionado ao `package.json`.
+
+### Módulo 1: Usuário (Auth) — `tests/e2e/auth.spec.js`
+
+| Teste | Fluxo |
+|-------|-------|
+| Fluxo de cadastro com sucesso | Navega para `/auth/register`, preenche nome/email/senha/confirmação, submete e verifica redirecionamento para `/auth/login` |
+| Login com sucesso redireciona para /browse | Navega para `/auth/login`, preenche email/senha do usuário de teste, submete e verifica URL `/browse` |
+| Logout redireciona para a página inicial | Faz login, depois acessa `/auth/logout` e verifica redirecionamento para `/` |
+
+**Rotas e controllers acionados:**
+- `GET /auth/register` → `authController.registerPage`
+- `POST /auth/register` → `authController.register` → `authService.register`
+- `GET /auth/login` → `authController.loginPage`
+- `POST /auth/login` → `authController.login` → `authService.login`
+- `GET /auth/logout` → `authController.logout`
+
+### Módulo 2: Tópicos (Admin) — `tests/e2e/topic.spec.js`
+
+| Teste | Fluxo |
+|-------|-------|
+| Criar um tópico pelo formulário | Login como admin, navega para `/admin/topicos/criar`, preenche nome e slug, submete e verifica que o tópico aparece na listagem |
+| Tópico criado aparece na listagem | Login como admin, acessa `/admin/topicos` e verifica que a página de listagem contém o título "Tópicos" |
+| Acessar /admin/topicos sem estar logado redireciona para login | Acessa `/admin/topicos` sem sessão e verifica redirecionamento para `/auth/login` |
+
+**Rotas e controllers acionados:**
+- `GET /admin/topicos/criar` → `topicController.create` (protegido por `isAuthenticated` + `isAdmin`)
+- `POST /admin/topicos` → `topicController.store` → `topicService.createTopic`
+- `GET /admin/topicos` → `topicController.index` → `topicService.getAllTopics`
+- Middleware `isAuthenticated` redireciona usuários não logados para `/auth/login`
+
+### Por que esses fluxos?
+
+- **Cadastro/Login/Logout**: São os fluxos mais fundamentais de qualquer aplicação — se falharem, nada mais funciona.
+- **CRUD de Tópicos**: Representa o módulo da N3 (novo), testando criação via formulário, visualização na listagem e proteção de rotas (acesso sem autenticação).
+
+### Dificuldades encontradas
+
+- O `bin/www` original executa `vitest run` antes de iniciar o servidor, impossibilitando seu uso como `webServer` do Playwright. Solução: criação de `bin/www-e2e.js` dedicado.
+- Necessidade de usar dados de seed (`admin@admin.com` / `user@user.com`) já populados para que os testes sejam determinísticos.
+
+---
+
+## 6. Resumo dos Testes
 
 | Tipo | Arquivo | Qtd |
 |------|---------|-----|
@@ -233,8 +286,11 @@ npm run test:coverage
 | Integração | `tests/integration/lesson.test.js` | 10 |
 | Unitário | `modules/course/__tests__/courseService.test.js` | 13 |
 | Integração | `modules/course/__tests__/courseController.test.js` | 11 |
+| E2E | `tests/e2e/auth.spec.js` | 3 |
+| E2E | `tests/e2e/topic.spec.js` | 3 |
 | **Total (novos módulos lesson + course)** | | **49** |
-| **Total (projeto)** | | **143** |
+| **Total E2E** | | **6** |
+| **Total (projeto)** | | **149** |
 
 ---
 
