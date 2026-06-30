@@ -188,7 +188,80 @@ it('deve redirecionar (302) com mensagem de erro ao enviar comentário vazio', a
 
 ---
 
-## 4. Instruções para Rodar o Projeto
+## 4. Diagrama de Sequência (UML)
+
+O diagrama abaixo ilustra o fluxo principal da funcionalidade **Lesson Player** (`GET /lessons/:id`), desde a requisição HTTP até a resposta renderizada, passando por todas as camadas da arquitetura MVC.
+
+```mermaid
+sequenceDiagram
+    actor User as Usuário (Browser)
+    participant Router as Express Router
+    participant Controller as lessonController.player
+    participant Service as lessonService.getLessonPlayer
+    participant Lesson as Lesson Model
+    participant UserCourse as UserCourse Model
+    participant Progress as Progress Model
+    participant Like as Like Model
+    participant DB as MySQL (Sequelize)
+    participant View as EJS (player.ejs)
+
+    User->>Router: GET /lessons/:id
+    Router->>Controller: player(req, res)
+    Controller->>Service: getLessonPlayer(lessonId, userId)
+
+    Note over Service,DB: 1. Buscar lição com associações
+    Service->>Lesson: findByPk(lessonId, {include: [author, comments]})
+    Lesson->>DB: SELECT * FROM lessons JOIN users JOIN comments WHERE id = ?
+    DB-->>Lesson: Dados da lição + autor + comentários
+    Lesson-->>Service: lesson object
+
+    alt Lição não encontrada ou status ≠ 'published'
+        Service-->>Controller: throw LessonServiceError('Lição não encontrada.')
+        Controller-->>User: redirect /browse (flash error)
+    end
+
+    Note over Service,DB: 2. Verificar inscrição no curso (se courseId existe)
+    Service->>UserCourse: findOne({userId, courseId})
+    UserCourse->>DB: SELECT * FROM user_courses WHERE userId = ? AND courseId = ?
+    DB-->>UserCourse: enrollment ou null
+    UserCourse-->>Service: enrollment
+
+    alt Não inscrito no curso
+        Service-->>Controller: throw LessonServiceError('Precisa se inscrever...')
+        Controller-->>User: redirect /browse/:courseId (flash error)
+    end
+
+    Note over Service,DB: 3. Montar currículo (lições do curso)
+    Service->>Lesson: findAll({courseId, status: 'published'}, order: 'order ASC')
+    Lesson->>DB: SELECT id, title, duration, order FROM lessons WHERE courseId = ? AND status = 'published'
+    DB-->>Lesson: Lista de lições do curso
+    Lesson-->>Service: curriculum[]
+
+    Note over Service,DB: 4. Buscar progresso do usuário
+    Service->>Progress: findOne({userId, lessonId})
+    Progress->>DB: SELECT * FROM progresses WHERE userId = ? AND lessonId = ?
+    DB-->>Progress: userProgress
+    Progress-->>Service: userProgress
+
+    Service->>Progress: findAll({userId})
+    Progress->>DB: SELECT * FROM progresses WHERE userId = ?
+    DB-->>Progress: allProgress[]
+    Progress-->>Service: curriculumProgress{}
+
+    Note over Service,DB: 5. Buscar likes do usuário nos comentários
+    Service->>Like: findAll({userId, targetType: 'comment', targetId: commentIds})
+    Like->>DB: SELECT * FROM likes WHERE userId = ? AND targetType = 'comment' AND targetId IN (...)
+    DB-->>Like: likes[]
+    Like-->>Service: userLikes[]
+
+    Service-->>Controller: {lesson, curriculum, userProgress, curriculumProgress, completedCount, userLikes}
+
+    Note over Controller,View: 6. Renderizar resposta
+    Controller->>View: res.render('pages/lessons/player', data)
+    View-->>User: HTML 200 (Player da lição com currículo e progresso)
+```
+
+## 5. Instruções para Rodar o Projeto
 
 ### Pré-requisitos
 
@@ -225,7 +298,7 @@ npm run test:coverage
 
 ---
 
-## 5. Testes E2E com Playwright
+## 6. Testes E2E com Playwright
 
 ### Estratégia
 
@@ -278,7 +351,7 @@ Os testes E2E foram implementados com **Playwright** para validar fluxos complet
 
 ---
 
-## 6. Resumo dos Testes
+## 7. Resumo dos Testes
 
 | Tipo | Arquivo | Qtd |
 |------|---------|-----|
@@ -294,7 +367,7 @@ Os testes E2E foram implementados com **Playwright** para validar fluxos complet
 
 ---
 
-## 6. Cobertura de Código (Nota 7)
+## 8. Cobertura de Código (Nota 7)
 
 ### Configuração
 
